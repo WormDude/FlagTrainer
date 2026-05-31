@@ -1,0 +1,1572 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FlagTrainer</title>
+    <style>
+:root {
+  color-scheme: dark;
+  --bg: #07111f;
+  --card: rgba(16, 31, 55, 0.86);
+  --card-strong: rgba(25, 48, 83, 0.94);
+  --accent: #71e8ff;
+  --accent-2: #a9ff68;
+  --danger: #ff7272;
+  --text: #eef7ff;
+  --muted: #9db2c8;
+  --line: rgba(255, 255, 255, 0.12);
+  --shadow: 0 24px 80px rgba(0, 0, 0, 0.34);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  color: var(--text);
+  background:
+    radial-gradient(circle at top left, rgba(113, 232, 255, 0.25), transparent 36rem),
+    radial-gradient(circle at bottom right, rgba(169, 255, 104, 0.2), transparent 28rem),
+    linear-gradient(135deg, #05101d 0%, var(--bg) 52%, #101c32 100%);
+}
+
+button, input { font: inherit; }
+button { cursor: pointer; }
+img { max-width: 100%; }
+
+.app-shell {
+  width: min(1120px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 32px 0 48px;
+}
+
+.hero-card, .game-card, .side-card, .panel {
+  border: 1px solid var(--line);
+  background: var(--card);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(18px);
+}
+
+.hero-card {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  align-items: center;
+  padding: 28px;
+  border-radius: 32px;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: var(--accent);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+h1, h2, h3, p { margin-top: 0; }
+
+h1 {
+  margin-bottom: 10px;
+  font-size: clamp(2.25rem, 6vw, 5rem);
+  line-height: 0.9;
+}
+
+.subtitle {
+  max-width: 720px;
+  margin-bottom: 0;
+  color: var(--muted);
+  font-size: 1.1rem;
+}
+
+.streak-card {
+  min-width: 156px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: linear-gradient(160deg, rgba(113, 232, 255, 0.18), rgba(169, 255, 104, 0.1));
+  text-align: center;
+}
+
+.streak-card span, .streak-card small {
+  display: block;
+  color: var(--muted);
+}
+
+.streak-card strong {
+  display: block;
+  margin: 4px 0;
+  font-size: 3rem;
+}
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 22px 0;
+}
+
+.tab, .mode-button, .ghost-button, .primary-button, .answer-button, .combo-submit {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.06);
+  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+
+.tab { padding: 12px 24px; font-weight: 800; }
+
+.tab.active, .mode-button.active, .primary-button, .combo-submit {
+  border-color: rgba(113, 232, 255, 0.65);
+  color: #04111c;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+}
+
+button:hover { transform: translateY(-1px); }
+
+.panel {
+  display: none;
+  padding: 24px;
+  border-radius: 32px;
+}
+
+.panel.active { display: block; }
+
+.game-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 22px;
+}
+
+.game-card, .side-card {
+  border-radius: 28px;
+  padding: 24px;
+}
+
+.mode-row, .mastery-header, .action-row, .progress-summary, .daily-topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.category-privacy {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  color: var(--muted);
+  font-size: 0.86rem;
+  font-weight: 800;
+}
+
+.category-privacy input { accent-color: var(--accent-2); }
+
+.mode-toggle {
+  display: flex;
+  gap: 8px;
+  padding: 6px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.mode-button, .ghost-button, .primary-button, .combo-submit {
+  padding: 10px 16px;
+  font-weight: 800;
+}
+
+.flag-stage {
+  display: grid;
+  place-items: center;
+  min-height: 300px;
+  margin: 20px 0;
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  background:
+    linear-gradient(45deg, rgba(255, 255, 255, 0.06) 25%, transparent 25% 50%, rgba(255, 255, 255, 0.06) 50% 75%, transparent 75%),
+    var(--card-strong);
+  background-size: 32px 32px;
+}
+
+.flag-image-card {
+  display: grid;
+  place-items: center;
+  width: min(560px, 92%);
+  min-height: 220px;
+  padding: 18px;
+  border-radius: 24px;
+  background: rgba(3, 12, 22, 0.72);
+  box-shadow: inset 0 0 0 1px var(--line), 0 16px 40px rgba(0, 0, 0, 0.28);
+}
+
+.flag-image-card img {
+  max-height: 210px;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+}
+
+.flag-fallback {
+  color: var(--muted);
+  font-weight: 900;
+  text-align: center;
+}
+
+.hint-text {
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.answer-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.answer-button {
+  min-height: 58px;
+  padding: 14px;
+  font-weight: 850;
+}
+
+.answer-button:hover, .tab:hover, .ghost-button:hover {
+  border-color: var(--accent);
+  background: rgba(113, 232, 255, 0.16);
+}
+
+.answer-button.correct, .combo-input.correct {
+  border-color: rgba(169, 255, 104, 0.85);
+  color: #04111c;
+  background: linear-gradient(135deg, rgba(169, 255, 104, 0.95), rgba(113, 232, 255, 0.75));
+}
+
+.answer-button.incorrect, .combo-input.incorrect {
+  border-color: rgba(255, 114, 114, 0.95);
+  color: #fff2f2;
+  background: rgba(255, 114, 114, 0.24);
+}
+
+.answer-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.86;
+}
+
+.hard-controls label, .daily-answer label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.combo-wrap {
+  position: relative;
+  display: flex;
+  gap: 10px;
+}
+
+.combo-input {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 13px 16px;
+  color: var(--text);
+  background: rgba(0, 0, 0, 0.22);
+  outline: none;
+}
+
+.combo-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(113, 232, 255, 0.12);
+}
+
+.combo-menu {
+  position: absolute;
+  z-index: 10;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 96px;
+  max-height: 210px;
+  overflow-y: auto;
+  border: 1px solid rgba(113, 232, 255, 0.28);
+  border-radius: 18px;
+  background: rgba(8, 20, 36, 0.98);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+.combo-menu::-webkit-scrollbar { width: 10px; }
+.combo-menu::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.06); border-radius: 999px; }
+.combo-menu::-webkit-scrollbar-thumb { background: linear-gradient(var(--accent), var(--accent-2)); border-radius: 999px; }
+
+.combo-option {
+  display: block;
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: 0;
+  color: var(--text);
+  background: transparent;
+  text-align: left;
+}
+
+.combo-option:hover, .combo-option.active {
+  background: rgba(113, 232, 255, 0.16);
+  transform: none;
+}
+
+.mini-flag img {
+  width: 100%;
+  height: 28px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.feedback {
+  min-height: 32px;
+  margin: 16px 0 0;
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.feedback.success { color: var(--accent-2); }
+.feedback.error { color: var(--danger); }
+.action-row { margin-top: 12px; }
+.side-card li { margin-bottom: 12px; color: var(--muted); }
+
+.source-note {
+  margin-top: 16px;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.play-category-filters {
+  display: grid;
+  gap: 8px;
+  margin: 18px 0;
+}
+
+.play-category-filters h4 {
+  margin: 0;
+  color: var(--text);
+}
+
+.filter-group {
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.04);
+  overflow: hidden;
+}
+
+.filter-group summary {
+  cursor: pointer;
+  padding: 10px 12px;
+  color: var(--text);
+  font-weight: 900;
+}
+
+.filter-group-heading {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.filter-group-heading input { accent-color: var(--accent-2); }
+
+.filter-group-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0 10px 10px;
+}
+
+.progress-summary {
+  flex-direction: column;
+  align-items: flex-end;
+  color: var(--muted);
+}
+
+.progress-summary strong {
+  color: var(--accent-2);
+  font-size: 2rem;
+}
+
+.progress-bar {
+  height: 18px;
+  overflow: hidden;
+  margin: 16px 0 22px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.28);
+}
+
+.progress-bar span {
+  display: block;
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  transition: width 240ms ease;
+}
+
+.category-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.filter-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.filter-pill input { accent-color: var(--accent-2); }
+
+.mastery-grid {
+  display: grid;
+  gap: 22px;
+}
+
+.mastery-category-section {
+  display: grid;
+  gap: 12px;
+}
+
+.mastery-category-title {
+  margin: 0;
+  color: var(--accent);
+  font-size: 1rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.mastery-category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 14px;
+}
+
+.mastery-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 58px 1fr auto;
+  gap: 12px;
+  align-items: center;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.mastery-card.mastered {
+  border-color: rgba(169, 255, 104, 0.45);
+  background: rgba(169, 255, 104, 0.1);
+}
+
+.mini-flag {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 48px;
+  overflow: hidden;
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.24);
+}
+
+.mini-flag img { height: 48px; }
+.mastery-card h3 { margin: 0 0 4px; font-size: 1rem; }
+.mastery-card p { margin: 0; color: var(--muted); font-size: 0.85rem; }
+.mastery-check { color: var(--accent-2); font-size: 1.35rem; font-weight: 900; }
+.mastery-check.not-mastered { color: var(--danger); }
+
+.accuracy-wrap {
+  grid-column: 2 / 4;
+}
+
+.accuracy-label {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 6px;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.accuracy-bar {
+  display: flex;
+  height: 10px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.accuracy-good { background: var(--accent-2); }
+.accuracy-bad { background: var(--danger); }
+
+.daily-card {
+  max-width: 820px;
+  margin: 0 auto;
+}
+
+.daily-date {
+  color: var(--accent-2);
+  font-weight: 900;
+}
+
+.daily-stats {
+  display: grid;
+  gap: 6px;
+  justify-items: end;
+}
+
+.daily-guesses-card {
+  margin-top: 18px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: rgba(0, 0, 0, 0.18);
+}
+
+.daily-guesses-card h3 {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.daily-guesses {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding-left: 24px;
+}
+
+.daily-guesses li {
+  padding: 8px 10px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.daily-guesses li.correct { color: var(--accent-2); }
+.daily-guesses li.incorrect { color: var(--danger); }
+
+.daily-mastered {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  z-index: 2;
+  display: inline-grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border: 1px solid rgba(113, 232, 255, 0.55);
+  border-radius: 999px;
+  color: var(--accent);
+  background: rgba(8, 20, 36, 0.98);
+  font-size: 0.88rem;
+  font-weight: 900;
+}
+
+.hidden { display: none; }
+
+@media (max-width: 820px) {
+  .hero-card, .mode-row, .mastery-header, .combo-wrap, .daily-topline {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .game-layout { grid-template-columns: 1fr; }
+  .answer-grid { grid-template-columns: 1fr; }
+  .progress-summary { align-items: flex-start; }
+  .combo-menu { right: 0; }
+}
+    </style>
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="hero-card">
+        <div>
+          <p class="eyebrow">is Flagtrainer a good name? yes.</p>
+          <h1>FlagTrainer</h1>
+          <p class="subtitle">Guess real flags loaded from Wikimedia Commons across nations, provinces, historical banners, and more. Master every banner in the deck.</p>
+        </div>
+        <div class="streak-card" aria-label="Player stats">
+          <span>Play Streak</span>
+          <strong id="score">0</strong>
+          <small id="round-status">Fresh round ready</small>
+        </div>
+      </section>
+
+      <nav class="tabs" aria-label="Main tabs">
+        <button class="tab active" data-tab="play" type="button">Play</button>
+        <button class="tab" data-tab="daily" type="button">Daily</button>
+        <button class="tab" data-tab="mastery" type="button">Mastery</button>
+      </nav>
+
+      <section id="play" class="panel active" aria-labelledby="play-tab">
+        <div class="game-layout">
+          <article class="game-card">
+            <div class="mode-row">
+              <div>
+                <label class="category-privacy"><input id="hide-category-toggle" type="checkbox" /> Hide group</label>
+                <p class="eyebrow">Current flag</p>
+                <h2 id="category-label">Nations</h2>
+              </div>
+              <div class="mode-toggle" role="group" aria-label="Difficulty mode">
+                <button id="easy-mode" class="mode-button active" type="button">Easy</button>
+                <button id="hard-mode" class="mode-button" type="button">Hard</button>
+              </div>
+            </div>
+
+            <div class="flag-stage">
+              <div id="flag-display" class="flag-image-card" aria-label="Flag to guess"></div>
+              <p id="hint-text" class="hint-text">Pick the matching name.</p>
+            </div>
+
+            <div id="easy-controls" class="answer-grid" aria-label="Easy answer choices"></div>
+
+            <form id="hard-controls" class="hard-controls hidden" autocomplete="off">
+              <label for="hard-answer">Type the flag name</label>
+              <div class="combo-wrap" data-combo="play">
+                <input id="hard-answer" class="combo-input" placeholder="Start typing an answer…" aria-controls="play-combo-menu" aria-expanded="false" />
+                <button class="combo-submit" type="submit">Guess</button>
+                <div id="play-combo-menu" class="combo-menu hidden" role="listbox"></div>
+              </div>
+            </form>
+
+            <div id="feedback" class="feedback" role="status" aria-live="polite"></div>
+
+            <div class="action-row">
+              <button id="skip-button" class="ghost-button" type="button">Skip</button>
+            </div>
+          </article>
+
+          <aside class="side-card">
+            <h3>How it plays</h3>
+            <ul>
+              <li><strong>Easy:</strong> four buttons, one correct answer.</li>
+              <li><strong>Hard:</strong> type the answer and use the in-game scrolling dropdown.</li>
+              <li>Correct guesses mark flags complete in Mastery and remove them until the current selected set is complete.</li>
+            </ul>
+            <div id="play-category-filters" class="play-category-filters" aria-label="Choose flag groups">
+              <h4>Flag types to play</h4>
+            </div>
+            <p class="source-note">Flag images use Wikimedia Commons <code>Special:FilePath</code> URLs so they come from a Wikipedia-style source.</p>
+          </aside>
+        </div>
+      </section>
+
+      <section id="daily" class="panel" aria-labelledby="daily-tab">
+        <article class="game-card daily-card">
+          <div class="daily-topline">
+            <div>
+              <p class="eyebrow">Daily challenge</p>
+              <h2>One flag per day</h2>
+            </div>
+            <div class="daily-stats">
+              <span id="daily-date" class="daily-date"></span>
+              <strong>Daily Streak: <span id="daily-streak">0</span></strong>
+            </div>
+          </div>
+
+          <div class="flag-stage">
+            <div id="daily-flag-display" class="flag-image-card" aria-label="Daily flag to guess"></div>
+            <p class="hint-text">Everyone gets the same daily flag based on the UTC date.</p>
+          </div>
+
+          <form id="daily-controls" class="daily-answer" autocomplete="off">
+            <label for="daily-answer">Daily answer</label>
+            <div class="combo-wrap" data-combo="daily">
+              <input id="daily-answer" class="combo-input" placeholder="Type today's answer…" aria-controls="daily-combo-menu" aria-expanded="false" />
+              <button class="combo-submit" type="submit">Submit</button>
+              <div id="daily-combo-menu" class="combo-menu hidden" role="listbox"></div>
+            </div>
+          </form>
+          <div id="daily-feedback" class="feedback" role="status" aria-live="polite"></div>
+          <div class="daily-guesses-card">
+            <h3>Today's guesses <span id="daily-attempt-count">0 / 6</span></h3>
+            <ol id="daily-guesses" class="daily-guesses"></ol>
+          </div>
+        </article>
+      </section>
+
+      <section id="mastery" class="panel" aria-labelledby="mastery-tab">
+        <div class="mastery-header">
+          <div>
+            <p class="eyebrow">Collection progress</p>
+            <h2>Mastery</h2>
+          </div>
+          <div class="progress-summary">
+            <strong id="completion-percent">0%</strong>
+            <span id="completion-count">0 / 0 mastered</span>
+          </div>
+        </div>
+        <div class="progress-bar" aria-label="Mastery completion">
+          <span id="progress-fill"></span>
+        </div>
+
+        <div id="category-filters" class="category-filters" aria-label="Mastery category filters"></div>
+        <div id="mastery-grid" class="mastery-grid"></div>
+      </section>
+    </main>
+
+    <script type="module">
+const WIKIMEDIA_FILE_PATH = 'https://commons.wikimedia.org/wiki/Special:FilePath/';
+
+function wikiFlag(fileName) {
+  return `${WIKIMEDIA_FILE_PATH}${encodeURIComponent(fileName)}`;
+}
+
+// Toggle a group to enabled: false to hide that whole group from the website.
+// Example: US States is hidden until the full state set is ready to ship.
+const FLAG_GROUPS = [
+  {
+    id: 'africa',
+    label: 'Africa',
+    enabled: true,
+    flags: [
+      { id: 'za', name: 'South Africa', file: 'Flag_of_South_Africa.svg' },
+      { id: 'ng', name: 'Nigeria', file: 'Flag_of_Nigeria.svg' },
+      { id: 'eg', name: 'Egypt', file: 'Flag_of_Egypt.svg' },
+      { id: 'ke', name: 'Kenya', file: 'Flag_of_Kenya.svg' },
+      { id: 'ma', name: 'Morocco', file: 'Flag_of_Morocco.svg' },
+    ],
+  },
+  {
+    id: 'asia',
+    label: 'Asia',
+    enabled: true,
+    flags: [
+      { id: 'jp', name: 'Japan', file: 'Flag_of_Japan.svg' },
+      { id: 'kr', name: 'South Korea', file: 'Flag_of_South_Korea.svg' },
+      { id: 'in', name: 'India', file: 'Flag_of_India.svg' },
+      { id: 'cn', name: 'China', file: "Flag_of_the_People's_Republic_of_China.svg" },
+      { id: 'sa', name: 'Saudi Arabia', file: 'Flag_of_Saudi_Arabia.svg' },
+    ],
+  },
+  {
+    id: 'europe',
+    label: 'Europe',
+    enabled: true,
+    flags: [
+      { id: 'de', name: 'Germany', file: 'Flag_of_Germany.svg' },
+      { id: 'fr', name: 'France', file: 'Flag_of_France.svg' },
+      { id: 'it', name: 'Italy', file: 'Flag_of_Italy.svg' },
+      { id: 'gb', name: 'United Kingdom', file: 'Flag_of_the_United_Kingdom.svg' },
+      { id: 'es', name: 'Spain', file: 'Flag_of_Spain.svg' },
+    ],
+  },
+  {
+    id: 'north-america',
+    label: 'North America',
+    enabled: true,
+    flags: [
+      { id: 'us', name: 'United States', file: 'Flag_of_the_United_States.svg' },
+      { id: 'ca', name: 'Canada', file: 'Flag_of_Canada.svg' },
+      { id: 'mx', name: 'Mexico', file: 'Flag_of_Mexico.svg' },
+      { id: 'jm', name: 'Jamaica', file: 'Flag_of_Jamaica.svg' },
+      { id: 'cr', name: 'Costa Rica', file: 'Flag_of_Costa_Rica.svg' },
+    ],
+  },
+  {
+    id: 'south-america',
+    label: 'South America',
+    enabled: true,
+    flags: [
+      { id: 'br', name: 'Brazil', file: 'Flag_of_Brazil.svg' },
+      { id: 'ar', name: 'Argentina', file: 'Flag_of_Argentina.svg' },
+      { id: 'cl', name: 'Chile', file: 'Flag_of_Chile.svg' },
+      { id: 'co', name: 'Colombia', file: 'Flag_of_Colombia.svg' },
+      { id: 'pe', name: 'Peru', file: 'Flag_of_Peru.svg' },
+    ],
+  },
+  {
+    id: 'oceania',
+    label: 'Oceania',
+    enabled: true,
+    flags: [
+      { id: 'au', name: 'Australia', file: 'Flag_of_Australia.svg' },
+      { id: 'nz', name: 'New Zealand', file: 'Flag_of_New_Zealand.svg' },
+      { id: 'fj', name: 'Fiji', file: 'Flag_of_Fiji.svg' },
+      { id: 'pg', name: 'Papua New Guinea', file: 'Flag_of_Papua_New_Guinea.svg' },
+      { id: 'pw', name: 'Palau', file: 'Flag_of_Palau.svg' },
+    ],
+  },
+  {
+    id: 'antarctica',
+    label: 'Antarctica',
+    enabled: true,
+    flags: [
+      { id: 'aq-graham', name: 'Antarctica (Graham Bartram)', file: 'Flag_of_Antarctica.svg' },
+      { id: 'aq-true-south', name: 'Antarctica (True South)', file: 'True_South_Antarctic_Flag.svg' },
+      { id: 'aq-graham2024', name: 'Antarctica (Graham Bartram 2024)', file: 'Antarctica_Flag_Redesigned_by_Graham_Bartram.png' },
+      { id: 'aq-smith', name: 'Antarctica (Whitney Smith)', file: 'Proposed_flag_of_Antarctica_(Whitney_Smith).svg' },
+      { id: 'aq-ross', name: 'Ross Dependency', file: 'Flag_of_the_Ross_Dependency_(unofficial).svg' },
+    ],
+  },
+  {
+    id: 'us-states',
+    label: 'US States',
+    enabled: true,
+    flags: [
+      { id: 'ca-state', name: 'California', file: 'Flag_of_California.svg' },
+      { id: 'tx-state', name: 'Texas', file: 'Flag_of_Texas.svg' },
+      { id: 'az-state', name: 'Arizona', file: 'Flag_of_Arizona.svg' },
+      { id: 'md-state', name: 'Maryland', file: 'Flag_of_Maryland.svg' },
+      { id: 'ak-state', name: 'Alaska', file: 'Flag_of_Alaska.svg' },
+      { id: 'co-state', name: 'Colorado', file: 'Flag_of_Colorado.svg' },
+    ],
+  },
+  {
+    id: 'canadian-prov-terr',
+    label: 'Canadian Prov/Terr',
+    enabled: true,
+    flags: [
+      { id: 'on-prov', name: 'Ontario', file: 'Flag_of_Ontario.svg' },
+      { id: 'qc-prov', name: 'Quebec', file: 'Flag_of_Quebec.svg' },
+      { id: 'bc-prov', name: 'British Columbia', file: 'Flag_of_British_Columbia.svg' },
+      { id: 'nu-terr', name: 'Nunavut', file: 'Flag_of_Nunavut.svg' },
+      { id: 'ns-prov', name: 'Nova Scotia', file: 'Flag_of_Nova_Scotia.svg' },
+      { id: 'nb-prov', name: 'New Brunswick', file: 'Flag_of_New_Brunswick.svg' },
+      { id: 'mb-prov', name: 'Manitoba', file: 'Flag_of_Manitoba.svg' },
+      { id: 'pe-prov', name: 'Prince Edward Island', file: 'Flag_of_Prince_Edward_Island.svg' },
+      { id: 'sk-prov', name: 'Saskatchewan', file: 'Flag_of_Saskatchewan.svg' },
+      { id: 'nl-prov', name: 'Newfoundland and Labrador', file: 'Flag_of_Newfoundland_and_Labrador.svg' },
+      { id: 'yt-terr', name: 'Yukon', file: 'Flag_of_Yukon.svg' },
+      { id: 'nt-terr', name: 'Northwest Territories', file: 'Flag_of_the_Northwest_Territories.svg' },
+      { id: 'ab-prov', name: 'Alberta', file: 'Flag_of_Alberta.svg' },
+    ],
+  },
+  {
+    id: 'historical-africa',
+    label: 'Historical Africa',
+    enabled: true,
+    flags: [
+      { id: 'za-1928', name: 'South Africa (1928–1994)', file: 'Flag_of_South_Africa_(1928-1994).svg' },
+      { id: 'rhode', name: 'Rhodesia', file: 'Flag_of_Rhodesia_(1968–1979).svg' },
+      { id: 'br-somal', name: 'British Somaliland', file: 'Flag_of_British_Somaliland_(1952–1960).svg' },
+      { id: 'green-lib', name: 'Libya (1977-2011)', file: 'Flag_of_Libya_(1977–2011).svg' },
+      { id: 'maur-1959', name: 'Mauritania (1959-2017)', file: 'Flag_of_Mauritania_(1959–2017).svg' },
+    ],
+  },
+  {
+    id: 'historical-asia',
+    label: 'Historical Asia',
+    enabled: true,
+    flags: [
+      { id: 'ussr', name: 'Soviet Union', file: 'Flag_of_the_Soviet_Union.svg' },
+      { id: 'qing', name: 'Qing Dynasty', file: 'Flag_of_the_Qing_Dynasty_(1889-1912).svg' },
+      { id: 'rus-emp', name: 'Russian Empire', file: 'Flag_of_Russia_(1858–1896).svg' },
+      { id: 's-viet', name: 'South Vietnam', file: 'Flag_of_South_Vietnam.svg' },
+      { id: 'war-jpn', name: 'Japanese Empire (War Flag)', file: 'War_flag_of_the_Imperial_Japanese_Army.svg' },
+    ],
+  },
+  {
+    id: 'historical-europe',
+    label: 'Historical Europe',
+    enabled: true,
+    flags: [
+      { id: 'east-germany', name: 'East Germany', file: 'Flag_of_East_Germany.svg' },
+      { id: 'yugoslavia', name: 'Yugoslavia', file: 'Flag_of_Yugoslavia_(1946-1992).svg' },
+      { id: 'venice', name: 'Republic of Venice', file: 'Flag_of_the_Republic_of_Venice.svg' },
+      { id: 'nazi', name: 'Nazi Germany', file: 'Flag_of_Germany_(1935–1945).svg' },
+      { id: 'de-empire', name: 'German Empire', file: 'Flag_of_Germany_(1867–1918).svg' },
+    ],
+  },
+  {
+    id: 'historical-north-america',
+    label: 'Historical North America',
+    enabled: true,
+    flags: [
+      { id: 'new-france', name: 'New France', file: 'Royal_flag_of_France.svg' },
+      { id: 'us-1776', name: 'United States (1776-1777)', file: 'Flag_of_the_United_States_(1776–1777).svg' },
+      { id: 'na-1959', name: 'Netherlands Antilles (1959-1986)', file: 'Flag_of_the_Netherlands_Antilles_(1959–1986).svg' },
+      { id: 'na-1986', name: 'Netherlands Antilles (1986-2010)', file: 'Flag_of_the_Netherlands_Antilles_(1986–2010).svg' },
+      { id: 'first-mx', name: 'First Mexican Empire', file: 'Bandera_del_Primer_Imperio_Mexicano.svg' },
+    ],
+  },
+  {
+    id: 'historical-south-america',
+    label: 'Historical South America',
+    enabled: true,
+    flags: [
+      { id: 'gran-colombia', name: 'Gran Colombia', file: 'Flag_of_Gran_Colombia.svg' },
+      { id: 'bra-emp', name: 'Empire of Brazil', file: 'Flag_of_Brazil_(1853-1889).svg' },
+      { id: 'ven-1859', name: 'Venezuela (1859-1863)', file: 'Flag_of_Venezuela_(1859–1863).svg' },
+      { id: 'first-ven', name: 'First Republic of Venezuela', file: 'Flag_of_the_First_Republic_of_Venezuela.svg' },
+      { id: 'ecu-1845', name: 'Ecuador (1845-1860)', file: 'Flag_of_Ecuador_(1845–1860).svg' },
+    ],
+  },
+  {
+    id: 'territories-dependencies',
+    label: 'Territories/Dependencies',
+    enabled: true,
+    flags: [
+      { id: 'gl', name: 'Greenland', file: 'Flag_of_Greenland.svg' },
+      { id: 'pr', name: 'Puerto Rico', file: 'Flag_of_Puerto_Rico.svg' },
+      { id: 'guam', name: 'Guam', file: 'Flag_of_Guam.svg' },
+      { id: 'fk', name: 'Falkland Islands', file: 'Flag_of_the_Falkland_Islands.svg' },
+      { id: 'sb', name: 'Saba', file: 'Flag_of_Saba.svg' },
+    ],
+  },
+  {
+    id: 'unofficial',
+    label: 'Unofficial',
+    enabled: true,
+    flags: [
+      { id: 'pnm-bunau', name: 'Panama (Bunau-Varilla)', file: 'Flag_of_Panama_(Bunau-Varilla_proposal).svg' },
+      { id: 'ang-2003', name: 'Angola (2003 proposal)', file: 'Flag_of_Angola_(2003_proposal).svg' },
+      { id: 'eu-rem', name: 'European Union (Rem Koolhaas)', file: 'European_Union_barcode_flag_by_Rem_Koolhaas_(2002).svg' },
+      { id: 'ru-2022', name: 'Russia (2022 proposal)', file: 'White-blue-white_flag.svg' },
+      { id: 'de-lehr', name: 'Germany (Robert Lehr)', file: 'Proposed_flag_of_Germany_(Robert_Lehr).svg' },
+    ],
+  },
+  {
+    id: 'organizations',
+    label: 'Organizations',
+    enabled: true,
+    flags: [
+      { id: 'un', name: 'United Nations', file: 'Flag_of_the_United_Nations.svg' },
+      { id: 'eu', name: 'European Union', file: 'Flag_of_Europe.svg' },
+      { id: 'olympics', name: 'Olympic Flag', file: 'Olympic_flag.svg' },
+      { id: 'nato', name: 'NATO', file: 'Flag_of_NATO.svg' },
+      { id: 'au', name: 'African Union', file: 'Flag_of_the_African_Union.svg' },
+    ],
+  },
+  {
+    id: 'other-icons',
+    label: 'Other Icons',
+    enabled: true,
+    flags: [
+      { id: 'pirate', name: 'Jolly Roger', file: 'Pirate_Flag_of_Jack_Rackham.svg' },
+      { id: 'pride', name: 'Pride Flag', file: 'Gay_Pride_Flag.svg' },
+      { id: 'checkered', name: 'Checkered/Chequered Flag', file: 'Auto_Racing_Chequered.svg' },
+      { id: 'earth-ifpe', name: 'International Flag of Planet Earth', file: 'International_Flag_of_Planet_Earth.svg' },
+      { id: 'earth-day', name: 'Earth Day Flag', file: 'Earth_Day_Flag.png' },
+    ],
+  },
+];
+
+const FLAGS = FLAG_GROUPS
+  .filter((group) => group.enabled)
+  .flatMap((group) => group.flags.map((flag) => ({
+    ...flag,
+    category: group.label,
+    groupId: group.id,
+    image: wikiFlag(flag.file),
+  })));
+
+const ENABLED_GROUPS = FLAG_GROUPS.filter((group) => group.enabled);
+const DEFAULT_CATEGORIES = ENABLED_GROUPS.map((group) => group.label);
+const FILTER_SECTIONS = [
+  { label: 'Continents', ids: ['africa', 'asia', 'europe', 'north-america', 'south-america', 'oceania', 'antarctica'] },
+  { label: 'Regions', ids: ['us-states', 'canadian-prov-terr', 'territories-dependencies'] },
+  { label: 'Continents [Historical]', ids: ['historical-africa', 'historical-asia', 'historical-europe', 'historical-north-america', 'historical-south-america'] },
+  { label: 'Other', ids: ['organizations', 'unofficial', 'other-icons'] },
+];
+
+const state = {
+  mode: localStorage.getItem('flagcraftle-mode') || 'easy',
+  current: null,
+  daily: getDailyFlag(),
+  playStreak: 0,
+  isLocked: false,
+  nextTimer: null,
+  retryQueue: [],
+  completedCycle: new Set(),
+  selectedCategories: new Set(DEFAULT_CATEGORIES),
+  mastered: new Set(JSON.parse(localStorage.getItem('flagcraftle-mastered') || '[]')),
+  stats: JSON.parse(localStorage.getItem('flagcraftle-stats') || '{}'),
+  dailyStreak: Number(localStorage.getItem('flagcraftle-daily-streak') || 0),
+  dailyCorrect: new Set(JSON.parse(localStorage.getItem('flagcraftle-daily-correct') || '[]')),
+  dailyState: loadDailyState(),
+  activeTab: 'play',
+  hideCategory: localStorage.getItem('flagcraftle-hide-category') === 'true',
+  visibleCategories: new Set(DEFAULT_CATEGORIES),
+};
+
+const elements = {
+  tabs: document.querySelectorAll('.tab'),
+  panels: document.querySelectorAll('.panel'),
+  score: document.querySelector('#score'),
+  roundStatus: document.querySelector('#round-status'),
+  categoryLabel: document.querySelector('#category-label'),
+  hideCategoryToggle: document.querySelector('#hide-category-toggle'),
+  flagDisplay: document.querySelector('#flag-display'),
+  hintText: document.querySelector('#hint-text'),
+  easyMode: document.querySelector('#easy-mode'),
+  hardMode: document.querySelector('#hard-mode'),
+  easyControls: document.querySelector('#easy-controls'),
+  hardControls: document.querySelector('#hard-controls'),
+  hardAnswer: document.querySelector('#hard-answer'),
+  playComboMenu: document.querySelector('#play-combo-menu'),
+  feedback: document.querySelector('#feedback'),
+  skipButton: document.querySelector('#skip-button'),
+  playCategoryFilters: document.querySelector('#play-category-filters'),
+  dailyDate: document.querySelector('#daily-date'),
+  dailyFlagDisplay: document.querySelector('#daily-flag-display'),
+  dailyControls: document.querySelector('#daily-controls'),
+  dailyAnswer: document.querySelector('#daily-answer'),
+  dailyComboMenu: document.querySelector('#daily-combo-menu'),
+  dailyFeedback: document.querySelector('#daily-feedback'),
+  dailyStreak: document.querySelector('#daily-streak'),
+  dailyAttemptCount: document.querySelector('#daily-attempt-count'),
+  dailyGuesses: document.querySelector('#daily-guesses'),
+  completionPercent: document.querySelector('#completion-percent'),
+  completionCount: document.querySelector('#completion-count'),
+  progressFill: document.querySelector('#progress-fill'),
+  categoryFilters: document.querySelector('#category-filters'),
+  masteryGrid: document.querySelector('#mastery-grid'),
+};
+
+function sample(array, count) {
+  return [...array].sort(() => Math.random() - 0.5).slice(0, count);
+}
+
+function randomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function todayKey() {
+  return new Date().toISOString().slice(0, 10);
+}
+
+function dailyStorageKey() {
+  return `flagcraftle-daily-${todayKey()}`;
+}
+
+function loadDailyState() {
+  const fallback = { guesses: [], solved: false, failed: false };
+  const saved = localStorage.getItem(dailyStorageKey());
+  if (!saved) return fallback;
+  try {
+    return { ...fallback, ...JSON.parse(saved) };
+  } catch {
+    const dailyFlag = getDailyFlag();
+    return saved === dailyFlag.id
+      ? { guesses: [{ answer: dailyFlag.name, correct: true }], solved: true, failed: false }
+      : fallback;
+  }
+}
+
+function saveDailyState() {
+  localStorage.setItem(dailyStorageKey(), JSON.stringify(state.dailyState));
+}
+
+function saveDailyStreak() {
+  localStorage.setItem('flagcraftle-daily-streak', String(state.dailyStreak));
+  elements.dailyStreak.textContent = state.dailyStreak;
+}
+
+function saveDailyCorrect() {
+  localStorage.setItem('flagcraftle-daily-correct', JSON.stringify([...state.dailyCorrect]));
+}
+
+function resetPlayStreak() {
+  state.playStreak = 0;
+  elements.score.textContent = state.playStreak;
+  elements.roundStatus.textContent = 'Play streak reset';
+}
+
+function getDailyFlag() {
+  const dayNumber = Math.floor(Date.now() / 86400000);
+  return FLAGS[dayNumber % FLAGS.length];
+}
+
+function getPlayableFlags() {
+  return FLAGS.filter((flag) => state.selectedCategories.has(flag.category));
+}
+
+function resetAnswerStyles() {
+  elements.hardAnswer.classList.remove('correct', 'incorrect');
+  elements.hardAnswer.disabled = false;
+  elements.hardControls.querySelector('.combo-submit').disabled = false;
+  elements.easyControls.querySelectorAll('.answer-button').forEach((button) => {
+    button.classList.remove('correct', 'incorrect');
+    button.disabled = false;
+  });
+}
+
+function pruneCycleToSelected() {
+  const playableIds = new Set(getPlayableFlags().map((flag) => flag.id));
+  state.completedCycle = new Set([...state.completedCycle].filter((id) => playableIds.has(id)));
+  state.retryQueue = state.retryQueue.filter((entry) => playableIds.has(entry.flag.id));
+}
+
+function advanceRetryCounters() {
+  state.retryQueue.forEach((entry) => {
+    entry.dueIn -= 1;
+  });
+}
+
+function takeDueRetry() {
+  const dueIndexes = state.retryQueue
+    .map((entry, index) => ({ entry, index }))
+    .filter(({ entry }) => entry.dueIn <= 0 && !state.completedCycle.has(entry.flag.id));
+  if (!dueIndexes.length) return null;
+  const picked = sample(dueIndexes, 1)[0];
+  state.retryQueue.splice(picked.index, 1);
+  return picked.entry.flag;
+}
+
+function chooseRound(statusMessage = '', options = {}) {
+  clearTimeout(state.nextTimer);
+  state.nextTimer = null;
+  state.isLocked = false;
+  resetAnswerStyles();
+  pruneCycleToSelected();
+  if (!options.skipRetryTick) advanceRetryCounters();
+
+  const playable = getPlayableFlags();
+  if (!playable.length) {
+    state.current = null;
+    elements.categoryLabel.textContent = state.hideCategory ? '???' : 'No groups selected';
+    elements.flagDisplay.innerHTML = '<div class="flag-fallback">Pick at least one flag type in the checklist.</div>';
+    elements.easyControls.innerHTML = '';
+    elements.feedback.textContent = 'Choose a flag type under “How it plays” to start.';
+    elements.hintText.textContent = 'No active flag groups.';
+    return;
+  }
+
+  if (playable.every((flag) => state.completedCycle.has(flag.id))) {
+    state.completedCycle.clear();
+    elements.roundStatus.textContent = 'Set complete — reshuffled';
+  }
+
+  const dueRetry = takeDueRetry();
+  const remaining = playable.filter((flag) => !state.completedCycle.has(flag.id));
+  const candidatePool = dueRetry ? [dueRetry] : (remaining.length ? remaining : playable);
+  state.current = sample(candidatePool, 1)[0];
+  elements.feedback.textContent = statusMessage;
+  elements.feedback.className = 'feedback';
+  elements.hardAnswer.value = '';
+  hideCombo(elements.hardAnswer, elements.playComboMenu);
+  renderRound();
+}
+
+function renderFlag(container, flag, altPrefix) {
+  container.innerHTML = `<img src="${flag.image}" alt="${altPrefix}: ${flag.name}" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'), { className: 'flag-fallback', textContent: '${flag.name}' }))" />`;
+}
+
+function renderCategoryLabel() {
+  elements.categoryLabel.textContent = state.hideCategory ? '???' : state.current.category;
+}
+
+function renderRound() {
+  renderCategoryLabel();
+  renderFlag(elements.flagDisplay, state.current, 'Flag to guess');
+  elements.hintText.textContent = state.mode === 'easy'
+    ? 'Pick the matching name.'
+    : 'Type the name, or use the in-game dropdown if you need a nudge.';
+  renderEasyChoices();
+}
+
+function renderEasyChoices() {
+  const playable = getPlayableFlags();
+  const wrongAnswers = playable.filter((flag) => flag.id !== state.current.id && flag.category === state.current.category);
+  const choices = sample(wrongAnswers, Math.min(3, wrongAnswers.length))
+    .concat(state.current)
+    .sort(() => Math.random() - 0.5);
+  elements.easyControls.innerHTML = choices
+    .map((flag) => `<button class="answer-button" data-answer="${flag.name}" type="button">${flag.name}</button>`)
+    .join('');
+}
+
+function setMode(mode) {
+  if (state.isLocked) return;
+  state.mode = mode;
+  localStorage.setItem('flagcraftle-mode', mode);
+  const isEasy = mode === 'easy';
+  elements.easyMode.classList.toggle('active', isEasy);
+  elements.hardMode.classList.toggle('active', !isEasy);
+  elements.easyControls.classList.toggle('hidden', !isEasy);
+  elements.hardControls.classList.toggle('hidden', isEasy);
+  if (state.current) renderRound();
+}
+
+function normalize(value) {
+  return value.trim().toLowerCase().replace(/\s+/g, ' ');
+}
+
+function recordAttempt(flag, correct) {
+  const stat = state.stats[flag.id] || { correct: 0, incorrect: 0 };
+  if (correct) stat.correct += 1;
+  else stat.incorrect += 1;
+  state.stats[flag.id] = stat;
+  localStorage.setItem('flagcraftle-stats', JSON.stringify(state.stats));
+}
+
+function markMastered(flag) {
+  state.mastered.add(flag.id);
+  localStorage.setItem('flagcraftle-mastered', JSON.stringify([...state.mastered]));
+  renderMastery();
+}
+
+function lockAfterGuess() {
+  state.isLocked = true;
+  elements.hardAnswer.disabled = true;
+  elements.hardControls.querySelector('.combo-submit').disabled = true;
+  elements.easyControls.querySelectorAll('.answer-button').forEach((button) => {
+    button.disabled = true;
+  });
+  hideCombo(elements.hardAnswer, elements.playComboMenu);
+}
+
+function scheduleNextRound() {
+  state.nextTimer = setTimeout(() => chooseRound(), 2000);
+}
+
+function showEasyResult(answer, correct) {
+  elements.easyControls.querySelectorAll('.answer-button').forEach((button) => {
+    if (normalize(button.dataset.answer) === normalize(answer)) {
+      button.classList.add(correct ? 'correct' : 'incorrect');
+    }
+    if (!correct && normalize(button.dataset.answer) === normalize(state.current.name)) {
+      button.classList.add('correct');
+    }
+  });
+}
+
+function showHardResult(correct) {
+  elements.hardAnswer.classList.add(correct ? 'correct' : 'incorrect');
+}
+
+function guess(answer) {
+  if (state.isLocked || !state.current) return;
+  const correct = normalize(answer) === normalize(state.current.name);
+  lockAfterGuess();
+  recordAttempt(state.current, correct);
+
+  if (state.mode === 'easy') showEasyResult(answer, correct);
+  else showHardResult(correct);
+
+  if (correct) {
+    state.playStreak += 1;
+    state.completedCycle.add(state.current.id);
+    state.retryQueue = state.retryQueue.filter((entry) => entry.flag.id !== state.current.id);
+    markMastered(state.current);
+    elements.feedback.textContent = `Correct — ${state.current.name}! Next flag in 2 seconds.`;
+    elements.feedback.className = 'feedback success';
+    elements.roundStatus.textContent = 'Mastery updated';
+  } else {
+    state.playStreak = 0;
+    state.retryQueue.push({ flag: state.current, dueIn: randomInt(3, 7) });
+    elements.feedback.textContent = `Not quite. That flag is ${state.current.name}. It will come back soon.`;
+    elements.feedback.className = 'feedback error';
+    elements.roundStatus.textContent = 'Retry scheduled';
+    renderMastery();
+  }
+  elements.score.textContent = state.playStreak;
+  scheduleNextRound();
+}
+
+function renderCombo(input, menu, query = '', pool = FLAGS) {
+  const normalizedQuery = normalize(query);
+  const matches = pool
+    .filter((flag) => normalize(flag.name).includes(normalizedQuery))
+    .slice(0, 40);
+
+  menu.innerHTML = matches.length
+    ? matches.map((flag) => `
+      <button class="combo-option" type="button" data-answer="${flag.name}" role="option">${flag.name}</button>`).join('')
+    : '<div class="combo-option" role="option">No matches</div>';
+  menu.classList.remove('hidden');
+  input.setAttribute('aria-expanded', 'true');
+}
+
+function hideCombo(input, menu) {
+  menu.classList.add('hidden');
+  input.setAttribute('aria-expanded', 'false');
+}
+
+function renderPlayFilters() {
+  renderFilterSections(elements.playCategoryFilters, state.selectedCategories, '<h4>Flag types to play</h4>');
+}
+
+function renderFilterSections(container, selectedSet, heading = '') {
+  const openSections = new Map(
+    [...container.querySelectorAll('.filter-group')]
+      .map((group) => [group.dataset.section, group.open])
+  );
+  const sections = FILTER_SECTIONS
+    .map((section) => {
+      const groups = section.ids
+        .map((id) => ENABLED_GROUPS.find((group) => group.id === id))
+        .filter(Boolean);
+      if (!groups.length) return '';
+      const allChecked = groups.every((group) => selectedSet.has(group.label));
+      const someChecked = groups.some((group) => selectedSet.has(group.label));
+      const isOpen = openSections.has(section.label) ? openSections.get(section.label) : true;
+      const options = groups.map((group) => {
+        const checked = selectedSet.has(group.label) ? 'checked' : '';
+        return `<label class="filter-pill"><input type="checkbox" value="${group.label}" ${checked} /> ${group.label}</label>`;
+      }).join('');
+      return `
+        <details class="filter-group" data-section="${section.label}" ${isOpen ? 'open' : ''}>
+          <summary><span class="filter-group-heading"><input class="filter-group-toggle" type="checkbox" data-section="${section.label}" data-section-ids="${groups.map((group) => group.label).join('|')}" ${allChecked ? 'checked' : ''} ${someChecked && !allChecked ? 'data-indeterminate="true"' : ''} /> ${section.label}</span></summary>
+          <div class="filter-group-options">${options}</div>
+        </details>`;
+    })
+    .join('');
+  container.innerHTML = `${heading}${sections}`;
+  container.querySelectorAll('[data-indeterminate="true"]').forEach((checkbox) => {
+    checkbox.indeterminate = true;
+  });
+}
+
+function renderFilters() {
+  renderFilterSections(elements.categoryFilters, state.visibleCategories);
+}
+
+function accuracyFor(flag) {
+  const stat = state.stats[flag.id] || { correct: 0, incorrect: 0 };
+  const total = stat.correct + stat.incorrect;
+  const correctPercent = total ? Math.round((stat.correct / total) * 100) : 0;
+  const incorrectPercent = total ? 100 - correctPercent : 0;
+  return { ...stat, total, correctPercent, incorrectPercent };
+}
+
+function renderMastery() {
+  const masteredCount = FLAGS.filter((flag) => state.mastered.has(flag.id)).length;
+  const percent = Math.round((masteredCount / FLAGS.length) * 100);
+  elements.completionPercent.textContent = `${percent}%`;
+  elements.completionCount.textContent = `${masteredCount} / ${FLAGS.length} mastered`;
+  elements.progressFill.style.width = `${percent}%`;
+
+  const visibleFlags = FLAGS.filter((flag) => state.visibleCategories.has(flag.category));
+  const groupedFlags = DEFAULT_CATEGORIES
+    .map((category) => ({
+      category,
+      flags: visibleFlags.filter((flag) => flag.category === category),
+    }))
+    .filter((group) => group.flags.length);
+
+  elements.masteryGrid.innerHTML = groupedFlags
+    .map((group) => `
+      <section class="mastery-category-section">
+        <h3 class="mastery-category-title">${group.category}</h3>
+        <div class="mastery-category-grid">
+          ${group.flags.map((flag) => {
+            const mastered = state.mastered.has(flag.id);
+            const accuracy = accuracyFor(flag);
+            const dailyIcon = state.dailyCorrect.has(flag.id) ? '<span class="daily-mastered" title="Solved as a daily flag">📅✓</span>' : '';
+            return `
+              <article class="mastery-card ${mastered ? 'mastered' : ''}">
+                <div class="mini-flag"><img src="${flag.image}" alt="${flag.name}" loading="lazy" /></div>
+                ${dailyIcon}
+                <div>
+                  <h3>${flag.name}</h3>
+                  <p>${flag.category}</p>
+                </div>
+                <span class="mastery-check ${mastered ? '' : 'not-mastered'}" aria-label="${mastered ? 'Mastered' : 'Not mastered'}">${mastered ? '✓' : '✕'}</span>
+                <div class="accuracy-wrap">
+                  <div class="accuracy-label"><span>${accuracy.correctPercent}% correct</span><span>${accuracy.correct}✓ / ${accuracy.incorrect}✕</span></div>
+                  <div class="accuracy-bar" aria-label="${flag.name} accuracy">
+                    <span class="accuracy-good" style="width: ${accuracy.correctPercent}%"></span>
+                    <span class="accuracy-bad" style="width: ${accuracy.incorrectPercent}%"></span>
+                  </div>
+                </div>
+              </article>`;
+          }).join('')}
+        </div>
+      </section>`)
+    .join('');
+}
+
+function renderDailyGuesses() {
+  elements.dailyAttemptCount.textContent = `${state.dailyState.guesses.length} / 6`;
+  elements.dailyGuesses.innerHTML = state.dailyState.guesses.length
+    ? state.dailyState.guesses.map((guess) => `
+      <li class="${guess.correct ? 'correct' : 'incorrect'}">${guess.answer}${guess.correct ? ' ✓' : ' ✕'}</li>`).join('')
+    : '<li>No guesses yet.</li>';
+}
+
+function lockDailyInput(locked) {
+  elements.dailyAnswer.disabled = locked;
+  elements.dailyControls.querySelector('.combo-submit').disabled = locked;
+}
+
+function renderDaily() {
+  elements.dailyDate.textContent = todayKey();
+  elements.dailyStreak.textContent = state.dailyStreak;
+  renderFlag(elements.dailyFlagDisplay, state.daily, 'Daily flag');
+  renderDailyGuesses();
+  lockDailyInput(state.dailyState.solved || state.dailyState.failed || state.dailyState.guesses.length >= 6);
+
+  if (!state.dailyState.solved && state.dailyState.guesses.length >= 6) state.dailyState.failed = true;
+
+  if (state.dailyState.solved) {
+    elements.dailyFeedback.textContent = `Solved today — ${state.daily.name}!`;
+    elements.dailyFeedback.className = 'feedback success';
+  } else if (state.dailyState.failed) {
+    elements.dailyFeedback.textContent = `Out of attempts. The flag was ${state.daily.name}.`;
+    elements.dailyFeedback.className = 'feedback error';
+  } else {
+    elements.dailyFeedback.textContent = 'You get 6 attempts. Previous guesses stay here if you come back later.';
+    elements.dailyFeedback.className = 'feedback';
+  }
+}
+
+function submitDaily(answer) {
+  if (state.dailyState.solved || state.dailyState.failed || state.dailyState.guesses.length >= 6) return;
+  const correct = normalize(answer) === normalize(state.daily.name);
+  recordAttempt(state.daily, correct);
+  state.dailyState.guesses.push({ answer, correct });
+  elements.dailyAnswer.classList.add(correct ? 'correct' : 'incorrect');
+
+  if (correct) {
+    state.dailyState.solved = true;
+    state.dailyStreak += 1;
+    state.dailyCorrect.add(state.daily.id);
+    saveDailyCorrect();
+    saveDailyStreak();
+    markMastered(state.daily);
+    elements.dailyFeedback.textContent = `Daily solved — ${state.daily.name}!`;
+    elements.dailyFeedback.className = 'feedback success';
+    lockDailyInput(true);
+  } else if (state.dailyState.guesses.length >= 6) {
+    state.dailyState.failed = true;
+    state.dailyStreak = 0;
+    saveDailyStreak();
+    elements.dailyFeedback.textContent = `Out of attempts. The flag was ${state.daily.name}. Streak reset.`;
+    elements.dailyFeedback.className = 'feedback error';
+    lockDailyInput(true);
+    renderMastery();
+  } else {
+    elements.dailyFeedback.textContent = `Incorrect. ${6 - state.dailyState.guesses.length} attempts left.`;
+    elements.dailyFeedback.className = 'feedback error';
+    renderMastery();
+  }
+
+  saveDailyState();
+  renderDailyGuesses();
+  hideCombo(elements.dailyAnswer, elements.dailyComboMenu);
+  setTimeout(() => elements.dailyAnswer.classList.remove('correct', 'incorrect'), 2000);
+}
+
+function wireCombo(input, menu, onSelect, getPool = () => FLAGS) {
+  input.addEventListener('focus', () => {
+    if (!state.isLocked || input === elements.dailyAnswer) renderCombo(input, menu, input.value, getPool());
+  });
+  input.addEventListener('input', () => {
+    if (!state.isLocked || input === elements.dailyAnswer) renderCombo(input, menu, input.value, getPool());
+  });
+  menu.addEventListener('click', (event) => {
+    const option = event.target.closest('[data-answer]');
+    if (!option) return;
+    input.value = option.dataset.answer;
+    hideCombo(input, menu);
+    onSelect(option.dataset.answer);
+  });
+}
+
+function updateCategorySelectionFromCheckbox(event, selectedSet, rerender) {
+  if (!event.target.matches('input[type="checkbox"]')) return false;
+  if (event.target.matches('.filter-group-toggle')) {
+    event.target.dataset.sectionIds.split('|').forEach((category) => {
+      if (event.target.checked) selectedSet.add(category);
+      else selectedSet.delete(category);
+    });
+  } else if (event.target.checked) {
+    selectedSet.add(event.target.value);
+  } else {
+    selectedSet.delete(event.target.value);
+  }
+  rerender();
+  return true;
+}
+
+function bindEvents() {
+  elements.tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      const nextTab = tab.dataset.tab;
+      const wasAwayFromPlay = state.activeTab !== 'play' && nextTab === 'play';
+      elements.tabs.forEach((item) => item.classList.remove('active'));
+      elements.panels.forEach((panel) => panel.classList.remove('active'));
+      tab.classList.add('active');
+      document.querySelector(`#${nextTab}`).classList.add('active');
+      if (nextTab === 'mastery') resetPlayStreak();
+      if (wasAwayFromPlay) chooseRound('New flag loaded.');
+      state.activeTab = nextTab;
+    });
+  });
+
+  elements.easyMode.addEventListener('click', () => setMode('easy'));
+  elements.hardMode.addEventListener('click', () => setMode('hard'));
+  elements.hideCategoryToggle.addEventListener('change', () => {
+    state.hideCategory = elements.hideCategoryToggle.checked;
+    localStorage.setItem('flagcraftle-hide-category', String(state.hideCategory));
+    if (state.current) renderCategoryLabel();
+  });
+  elements.skipButton.addEventListener('click', () => {
+    if (state.isLocked) return;
+    state.playStreak = 0;
+    elements.score.textContent = state.playStreak;
+    if (state.current) chooseRound(`Skipped. It was ${state.current.name}. New flag loaded.`);
+  });
+
+  elements.easyControls.addEventListener('click', (event) => {
+    if (event.target.matches('button[data-answer]')) guess(event.target.dataset.answer);
+  });
+
+  elements.hardControls.addEventListener('submit', (event) => {
+    event.preventDefault();
+    if (elements.hardAnswer.value.trim()) guess(elements.hardAnswer.value);
+  });
+
+  elements.dailyControls.addEventListener('submit', (event) => {
+    event.preventDefault();
+    elements.dailyAnswer.classList.remove('correct', 'incorrect');
+    if (elements.dailyAnswer.value.trim()) submitDaily(elements.dailyAnswer.value);
+  });
+
+  elements.playCategoryFilters.addEventListener('change', (event) => {
+    if (!updateCategorySelectionFromCheckbox(event, state.selectedCategories, renderPlayFilters)) return;
+    pruneCycleToSelected();
+    chooseRound('Flag type checklist updated.', { skipRetryTick: true });
+  });
+
+  elements.categoryFilters.addEventListener('change', (event) => {
+    if (!updateCategorySelectionFromCheckbox(event, state.visibleCategories, renderFilters)) return;
+    renderMastery();
+  });
+
+  document.addEventListener('click', (event) => {
+    if (!event.target.closest('[data-combo="play"]')) hideCombo(elements.hardAnswer, elements.playComboMenu);
+    if (!event.target.closest('[data-combo="daily"]')) hideCombo(elements.dailyAnswer, elements.dailyComboMenu);
+  });
+
+  wireCombo(elements.hardAnswer, elements.playComboMenu, (answer) => {
+    elements.hardAnswer.value = answer;
+  }, getPlayableFlags);
+  wireCombo(elements.dailyAnswer, elements.dailyComboMenu, (answer) => {
+    elements.dailyAnswer.value = answer;
+  });
+}
+
+renderPlayFilters();
+renderFilters();
+renderMastery();
+renderDaily();
+elements.hideCategoryToggle.checked = state.hideCategory;
+setMode(state.mode);
+bindEvents();
+chooseRound();
+    </script>
+  </body>
+</html>
