@@ -601,7 +601,7 @@ button:hover { transform: translateY(-1px); }
     <main class="app-shell">
       <section class="hero-card">
         <div>
-          <p class="eyebrow">MORE FLAGS!!! MORE FLAGS!!!!!</p>
+          <p class="eyebrow">WHY ARE THERE SO MANY EARTH FLAGS???</p>
           <h1>FlagTrainer</h1>
           <p class="subtitle">Guess real flags loaded from Wikimedia Commons across nations, provinces, historical banners, and more. Master every banner in the deck.</p>
         </div>
@@ -987,6 +987,8 @@ const FLAG_GROUPS = [
       { id: 'aq-smith', name: 'Antarctica (Whitney Smith)', file: 'Proposed_flag_of_Antarctica_(Whitney_Smith).svg' },
       { id: 'aq-ross', name: 'Ross Dependency', file: 'Flag_of_the_Ross_Dependency_(unofficial).svg' },
       { id: 'br-antterr', name: 'British Antarctic Territory', file: 'Flag_of_the_British_Antarctic_Territory.svg' },
+      { id: 'aq-tre', name: 'Antarctic Treaty', file: 'Flag_of_the_Antarctic_Treaty.svg' },
+      { id: 'aq-dave', name: 'Antarctica (Dave Hamilton)', file: 'Proposed_flag_of_Antarctica_(Dave_Hamilton).svg' },
     ],
   },
   {
@@ -1076,6 +1078,8 @@ const FLAG_GROUPS = [
       { id: 'br-somal', name: 'British Somaliland', file: 'Flag_of_British_Somaliland_(1952–1960).svg' },
       { id: 'green-lib', name: 'Libya (1977-2011)', file: 'Flag_of_Libya_(1977–2011).svg' },
       { id: 'maur-1959', name: 'Mauritania (1959-2017)', file: 'Flag_of_Mauritania_(1959–2017).svg' },
+      { id: 'eth-emp', name: 'Ethiopian Empire', file: 'Flag_of_Ethiopia_(1897–1974).svg' },
+      { id: 'alm-cali', name: 'Almohad Caliphate', file: 'Flag_of_Almohad_Dynasty_(1147-1269).svg' },
     ],
   },
   {
@@ -1086,8 +1090,12 @@ const FLAG_GROUPS = [
       { id: 'ussr', name: 'Soviet Union', file: 'Flag_of_the_Soviet_Union.svg' },
       { id: 'qing', name: 'Qing Dynasty', file: 'Flag_of_the_Qing_Dynasty_(1889-1912).svg' },
       { id: 'rus-emp', name: 'Russian Empire', file: 'Flag_of_Russia_(1858–1896).svg' },
+      { id: 'n-viet', name: 'North Vietnam', file: 'Flag_of_North_Vietnam_(1945–1955).svg' },
       { id: 's-viet', name: 'South Vietnam', file: 'Flag_of_South_Vietnam.svg' },
       { id: 'war-jpn', name: 'Japanese Empire (War Flag)', file: 'War_flag_of_the_Imperial_Japanese_Army.svg' },
+      { id: 'mug-emp', name: 'Mughal Empire', file: 'Alam_of_the_Mughal_Empire.svg' },
+      { id: 'nor-yem', name: 'North Yemen', file: 'Flag_of_the_Yemen_Arab_Republic.svg' },
+      { id: 'sou-yem', name: 'South Yemen', file: 'Flag_of_South_Yemen.svg' },
     ],
   },
   {
@@ -1100,6 +1108,10 @@ const FLAG_GROUPS = [
       { id: 'venice', name: 'Republic of Venice', file: 'Flag_of_the_Republic_of_Venice.svg' },
       { id: 'holyroman-emp', name: 'Holy Roman Empire', file: 'Banner_of_the_Holy_Roman_Emperor_with_haloes_(1430-1806).svg' },
       { id: 'de-empire', name: 'German Empire', file: 'Flag_of_Germany_(1867–1918).svg' },
+      { id: 'au-hu', name: 'Austria-Hungary', file: 'Civil_ensign_of_Austria-Hungary_(1869-1918).svg' },
+      { id: 'fr-fr', name: 'Free France', file: 'Flag_of_Free_France_(1940-1944).svg' },
+      { id: 'prus', name: 'Prussia (1892-1918)', file: 'Flag_of_Prussia_(1892-1918).svg' },
+      { id: 'otto-emp', name: 'Ottoman Empire', file: '"Grand_Standard_of_the_Grand_Turk"_naval_flag,_according_to_Bowles_(1783).svg' },
     ],
   },
   {
@@ -1112,6 +1124,8 @@ const FLAG_GROUPS = [
       { id: 'na-1959', name: 'Netherlands Antilles (1959-1986)', file: 'Flag_of_the_Netherlands_Antilles_(1959–1986).svg' },
       { id: 'na-1986', name: 'Netherlands Antilles (1986-2010)', file: 'Flag_of_the_Netherlands_Antilles_(1986–2010).svg' },
       { id: 'first-mx', name: 'First Mexican Empire', file: 'Bandera_del_Primer_Imperio_Mexicano.svg' },
+      { id: 'first-csa', name: 'Confederate States of America (1861-1863)', file: 'Flag_of_the_Confederate_States_(1861–1863).svg' },
+      { id: 'vermont-rep', name: 'Second Vermont Republic', file: 'Flag_of_the_Vermont_Republic.svg' },
     ],
   },
   {
@@ -1123,7 +1137,10 @@ const FLAG_GROUPS = [
       { id: 'bra-emp', name: 'Empire of Brazil', file: 'Flag_of_Brazil_(1853-1889).svg' },
       { id: 'ven-1859', name: 'Venezuela (1859-1863)', file: 'Flag_of_Venezuela_(1859–1863).svg' },
       { id: 'first-ven', name: 'First Republic of Venezuela', file: 'Flag_of_the_First_Republic_of_Venezuela.svg' },
+      { id: 'scnd-ven', name: 'Second Republic of Venezuela', file: 'Bandera_de_la_Guerra_a_Muerte.svg' },
+      { id: 'thrd-ven', name: 'Third Republic of Venezuela', file: 'Bandera_de_Angostura_(20_de_noviembre_de_1817).svg' },
       { id: 'ecu-1845', name: 'Ecuador (1845-1860)', file: 'Flag_of_Ecuador_(1845–1860).svg' },
+      { id: 'sur-1959', name: 'Suriname (1959-1975)', file: 'Flag_of_Suriname_(1959–1975).svg' },
     ],
   },
   {
@@ -1167,6 +1184,7 @@ const FLAG_GROUPS = [
       { id: 'bm', name: 'Bermuda', file: 'Flag_of_Bermuda.svg' },
       { id: 'vg', name: 'British Virgin Islands', file: 'Flag_of_the_British_Virgin_Islands.svg' },
       { id: 'ky', name: 'Cayman Islands', file: 'Flag_of_the_Cayman_Islands.svg' },
+      { id: 'io', name: 'British Indian Ocean Territory', file: 'Flag_of_the_British_Indian_Ocean_Territory_2026.svg' },
       { id: 'gi', name: 'Gibraltar', file: 'Flag_of_Gibraltar.svg' },
       { id: 'ms', name: 'Montserrat', file: 'Flag_of_Montserrat.svg' },
       { id: 'pn', name: 'Pitcairn Islands', file: 'Flag_of_the_Pitcairn_Islands.svg' },
@@ -1183,6 +1201,7 @@ const FLAG_GROUPS = [
       { id: 'vi', name: 'United States Virgin Islands', file: 'Flag_of_the_United_States_Virgin_Islands.svg' },
       { id: 'as', name: 'American Samoa', file: 'Flag_of_American_Samoa.svg' },
       { id: 'abkh', name: 'Abkhazia', file: 'Flag_of_the_Republic_of_Abkhazia.svg' },
+      { id: 'arts', name: 'Artsakh', file: 'Flag_of_Artsakh.svg' },
       { id: 'turk-cyp', name: 'Northern Cyprus', file: 'Flag_of_the_Turkish_Republic_of_Northern_Cyprus.svg' },
       { id: 'west-sahar', name: 'Western Sahara', file: 'Flag_of_the_Sahrawi_Arab_Democratic_Republic.svg' },
       { id: 'somland', name: 'Somaliland', file: 'Flag_of_Somaliland.svg' },
@@ -1200,6 +1219,7 @@ const FLAG_GROUPS = [
       { id: 'eu-rem', name: 'European Union (Rem Koolhaas)', file: 'European_Union_barcode_flag_by_Rem_Koolhaas_(2002).svg' },
       { id: 'ru-2022', name: 'Russia (2022 proposal)', file: 'White-blue-white_flag.svg' },
       { id: 'de-lehr', name: 'Germany (Robert Lehr)', file: 'Proposed_flag_of_Germany_(Robert_Lehr).svg' },
+      { id: 'gua-red', name: 'Guadeloupe (Red)', file: 'Flag_of_Guadeloupe_(local)_variant.svg' },
     ],
   },
   {
@@ -1212,6 +1232,12 @@ const FLAG_GROUPS = [
       { id: 'olympics', name: 'Olympic Flag', file: 'Olympic_flag.svg' },
       { id: 'nato', name: 'North Atlantic Treaty Organization (NATO)', file: 'Flag_of_NATO.svg' },
       { id: 'au', name: 'African Union', file: 'Flag_of_the_African_Union.svg' },
+      { id: 'eac', name: 'East African Community', file: 'Flag_of_the_East_African_Community_(no_logo).svg' },
+      { id: 'oas', name: 'Organization of American States (OAS)', file: 'Flag_of_the_Organization_of_American_States.svg' },
+      { id: 'turk', name: 'Organization of Turkic States', file: 'Flag_of_the_Organization_of_Turkic_States.svg' },
+      { id: 'une', name: 'UNESCO', file: 'Flag_of_UNESCO.svg' },
+      { id: 'arab', name: 'Arab League', file: 'Flag_of_the_Arab_League.svg' },
+      { id: 'arab', name: 'Caribbean Community', file: 'Flag_of_CARICOM.svg' },
     ],
   },
   {
@@ -1223,7 +1249,16 @@ const FLAG_GROUPS = [
       { id: 'pride', name: 'Pride Flag', file: 'Gay_Pride_Flag.svg' },
       { id: 'checkered', name: 'Checkered/Chequered Flag', file: 'Auto_Racing_Chequered.svg' },
       { id: 'earth-ifpe', name: 'International Flag of Planet Earth', file: 'International_Flag_of_Planet_Earth.svg' },
-      { id: 'earth-day', name: 'Earth Flag', file: 'Earth_Day_Flag.png' },
+      { id: 'earth-john', name: 'Earth Flag (John McConnell)', file: 'Earth_Day_Flag.png' },
+      { id: 'earth-tijs', name: 'Earth Flag (Tijs Bonekamp)', file: 'BandeiraBlueDot.svg' },
+      { id: 'earth-james', name: 'Earth Flag (James Cadle)', file: 'Flag_of_Earth.svg' },
+      { id: 'earth-kirk', name: 'Earth Flag (James William van Kirk)', file: 'Peace_Congress_flag.svg' },
+      { id: 'world-paul2006', name: 'World Flag (Paul Carroll)(2006)', file: 'The_world_flag_2006.svg' },
+      { id: 'world-paul1988', name: 'World Flag (Paul Carroll)(1988)', file: 'Proposal_Flag_of_the_World_(1988).svg' },
+      { id: 'christ', name: 'Christian Flag', file: 'Christian_flag.svg' },
+      { id: 'esper', name: 'Esperanto', file: 'Flag_of_Esperanto.svg' },
+      { id: 'rom-peo', name: 'Romani People', file: 'Flag_of_the_Romani_people.svg' },
+      { id: 'a-syria', name: 'Assyria', file: 'Flag_of_the_Assyrians_(gold_and_blue_Assur).svg' },
     ],
   },
 ];
