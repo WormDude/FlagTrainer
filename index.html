@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>FlagTrainer</title>
+    <title>FlagCraftle</title>
     <style>
 :root {
   color-scheme: dark;
@@ -207,7 +207,19 @@ button:hover { transform: translateY(-1px); }
   object-fit: contain;
   border-radius: 8px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+  transition: filter 180ms ease, transform 180ms ease;
 }
+
+.effect-blur img { filter: blur(8px); }
+.effect-zoom img { transform: scale(1.65); }
+.effect-flip img { transform: scaleX(-1); }
+.effect-rotate img { transform: rotate(18deg); }
+.effect-grayscale img { filter: grayscale(1); }
+.effect-sepia img { filter: sepia(1) saturate(1.4); }
+.effect-hue img { filter: hue-rotate(120deg) saturate(1.5); }
+.effect-contrast img { filter: contrast(2.4) brightness(0.75); }
+.effect-tiny img { transform: scale(0.48); }
+.effect-skew img { transform: skew(-14deg, 6deg); }
 
 .flag-fallback {
   color: var(--muted);
@@ -521,6 +533,29 @@ button:hover { transform: translateY(-1px); }
   margin: 0 auto;
 }
 
+.quiz-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.quiz-choice {
+  display: grid;
+  gap: 10px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.quiz-choice:hover { border-color: var(--accent); background: rgba(113, 232, 255, 0.14); }
+.quiz-choice.correct { border-color: var(--accent-2); background: rgba(169, 255, 104, 0.16); }
+.quiz-choice.incorrect { border-color: var(--danger); background: rgba(255, 114, 114, 0.18); }
+.quiz-choice:disabled { cursor: not-allowed; opacity: 0.86; }
+.quiz-choice .flag-image-card { width: 100%; min-height: 150px; }
+.quiz-choice strong { font-size: 1.1rem; }
+
 .daily-date {
   color: var(--accent-2);
   font-weight: 900;
@@ -591,7 +626,7 @@ button:hover { transform: translateY(-1px); }
   }
 
   .game-layout { grid-template-columns: 1fr; }
-  .answer-grid { grid-template-columns: 1fr; }
+  .answer-grid, .quiz-grid { grid-template-columns: 1fr; }
   .progress-summary { align-items: flex-start; }
   .combo-menu { right: 0; }
 }
@@ -601,8 +636,8 @@ button:hover { transform: translateY(-1px); }
     <main class="app-shell">
       <section class="hero-card">
         <div>
-          <p class="eyebrow">WHY ARE THERE SO MANY EARTH FLAGS???</p>
-          <h1>FlagTrainer</h1>
+          <p class="eyebrow">why is the broken button so vital to the code</p>
+          <h1>FlagCraftle</h1>
           <p class="subtitle">Guess real flags loaded from Wikimedia Commons across nations, provinces, historical banners, and more. Master every banner in the deck.</p>
         </div>
         <div class="streak-card" aria-label="Player stats">
@@ -615,6 +650,8 @@ button:hover { transform: translateY(-1px); }
       <nav class="tabs" aria-label="Main tabs">
         <button class="tab active" data-tab="play" type="button">Play</button>
         <button class="tab" data-tab="daily" type="button">Daily</button>
+        <button class="tab" data-tab="study" type="button">Study</button>
+        <button class="tab" data-tab="quiz" type="button">Quiz</button>
         <button class="tab" data-tab="mastery" type="button">Mastery</button>
       </nav>
 
@@ -630,6 +667,7 @@ button:hover { transform: translateY(-1px); }
               <div class="mode-toggle" role="group" aria-label="Difficulty mode">
                 <button id="easy-mode" class="mode-button active" type="button">Easy</button>
                 <button id="hard-mode" class="mode-button" type="button">Hard</button>
+                <button id="randomizer-mode" class="mode-button" type="button">This button will be fixed in July</button>
               </div>
             </div>
 
@@ -702,6 +740,46 @@ button:hover { transform: translateY(-1px); }
             <h3>Today's guesses <span id="daily-attempt-count">0 / 6</span></h3>
             <ol id="daily-guesses" class="daily-guesses"></ol>
           </div>
+        </article>
+      </section>
+
+      <section id="study" class="panel" aria-labelledby="study-tab">
+        <article class="game-card daily-card">
+          <div class="daily-topline">
+            <div>
+              <p class="eyebrow">Study mode</p>
+              <h2>Practice weak flags</h2>
+            </div>
+            <span class="daily-date">Under 75% accuracy</span>
+          </div>
+
+          <div class="flag-stage">
+            <div id="study-flag-display" class="flag-image-card" aria-label="Study flag to guess"></div>
+            <p id="study-hint" class="hint-text">Only flags you have answered before and are below 75% correct appear here.</p>
+          </div>
+
+          <p class="eyebrow">Study flag group</p>
+          <h2 id="study-category-label">Study</h2>
+          <div id="study-controls" class="answer-grid" aria-label="Study answer choices"></div>
+          <div id="study-feedback" class="feedback" role="status" aria-live="polite"></div>
+        </article>
+      </section>
+
+      <section id="quiz" class="panel" aria-labelledby="quiz-tab">
+        <article class="game-card daily-card">
+          <div class="daily-topline">
+            <div>
+              <p class="eyebrow">Area quiz</p>
+              <h2>Which is larger?</h2>
+            </div>
+            <button id="quiz-next" class="ghost-button" type="button">New matchup</button>
+          </div>
+          <p class="hint-text">Pick the place with the larger land area. Matchups can include nations, cities, territories, and historical places.</p>
+          <div id="quiz-choices" class="quiz-grid" aria-label="Land area quiz choices">
+            <button id="quiz-choice-a" class="quiz-choice" type="button"></button>
+            <button id="quiz-choice-b" class="quiz-choice" type="button"></button>
+          </div>
+          <div id="quiz-feedback" class="feedback" role="status" aria-live="polite"></div>
         </article>
       </section>
 
@@ -1069,6 +1147,43 @@ const FLAG_GROUPS = [
     ],
   },
   {
+    id: 'cities',
+    label: 'Cities',
+    enabled: true,
+    flags: [
+      { id: 'chicago-city', name: 'Chicago', file: 'Flag_of_Chicago,_Illinois.svg' },
+      { id: 'amsterdam-city', name: 'Amsterdam', file: 'Flag_of_Amsterdam.svg' },
+      { id: 'tokyo-city', name: 'Tokyo', file: 'Flag_of_Tokyo_Metropolis.svg' },
+      { id: 'washington-dc-city', name: 'Washington, D.C.', file: 'Flag_of_Washington,_D.C.svg' },
+      { id: 'sao-paulo-city', name: 'Sao Paulo', file: 'Bandeira_da_cidade_de_São_Paulo.svg' },
+      { id: 'la-city', name: 'Los Angeles', file: 'Flag_of_Los_Angeles,_California.svg' },
+      { id: 'moscow-city', name: 'Moscow', file: 'Flag_of_Moscow,_Russia.svg' },
+      { id: 'paris-city', name: 'Paris', file: 'Flag_of_Paris_with_coat_of_arms.svg' },
+      { id: 'seoul-city', name: 'Seoul', file: 'Flag_of_Seoul.svg' },
+      { id: 'kuala-city', name: 'Kuala Lumpur', file: 'Flag_of_Kuala_Lumpur,_Malaysia.svg' },
+      { id: 'toronto-city', name: 'Toronto', file: 'Flag_of_Toronto,_Canada.svg' },
+      { id: 'barcelona-city', name: 'Barcelona', file: 'Flag_of_Barcelona.svg' },
+      { id: 'peters-city', name: 'Saint Petersburg', file: 'Flag_of_Saint_Petersburg.svg' },
+      { id: 'sydney-city', name: 'Sydney', file: 'City_of_Sydney_Flag.svg' },
+      { id: 'jew-city', name: 'Jerusalem', file: 'Flag_of_Jerusalem.svg' },
+      { id: 'dhabi-city', name: 'Abu Dhabi', file: 'Flag_of_Abu_Dhabi.svg' },
+      { id: 'dubai-city', name: 'Dubai', file: 'Flag_of_Dubai.svg' },
+      { id: 'ulaan-city', name: 'Ulaanbaatar', file: 'Flag_of_Ulaanbaatar,_Mongolia.svg' },
+      { id: 'kath-city', name: 'Kathmandu', file: 'Flag_of_Kathmandu.svg' },
+      { id: 'nuuk-city', name: 'Nuuk', file: 'Flag_of_Nuuk.svg' },
+      { id: 'berlin-city', name: 'Berlin', file: 'Flag_of_Berlin.svg' },
+      { id: 'hamburg-city', name: 'Hamburg', file: 'Flag_of_Hamburg.svg' },
+      { id: 'vaduz-city', name: 'Vaduz', file: 'Flag_of_Vaduz_Liechtenstein-1.svg' },
+      { id: 'quebec-city', name: 'Quebec City', file: 'Flag_of_Quebec_City.svg' },
+      { id: 'ottawa-city', name: 'Ottawa', file: 'Flag_of_Ottawa,_Ontario.svg' },
+      { id: 'dayton-city', name: 'Dayton', file: 'Flag_of_Dayton,_Ohio.svg' },
+      { id: 'denver-city', name: 'Denver', file: 'Flag_of_Denver,_Colorado.svg' },
+      { id: 'indianapolis-city', name: 'Indianapolis', file: 'Flag_of_Indianapolis.svg' },
+      { id: 'kansas-city', name: 'Kansas City', file: 'Flag_of_Kansas_City,_Missouri.svg' },
+      { id: 'rome-city', name: 'Rome', file: 'Flag_of_Rome.svg' },
+    ],
+  },
+  {
     id: 'historical-africa',
     label: 'Historical Africa',
     enabled: true,
@@ -1272,11 +1387,513 @@ const FLAGS = FLAG_GROUPS
     image: wikiFlag(flag.file),
   })));
 
+const RANDOM_EFFECTS = ['effect-blur', 'effect-zoom', 'effect-flip', 'effect-rotate', 'effect-grayscale', 'effect-sepia', 'effect-hue', 'effect-contrast', 'effect-tiny', 'effect-skew'];
+const LAND_AREAS = {
+// AFRICA
+dz: 2381741,
+ao: 1246700,
+bj: 114763,
+bw: 581730,
+bf: 274222,
+bi: 27834,
+cv: 4033,
+cm: 475442,
+cf: 622984,
+td: 1284000,
+km: 1862,
+cd: 2344858,
+cg: 342000,
+dj: 23200,
+eg: 1002450,
+gq: 28051,
+er: 117600,
+sz: 17364,
+et: 1104300,
+ga: 267668,
+gm: 11295,
+gh: 238533,
+gn: 245857,
+gw: 36125,
+ci: 322463,
+ke: 580367,
+ls: 30355,
+lr: 111369,
+ly: 1759540,
+mg: 587041,
+mw: 118484,
+ml: 1240192,
+mr: 1030700,
+mu: 2040,
+ma: 446550,
+mz: 801590,
+na: 825615,
+ne: 1267000,
+ng: 923768,
+rw: 26338,
+st: 964,
+sn: 196722,
+sc: 452,
+sl: 71740,
+so: 637657,
+za: 1221037,
+ss: 619745,
+sd: 1886068,
+tz: 947303,
+tg: 56785,
+tn: 163610,
+ug: 241550,
+zm: 752618,
+zw: 390757,
+
+// ASIA
+jp: 377975,
+kr: 100210,
+in: 3287263,
+cn: 9596961,
+sa: 2149690,
+af: 652230,
+am: 29743,
+az: 86600,
+bh: 765,
+bd: 148460,
+bt: 38394,
+bn: 5765,
+cy: 9251,
+ge: 69700,
+id: 1904569,
+ir: 1648195,
+iq: 438317,
+il: 22072,
+jo: 89342,
+kz: 2724900,
+kp: 120538,
+kw: 17818,
+kg: 199951,
+la: 236800,
+lb: 10452,
+my: 330803,
+mv: 300,
+mn: 1564116,
+mm: 676578,
+np: 147516,
+om: 309500,
+pk: 881913,
+ph: 300000,
+qa: 11586,
+sg: 734,
+lk: 65610,
+sy: 185180,
+tw: 36197,
+tj: 143100,
+th: 513120,
+tl: 14874,
+tr: 783562,
+tm: 488100,
+ae: 83600,
+uz: 448978,
+vn: 331212,
+ye: 527968,
+ps: 6020,
+
+// EUROPE
+de: 357022,
+fr: 551695,
+it: 301340,
+gb: 243610,
+es: 505992,
+al: 28748,
+ad: 468,
+at: 83879,
+by: 207600,
+be: 30528,
+ba: 51197,
+bg: 110994,
+hr: 56594,
+cz: 78867,
+dk: 42933,
+eng: 130279,
+ee: 45227,
+fi: 338455,
+gr: 131957,
+hu: 93028,
+is: 103000,
+ie: 70273,
+xk: 10887,
+lv: 64589,
+li: 160,
+lt: 65300,
+lu: 2586,
+mt: 316,
+md: 33846,
+mc: 2,
+me: 13812,
+nl: 41543,
+mk: 25713,
+no: 385207,
+pl: 312696,
+pt: 92090,
+ro: 238397,
+sm: 61,
+scot: 77933,
+rs: 88361,
+sk: 49035,
+si: 20273,
+se: 450295,
+ch: 41285,
+ua: 603628,
+va: 0.49,
+wale: 20779,
+
+// NORTH AMERICA
+us: 9833517,
+ca: 9984670,
+mx: 1964375,
+jm: 10991,
+cr: 51100,
+ag: 442,
+bs: 13943,
+bb: 430,
+bz: 22966,
+cu: 109884,
+dm: 751,
+do: 48671,
+sv: 21041,
+gd: 349,
+gt: 108889,
+ht: 27750,
+hn: 112492,
+ni: 130373,
+pa: 75417,
+kn: 261,
+lc: 617,
+vc: 389,
+tt: 5131,
+
+// SOUTH AMERICA
+br: 8515767,
+ar: 2780400,
+cl: 756102,
+co: 1141748,
+pe: 1285216,
+bo: 1098581,
+ec: 256370,
+gy: 214969,
+py: 406752,
+sr: 163820,
+uy: 176215,
+ve: 916445,
+
+// OCEANIA
+au: 7692024,
+nz: 268021,
+fj: 18274,
+pg: 462840,
+pw: 459,
+ki: 811,
+mh: 181,
+fm: 702,
+nr: 21,
+ws: 2842,
+sb: 28896,
+to: 747,
+tv: 26,
+vu: 12189,
+  
+// ANTARCTICA
+'aq-graham': 14200000,
+'aq-true-south': 14200000,
+'aq-graham2024': 14200000,
+'aq-smith': 14200000,
+'aq-dave': 14200000,
+'aq-tre': 14200000,
+
+// Antarctic claims
+'aq-ross': 450000,      // Ross Dependency
+'br-antterr': 1709000,  // British Antarctic Territory
+  
+// TERRITORIES / DEPENDENCIES
+
+gl: 2166086,      // Greenland
+pr: 9104,         // Puerto Rico
+guam: 544,        // Guam
+fk: 12173,        // Falkland Islands
+
+sb: 13,           // Saba
+yt: 374,          // Mayotte
+re: 2512,         // Réunion
+cx: 135,          // Christmas Island
+cc: 14,           // Cocos (Keeling) Islands
+nf: 35,           // Norfolk Island
+
+hk: 2755,         // Hong Kong
+mo: 115,          // Macau
+
+fo: 1399,         // Faroe Islands
+ax: 1580,         // Åland
+
+gf: 83534,        // French Guiana
+gp: 1628,         // Guadeloupe
+mq: 1128,         // Martinique
+pf: 4167,         // French Polynesia
+bl: 21,           // Saint Barthélemy
+mf: 53,           // Saint Martin
+pm: 242,          // Saint Pierre and Miquelon
+wf: 142,          // Wallis and Futuna
+nc: 18575,        // New Caledonia
+tf: 7747,         // French Southern & Antarctic Lands
+
+aw: 180,          // Aruba
+cw: 444,          // Curaçao
+sx: 34,           // Sint Maarten
+bq: 328,          // Bonaire
+eustat: 21,       // Sint Eustatius
+
+ck: 236,          // Cook Islands
+nu: 260,          // Niue
+tk: 12,           // Tokelau
+
+ai: 91,           // Anguilla
+bm: 54,           // Bermuda
+vg: 151,          // British Virgin Islands
+ky: 264,          // Cayman Islands
+io: 640,          // British Indian Ocean Territory
+gi: 6.8,          // Gibraltar
+ms: 102,          // Montserrat
+pn: 47,           // Pitcairn Islands
+gs: 3903,         // South Georgia & South Sandwich Islands
+tc: 948,          // Turks & Caicos Islands
+
+sh: 122,          // Saint Helena
+ascen: 88,        // Ascension Island
+trist: 98,        // Tristan da Cunha
+
+gg: 78,           // Guernsey
+im: 572,          // Isle of Man
+je: 118,          // Jersey
+
+as: 199,          // American Samoa
+mp: 464,          // Northern Mariana Islands
+vi: 347,          // U.S. Virgin Islands
+
+abkh: 8660,       // Abkhazia
+arts: 3170,       // Artsakh (former de facto area)
+'turk-cyp': 3355, // Northern Cyprus
+'west-sahar': 266000, // Western Sahara
+somland: 176120,  // Somaliland
+'s-osset': 3900,  // South Ossetia
+tranis: 4163,     // Transnistria
+  
+// US STATES
+
+'al-state': 135767, // Alabama
+'ak-state': 1717854, // Alaska
+'az-state': 295234, // Arizona
+'ar-state': 137732, // Arkansas (your file accidentally uses ak-state)
+'ca-state': 423967, // California
+'co-state': 269601, // Colorado
+'ct-state': 14357, // Connecticut
+'de-state': 6446, // Delaware
+'fl-state': 170312, // Florida
+'ga-state': 153910, // Georgia
+'hi-state': 28313, // Hawaii
+'id-state': 216443, // Idaho
+'il-state': 149995, // Illinois
+'in-state': 94326, // Indiana
+'ia-state': 145746, // Iowa
+'ks-state': 213100, // Kansas
+'kt-state': 104656, // Kentucky
+'la-state': 135659, // Louisiana
+'me-state': 91633, // Maine
+'md-state': 32131, // Maryland
+'ma-state': 27336, // Massachusetts
+'mi-state': 250487, // Michigan
+'mn-state': 225163, // Minnesota
+'ms-state': 125438, // Mississippi
+'mo-state': 180540, // Missouri
+'mt-state': 380831, // Montana
+'nb-state': 200330, // Nebraska
+'nv-state': 286380, // Nevada
+'nh-state': 24214, // New Hampshire
+'nj-state': 22591, // New Jersey
+'nm-state': 314917, // New Mexico
+'ny-state': 141297, // New York
+'nc-state': 139391, // North Carolina
+'nd-state': 183108, // North Dakota
+'oh-state': 116098, // Ohio
+'ok-state': 181037, // Oklahoma
+'or-state': 254799, // Oregon
+'pe-state': 119280, // Pennsylvania
+'ri-state': 4001, // Rhode Island
+'sc-state': 82933, // South Carolina
+'sd-state': 199729, // South Dakota
+'tn-state': 109153, // Tennessee
+'tx-state': 695662, // Texas
+'ut-state': 219882, // Utah
+'vt-state': 24906, // Vermont
+'vi-state': 110787, // Virginia
+'wa-state': 184661, // Washington
+'wv-state': 62756, // West Virginia
+'wi-state': 169635, // Wisconsin
+'wy-state': 253335, // Wyoming
+
+// CANADIAN PROVINCES & TERRITORIES
+
+'on-prov': 1076395, // Ontario
+'qc-prov': 1542056, // Quebec
+'bc-prov': 944735, // British Columbia
+'nu-terr': 2093190, // Nunavut
+'ns-prov': 55284, // Nova Scotia
+
+'nb-prov': 72908, // New Brunswick
+'mb-prov': 647797, // Manitoba
+'pe-prov': 5660, // Prince Edward Island
+'sk-prov': 651900, // Saskatchewan
+'nl-prov': 405212, // Newfoundland & Labrador
+
+'yt-terr': 482443, // Yukon
+'nt-terr': 1346106, // Northwest Territories
+'ab-prov': 661848, // Alberta
+  
+// CITIES
+
+'chicago-city': 606,
+'amsterdam-city': 219,
+'tokyo-city': 2194,
+'washington-dc-city': 177,
+'sao-paulo-city': 1521,
+  'la-city': 498,
+  'moscow-city': 2562,
+  'paris-city': 105,
+  'seoul-city': 605,
+  'kuala-city': 243,
+  'toronto-city': 631,
+  'barcelona-city': 101,
+  'peters-city': 1439,
+  'sydney-city': 12368,
+  'jew-city': 125,
+  'dhabi-city': 972,
+  'dubai-city': 1491,
+  'ulaan-city': 4704,
+  'kath-city': 49,
+  'nuuk-city': 49,
+  'berlin-city': 891,
+  'hamburg-city': 755,
+  'vaduz-city': 17,
+  'quebec-city': 452,
+  'ottawa-city': 2790,
+  'dayton-city': 148,
+  'denver-city': 401,
+  'indianapolis-city': 953,
+  'kansas-city': 826,
+  'rome-city': 5363,
+
+// HISTORICAL AFRICA
+
+'za-1928': 1221037,     // South Africa (1928–1994)
+rhode: 390757,          // Rhodesia
+'br-somal': 176120,     // British Somaliland
+'green-lib': 1759540,   // Libya (1977–2011)
+'maur-1959': 1030700,   // Mauritania (1959–2017)
+'eth-emp': 1104300,     // Ethiopian Empire
+'alm-cali': 2300000,    // Almohad Caliphate (approx. peak)
+
+// HISTORICAL ASIA
+
+ussr: 22402200,         // Soviet Union
+qing: 13100000,         // Qing Dynasty (peak)
+'rus-emp': 22800000,    // Russian Empire (approx. peak)
+'n-viet': 158000,       // North Vietnam
+'s-viet': 173809,       // South Vietnam
+'war-jpn': 7400000,     // Japanese Empire (WWII peak)
+'mug-emp': 4000000,     // Mughal Empire (approx. peak)
+'nor-yem': 195000,      // North Yemen
+'sou-yem': 332970,      // South Yemen
+
+// HISTORICAL EUROPE
+
+'east-germany': 108333,
+yugoslavia: 255804,
+venice: 70000,
+
+'holyroman-emp': 1000000, // Holy Roman Empire (~1200)
+'de-empire': 540857,      // German Empire
+'au-hu': 676615,          // Austria-Hungary
+'fr-fr': 551695,          // Free France (represented by France)
+prus: 348780,             // Prussia (1910)
+'otto-emp': 5200000,      // Ottoman Empire (peak)
+
+// HISTORICAL NORTH AMERICA
+
+'new-france': 8000000,
+'us-1776': 2278000,       // United States after independence
+'na-1959': 993,           // Netherlands Antilles
+'na-1986': 960,           // Netherlands Antilles (post-Aruba)
+'first-mx': 4925000,      // First Mexican Empire
+'first-csa': 1998000,     // Confederate States
+'vermont-rep': 24906,     // Vermont Republic
+
+// HISTORICAL SOUTH AMERICA
+
+'gran-colombia': 2500000,
+'bra-emp': 8515767,       // Empire of Brazil
+'ven-1859': 916445,       // Venezuela
+'first-ven': 900000,      // First Republic of Venezuela
+'scnd-ven': 900000,       // Second Republic of Venezuela
+'thrd-ven': 900000,       // Third Republic of Venezuela
+'ecu-1845': 256370,       // Ecuador
+'sur-1959': 163820,       // Suriname
+  
+// ORGANIZATIONS
+
+un: 510100000,      // United Nations (entire Earth)
+eu: 4233262,        // European Union
+olympics: 510100000,// Olympic movement represented globally
+
+nato: 25500000,     // NATO members combined (approx.)
+au: 30370000,       // African Union member states combined
+eac: 4940000,       // East African Community
+oas: 42500000,      // Organization of American States
+turk: 4880000,      // Organization of Turkic States
+une: 510100000,     // UNESCO (global)
+arab: 13900000,     // Arab League
+caricom: 462000,    // CARICOM
+
+// UNOFFICIAL
+
+'pnm-bunau': 75417, // Panama proposal
+'ang-2003': 1246700,// Angola proposal
+'eu-rem': 4233262,  // EU proposal
+'ru-2022': 17098246,// Russia proposal flag
+'de-lehr': 357022,  // Germany proposal
+'gua-red': 1628,    // Guadeloupe variant
+
+// OTHER ICONS
+
+pirate: 0,
+pride: 0,
+checkered: 0,
+
+'earth-ifpe': 510100000,
+'earth-john': 510100000,
+'earth-tijs': 510100000,
+'earth-james': 510100000,
+'earth-kirk': 510100000,
+
+'world-paul2006': 510100000,
+'world-paul1988': 510100000,
+
+christ: 0,          // symbolic
+esper: 0,           // Esperanto
+'rom-peo': 0,       // Romani people
+'a-syria': 120000,  // Assyria homeland estimate
+};
+
 const ENABLED_GROUPS = FLAG_GROUPS.filter((group) => group.enabled);
 const DEFAULT_CATEGORIES = ENABLED_GROUPS.map((group) => group.label);
 const FILTER_SECTIONS = [
   { label: 'Continents', ids: ['africa', 'asia', 'europe', 'north-america', 'south-america', 'oceania', 'antarctica'] },
   { label: 'Regions', ids: ['us-states', 'canadian-prov-terr', 'territories-dependencies'] },
+  { label: 'Cities', ids: ['cities'] },
   { label: 'Continents [Historical]', ids: ['historical-africa', 'historical-asia', 'historical-europe', 'historical-north-america', 'historical-south-america'] },
   { label: 'Other', ids: ['organizations', 'unofficial', 'other-icons'] },
 ];
@@ -1284,6 +1901,9 @@ const FILTER_SECTIONS = [
 const state = {
   mode: localStorage.getItem('flagcraftle-mode') || 'easy',
   current: null,
+  currentEffect: '',
+  quizPair: [],
+  quizLocked: false,
   daily: getDailyFlag(),
   playStreak: 0,
   isLocked: false,
@@ -1297,6 +1917,8 @@ const state = {
   dailyCorrect: new Set(JSON.parse(localStorage.getItem('flagcraftle-daily-correct') || '[]')),
   dailyState: loadDailyState(),
   activeTab: 'play',
+  studyCurrent: null,
+  studyLocked: false,
   hideCategory: localStorage.getItem('flagcraftle-hide-category') === 'true',
   visibleCategories: new Set(DEFAULT_CATEGORIES),
 };
@@ -1312,6 +1934,7 @@ const elements = {
   hintText: document.querySelector('#hint-text'),
   easyMode: document.querySelector('#easy-mode'),
   hardMode: document.querySelector('#hard-mode'),
+  randomizerMode: document.querySelector('#randomizer-mode'),
   easyControls: document.querySelector('#easy-controls'),
   hardControls: document.querySelector('#hard-controls'),
   hardAnswer: document.querySelector('#hard-answer'),
@@ -1328,6 +1951,15 @@ const elements = {
   dailyStreak: document.querySelector('#daily-streak'),
   dailyAttemptCount: document.querySelector('#daily-attempt-count'),
   dailyGuesses: document.querySelector('#daily-guesses'),
+  studyFlagDisplay: document.querySelector('#study-flag-display'),
+  studyHint: document.querySelector('#study-hint'),
+  studyCategoryLabel: document.querySelector('#study-category-label'),
+  studyControls: document.querySelector('#study-controls'),
+  studyFeedback: document.querySelector('#study-feedback'),
+  quizChoiceA: document.querySelector('#quiz-choice-a'),
+  quizChoiceB: document.querySelector('#quiz-choice-b'),
+  quizFeedback: document.querySelector('#quiz-feedback'),
+  quizNext: document.querySelector('#quiz-next'),
   completionPercent: document.querySelector('#completion-percent'),
   completionCount: document.querySelector('#completion-count'),
   progressFill: document.querySelector('#progress-fill'),
@@ -1453,14 +2085,17 @@ function chooseRound(statusMessage = '', options = {}) {
   const remaining = playable.filter((flag) => !state.completedCycle.has(flag.id));
   const candidatePool = dueRetry ? [dueRetry] : (remaining.length ? remaining : playable);
   state.current = sample(candidatePool, 1)[0];
+  state.currentEffect = state.mode === 'randomizer' ? sample(RANDOM_EFFECTS, 1)[0] : '';
   elements.feedback.textContent = statusMessage;
-  elements.feedback.className = 'feedback';
+  elements.feedback.className = `feedback ${options.statusClass || ''}`.trim();
   elements.hardAnswer.value = '';
   hideCombo(elements.hardAnswer, elements.playComboMenu);
   renderRound();
 }
 
-function renderFlag(container, flag, altPrefix) {
+function renderFlag(container, flag, altPrefix, effect = '') {
+  container.classList.remove(...RANDOM_EFFECTS);
+  if (effect) container.classList.add(effect);
   container.innerHTML = `<img src="${flag.image}" alt="${altPrefix}: ${flag.name}" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'), { className: 'flag-fallback', textContent: '${flag.name}' }))" />`;
 }
 
@@ -1470,10 +2105,12 @@ function renderCategoryLabel() {
 
 function renderRound() {
   renderCategoryLabel();
-  renderFlag(elements.flagDisplay, state.current, 'Flag to guess');
+  renderFlag(elements.flagDisplay, state.current, 'Flag to guess', state.currentEffect);
   elements.hintText.textContent = state.mode === 'easy'
     ? 'Pick the matching name.'
-    : 'Type the name, or use the in-game dropdown if you need a nudge.';
+    : state.mode === 'randomizer'
+      ? 'Randomizer mode: identify the flag through a new visual effect each round.'
+      : 'Type the name, or use the in-game dropdown if you need a nudge.';
   renderEasyChoices();
 }
 
@@ -1493,11 +2130,17 @@ function setMode(mode) {
   state.mode = mode;
   localStorage.setItem('flagcraftle-mode', mode);
   const isEasy = mode === 'easy';
+  const isHard = mode === 'hard';
+  const isRandomizer = mode === 'randomizer';
   elements.easyMode.classList.toggle('active', isEasy);
-  elements.hardMode.classList.toggle('active', !isEasy);
+  elements.hardMode.classList.toggle('active', isHard);
+  elements.randomizerMode.classList.toggle('active', isRandomizer);
   elements.easyControls.classList.toggle('hidden', !isEasy);
   elements.hardControls.classList.toggle('hidden', isEasy);
-  if (state.current) renderRound();
+  if (state.current) {
+    state.currentEffect = isRandomizer ? sample(RANDOM_EFFECTS, 1)[0] : '';
+    renderRound();
+  }
 }
 
 function normalize(value) {
@@ -1528,8 +2171,8 @@ function lockAfterGuess() {
   hideCombo(elements.hardAnswer, elements.playComboMenu);
 }
 
-function scheduleNextRound() {
-  state.nextTimer = setTimeout(() => chooseRound(), 2000);
+function scheduleNextRound(statusMessage = '', statusClass = '') {
+  chooseRound(statusMessage, { statusClass });
 }
 
 function showEasyResult(answer, correct) {
@@ -1556,30 +2199,30 @@ function guess(answer) {
   if (state.mode === 'easy') showEasyResult(answer, correct);
   else showHardResult(correct);
 
+  let message = '';
   if (correct) {
     state.playStreak += 1;
     state.completedCycle.add(state.current.id);
     state.retryQueue = state.retryQueue.filter((entry) => entry.flag.id !== state.current.id);
     markMastered(state.current);
-    elements.feedback.textContent = `Correct — ${state.current.name}! Next flag in 2 seconds.`;
-    elements.feedback.className = 'feedback success';
+    message = `Correct — ${state.current.name}!`;
     elements.roundStatus.textContent = 'Mastery updated';
   } else {
     state.playStreak = 0;
     state.retryQueue.push({ flag: state.current, dueIn: randomInt(3, 7) });
-    elements.feedback.textContent = `Not quite. That flag is ${state.current.name}. It will come back soon.`;
-    elements.feedback.className = 'feedback error';
+    message = `Not quite. That flag is ${state.current.name}. It will come back soon.`;
     elements.roundStatus.textContent = 'Retry scheduled';
     renderMastery();
   }
   elements.score.textContent = state.playStreak;
-  scheduleNextRound();
+  scheduleNextRound(message, correct ? 'success' : 'error');
 }
 
 function renderCombo(input, menu, query = '', pool = FLAGS) {
   const normalizedQuery = normalize(query);
   const matches = pool
     .filter((flag) => normalize(flag.name).includes(normalizedQuery))
+    .sort((a, b) => a.name.localeCompare(b.name))
     .slice(0, 40);
 
   menu.innerHTML = matches.length
@@ -1608,7 +2251,8 @@ function renderFilterSections(container, selectedSet, heading = '') {
     .map((section) => {
       const groups = section.ids
         .map((id) => ENABLED_GROUPS.find((group) => group.id === id))
-        .filter(Boolean);
+        .filter(Boolean)
+        .sort((a, b) => a.label.localeCompare(b.label));
       if (!groups.length) return '';
       const allChecked = groups.every((group) => selectedSet.has(group.label));
       const someChecked = groups.some((group) => selectedSet.has(group.label));
@@ -1642,6 +2286,133 @@ function accuracyFor(flag) {
   return { ...stat, total, correctPercent, incorrectPercent };
 }
 
+function getQuizFlags() {
+  return FLAGS.filter((flag) => LAND_AREAS[flag.id] > 0);
+}
+
+function areaFor(flag) {
+  return LAND_AREAS[flag.id] || 0;
+}
+
+function chooseQuizRound(message = '', statusClass = '') {
+  state.quizLocked = false;
+  const pool = getQuizFlags();
+  if (pool.length < 2) {
+    elements.quizChoiceA.innerHTML = '<strong>Not enough area data yet.</strong>';
+    elements.quizChoiceB.innerHTML = '';
+    elements.quizFeedback.textContent = 'Add land-area data for at least two flags to play Quiz.';
+    return;
+  }
+
+  let pair = sample(pool, 2);
+  while (areaFor(pair[0]) === areaFor(pair[1])) pair = sample(pool, 2);
+  state.quizPair = pair;
+  elements.quizFeedback.textContent = message;
+  elements.quizFeedback.className = `feedback ${statusClass}`.trim();
+  renderQuizChoice(elements.quizChoiceA, pair[0]);
+  renderQuizChoice(elements.quizChoiceB, pair[1]);
+}
+
+function renderQuizChoice(button, flag) {
+  button.disabled = false;
+  button.classList.remove('correct', 'incorrect');
+  button.dataset.answer = flag.id;
+  button.innerHTML = `
+    <div class="flag-image-card"><img src="${flag.image}" alt="${flag.name}" loading="lazy" /></div>
+    <strong>${flag.name}</strong>
+    <span>${flag.category}</span>`;
+}
+
+function answerQuiz(flagId) {
+  if (state.quizLocked || state.quizPair.length < 2) return;
+  state.quizLocked = true;
+  const [a, b] = state.quizPair;
+  const larger = areaFor(a) > areaFor(b) ? a : b;
+  const correct = flagId === larger.id;
+
+  [elements.quizChoiceA, elements.quizChoiceB].forEach((button) => {
+    button.disabled = true;
+    if (button.dataset.answer === larger.id) button.classList.add('correct');
+    else if (button.dataset.answer === flagId) button.classList.add('incorrect');
+  });
+
+  chooseQuizRound(
+    `${correct ? 'Correct' : 'Not quite'} — ${larger.name} is larger by land area.`,
+    correct ? 'success' : 'error'
+  );
+}
+
+function getStudyFlags() {
+  return FLAGS
+    .filter((flag) => {
+      const accuracy = accuracyFor(flag);
+      return accuracy.total > 0 && accuracy.correctPercent < 75;
+    })
+    .sort((a, b) => a.name.localeCompare(b.name));
+}
+
+function chooseStudyRound(statusMessage = '', statusClass = '') {
+  state.studyLocked = false;
+  const pool = getStudyFlags();
+  elements.studyFeedback.textContent = statusMessage;
+  elements.studyFeedback.className = `feedback ${statusClass}`.trim();
+  elements.studyControls.innerHTML = '';
+
+  if (!pool.length) {
+    state.studyCurrent = null;
+    elements.studyCategoryLabel.textContent = 'No study flags yet';
+    elements.studyFlagDisplay.innerHTML = '<div class="flag-fallback">Answer more flags, or improve everything to 75%+.</div>';
+    elements.studyHint.textContent = 'Study mode unlocks flags after you have answered them at least once and are below 75% correct.';
+    return;
+  }
+
+  state.studyCurrent = sample(pool, 1)[0];
+  elements.studyCategoryLabel.textContent = state.studyCurrent.category;
+  elements.studyHint.textContent = 'These are flags you have answered before with less than 75% accuracy.';
+  renderFlag(elements.studyFlagDisplay, state.studyCurrent, 'Study flag');
+  renderStudyChoices();
+}
+
+function renderStudyChoices() {
+  const sameGroup = FLAGS.filter((flag) => flag.id !== state.studyCurrent.id && flag.category === state.studyCurrent.category);
+  const fallback = FLAGS.filter((flag) => flag.id !== state.studyCurrent.id);
+  const wrongAnswers = sameGroup.length >= 3 ? sameGroup : fallback;
+  const choices = sample(wrongAnswers, Math.min(3, wrongAnswers.length))
+    .concat(state.studyCurrent)
+    .sort((a, b) => a.name.localeCompare(b.name));
+  elements.studyControls.innerHTML = choices
+    .map((flag) => `<button class="answer-button" data-answer="${flag.name}" type="button">${flag.name}</button>`)
+    .join('');
+}
+
+function answerStudy(answer) {
+  if (state.studyLocked || !state.studyCurrent) return;
+  state.studyLocked = true;
+  const correct = normalize(answer) === normalize(state.studyCurrent.name);
+  recordAttempt(state.studyCurrent, correct);
+
+  elements.studyControls.querySelectorAll('.answer-button').forEach((button) => {
+    button.disabled = true;
+    if (normalize(button.dataset.answer) === normalize(answer)) {
+      button.classList.add(correct ? 'correct' : 'incorrect');
+    }
+    if (!correct && normalize(button.dataset.answer) === normalize(state.studyCurrent.name)) {
+      button.classList.add('correct');
+    }
+  });
+
+  if (correct) {
+    markMastered(state.studyCurrent);
+  } else {
+    renderMastery();
+  }
+
+  chooseStudyRound(
+    correct ? `Correct — ${state.studyCurrent.name}!` : `Not quite. That flag is ${state.studyCurrent.name}.`,
+    correct ? 'success' : 'error'
+  );
+}
+
 function renderMastery() {
   const masteredCount = FLAGS.filter((flag) => state.mastered.has(flag.id)).length;
   const percent = Math.round((masteredCount / FLAGS.length) * 100);
@@ -1653,9 +2424,12 @@ function renderMastery() {
   const groupedFlags = DEFAULT_CATEGORIES
     .map((category) => ({
       category,
-      flags: visibleFlags.filter((flag) => flag.category === category),
+      flags: visibleFlags
+        .filter((flag) => flag.category === category)
+        .sort((a, b) => a.name.localeCompare(b.name)),
     }))
-    .filter((group) => group.flags.length);
+    .filter((group) => group.flags.length)
+    .sort((a, b) => a.category.localeCompare(b.category));
 
   elements.masteryGrid.innerHTML = groupedFlags
     .map((group) => `
@@ -1802,6 +2576,8 @@ function bindEvents() {
       tab.classList.add('active');
       document.querySelector(`#${nextTab}`).classList.add('active');
       if (nextTab === 'mastery') resetPlayStreak();
+      if (nextTab === 'study') chooseStudyRound();
+      if (nextTab === 'quiz') chooseQuizRound();
       if (wasAwayFromPlay) chooseRound('New flag loaded.');
       state.activeTab = nextTab;
     });
@@ -1836,6 +2612,15 @@ function bindEvents() {
     if (elements.dailyAnswer.value.trim()) submitDaily(elements.dailyAnswer.value);
   });
 
+  elements.studyControls.addEventListener('click', (event) => {
+    if (event.target.matches('button[data-answer]')) answerStudy(event.target.dataset.answer);
+  });
+
+  [elements.quizChoiceA, elements.quizChoiceB].forEach((button) => {
+    button.addEventListener('click', () => answerQuiz(button.dataset.answer));
+  });
+  elements.quizNext.addEventListener('click', () => chooseQuizRound());
+
   elements.playCategoryFilters.addEventListener('change', (event) => {
     if (!updateCategorySelectionFromCheckbox(event, state.selectedCategories, renderPlayFilters)) return;
     pruneCycleToSelected();
@@ -1864,6 +2649,8 @@ renderPlayFilters();
 renderFilters();
 renderMastery();
 renderDaily();
+chooseStudyRound();
+chooseQuizRound();
 elements.hideCategoryToggle.checked = state.hideCategory;
 setMode(state.mode);
 bindEvents();
