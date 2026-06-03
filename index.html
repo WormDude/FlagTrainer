@@ -636,7 +636,7 @@ button:hover { transform: translateY(-1px); }
     <main class="app-shell">
       <section class="hero-card">
         <div>
-          <p class="eyebrow">ITS PRETTY COLD IN HERE...</p>
+          <p class="eyebrow">RANGING FROM THE WATER TO LAND TO FLOATING ROCKS</p>
           <h1>FlagTrainer</h1>
           <p class="subtitle">Guess real flags loaded from Wikimedia Commons across nations, provinces, historical banners, and more. Master every banner in the deck.</p>
         </div>
@@ -1137,6 +1137,20 @@ const FLAG_GROUPS = [
     ],
   },
   {
+    id: 'us-islands',
+    label: 'US Minor Outlying Islands',
+    enabled: true,
+    flags: [
+      { id: 'midway', name: 'Midway Atoll', file: 'Flag_of_the_Midway_Islands_(local).svg' },
+      { id: 'wake', name: 'Wake Island', file: 'Flag_of_Wake_Island.svg' },
+      { id: 'johnston', name: 'Johnston Atoll', file: 'Flag_of_the_Johnston_Atoll.svg' },
+      { id: 'kingman', name: 'Kingman Reef', file: 'Unofficial_flag_of_Kingman_Reef.svg' },
+      { id: 'palmyra', name: 'Palmyra Atoll', file: 'Flag_of_Palmyra_Atoll_(local).svg' },
+      { id: 'hbj-islands', name: 'Howland, Baker, and Jarvis Islands', file: 'Unofficial_Flag_of_Howland,_Baker,_and_Jarvis_Islands.svg' },
+      { id: 'navassa', name: 'Navassa Island', file: 'Unofficial_Flag_of_Navasa_Island.webp' },
+  ],
+      },
+  {
     id: 'canadian-prov-terr',
     label: 'Canadian Prov/Terr',
     enabled: true,
@@ -1290,6 +1304,7 @@ const FLAG_GROUPS = [
       { id: 'sou-yem', name: 'South Yemen', file: 'Flag_of_South_Yemen.svg' },
       { id: 'syr-1980', name: 'Syria (1980-2024)', file: 'Flag_of_the_United_Arab_Republic_(1958–1971),_Flag_of_Syria_(1980–2024).svg' },
       { id: 'per-1907', name: 'Persia (1907-1933)', file: 'State_flag_of_Persia_(1907–1933).svg' },
+      { id: 'mong-emp', name: 'Mongol Empire', file: 'Flag_of_The_Mongol_Empire_3.png' },
     ],
   },
   {
@@ -1307,6 +1322,7 @@ const FLAG_GROUPS = [
       { id: 'prus', name: 'Prussia', file: 'Flag_of_Prussia_(1892-1918).svg' },
       { id: 'otto-emp', name: 'Ottoman Empire', file: '"Grand_Standard_of_the_Grand_Turk"_naval_flag,_according_to_Bowles_(1783).svg' },
       { id: 'bela-1991', name: 'Belarus (1991-1995)', file: 'Flag_of_Belarus_(1918,_1991–1995).svg' },
+      { id: 'brit-emp', name: 'British Empire', file: 'Flag_of_Great_Britain_(1707–1800).svg' },
     ],
   },
   {
@@ -1454,8 +1470,65 @@ const FLAG_GROUPS = [
       { id: 'one-world', name: 'One World Flag (Thomas Mandl)', file: 'OWF_One_World_Flag_by_Thomas_Mandl.svg' },
       { id: 'mars-paine', name: 'Mars (Thomas Paine)', file: 'MarsFlag137.png' },
       { id: 'mars-lee', name: 'Mars (Pascal Lee)', file: 'FlagOfMars-OriginalColors.svg' },
+      { id: 'moon-albert', name: 'Moon (Albert Notarbartolo)', file: 'Proposed_Moon_Residents%27_Flag_(1976).svg' },
+      { id: 'moon-society', name: 'Moon (Moon Society)', file: 'Proposed_flag_for_Moon_or_Luna.gif' },
       ],
   },
+     {
+    id: 'micronations',
+    label: 'Micronations',
+    enabled: true,
+    flags: [
+      { id: 'free-christ', name: 'Freetown Christiania', file: 'Flag_of_Christiania.svg' },
+      { id: 'ladon', name: 'Ladonia', file: 'Flag_of_Ladonia_with_contours.svg' },
+      { id: 'moloss', name: 'Molossia', file: 'Flag_of_the_Republic_of_Molossia.svg' },
+      { id: 'c-land', name: 'Sealand', file: 'Flag_of_Sealand.svg' },
+      { id: 'west-aq', name: 'Westarctica', file: 'Flag_of_Westarctica.png' },
+      ],
+     },
+  {
+  id: 'maritime-signal',
+    label: 'Maritime Signal Flags',
+    enabled: true,
+    flags: [
+      { id: 'alf', name: '(A) Alfa', file: 'ICS_Alfa.svg' },
+{ id: 'brav', name: '(B) Bravo', file: 'ICS_Bravo.svg' },
+{ id: 'charl', name: '(C) Charlie', file: 'ICS_Charlie.svg' },
+{ id: 'delt', name: '(D) Delta', file: 'ICS_Delta.svg' },
+{ id: 'ech', name: '(E) Echo', file: 'ICS_Echo.svg' },
+{ id: 'fox', name: '(F) Foxtrot', file: 'ICS_Foxtrot.svg' },
+{ id: 'gol', name: '(G) Golf', file: 'ICS_Golf.svg' },
+{ id: 'hot', name: '(H) Hotel', file: 'ICS_Hotel.svg' },
+{ id: 'ind', name: '(I) India', file: 'ICS_India.svg' },
+{ id: 'juli', name: '(J) Juliett', file: 'ICS_Juliett.svg' },
+{ id: 'kil', name: '(K) Kilo', file: 'ICS_Kilo.svg' },
+{ id: 'lim', name: '(L) Lima', file: 'ICS_Lima.svg' },
+{ id: 'mik', name: '(M) Mike', file: 'ICS_Mike.svg' },
+{ id: 'novem', name: '(N) November', file: 'ICS_November.svg' },
+{ id: 'osc', name: '(O) Oscar', file: 'ICS_Oscar.svg' },
+{ id: 'pap', name: '(P) Papa', file: 'ICS_Papa.svg' },
+{ id: 'queb', name: '(Q) Quebec', file: 'ICS_Quebec.svg' },
+{ id: 'romeo', name: '(R) Romeo', file: 'ICS_Romeo.svg' },
+{ id: 'sier', name: '(S) Sierra', file: 'ICS_Sierra.svg' },
+{ id: 'tang', name: '(T) Tango', file: 'ICS_Tango.svg' },
+{ id: 'unifor', name: '(U) Uniform', file: 'ICS_Uniform.svg' },
+{ id: 'vict', name: '(V) Victor', file: 'ICS_Victor.svg' },
+{ id: 'wisk', name: '(W) Whiskey', file: 'ICS_Whiskey.svg' },
+{ id: 'xray', name: '(X) X-ray', file: 'ICS_X-ray.svg' },
+{ id: 'yank', name: '(Y) Yankee', file: 'ICS_Yankee.svg' },
+{ id: 'zul', name: '(Z) Zulu', file: 'ICS_Zulu.svg' },
+{ id: 'zero', name: '(0) Zero', file: 'ICS_Zero.svg' },
+{ id: 'one', name: '(1) One', file: 'ICS_One.svg' },
+{ id: 'two', name: '(2) Two', file: 'ICS_Two.svg' },
+{ id: 'three', name: '(3) Three', file: 'ICS_Three.svg' },
+{ id: 'four', name: '(4) Four', file: 'ICS_Four.svg' },
+{ id: 'five', name: '(5) Five', file: 'ICS_Five.svg' },
+{ id: 'six', name: '(6) Six', file: 'ICS_Six.svg' },
+{ id: 'seven', name: '(7) Seven', file: 'ICS_Seven.svg' },
+{ id: 'eight', name: '(8) Eight', file: 'ICS_Eight.svg' },
+{ id: 'nine', name: '(9) Nine', file: 'ICS_Nine.svg' },
+  ],
+      },
   {
     id: 'other-icons',
     label: 'Other Icons',
@@ -1845,6 +1918,16 @@ easter: 163.6,        // Easter Island
 'wi-state': 169635, // Wisconsin
 'wy-state': 253335, // Wyoming
 
+// US MINOR OUTLYING ISLANDS
+
+midway: 15.5,
+wake: 13.86,
+johnston: 2.67,
+kingman: 0.03,
+palmyra: 11.9,
+'hbj-islands': 9.2,
+navassa: 5.4,
+
 // CANADIAN PROVINCES & TERRITORIES
 
 'on-prov': 1076395, // Ontario
@@ -1976,6 +2059,7 @@ qing: 13100000,         // Qing Dynasty (peak)
 'sou-yem': 332970,      // South Yemen
 'syr-1980': 185180,   // Syria (1980–2024)
 'per-1907': 1648195,  // Persia (using modern Iran area)
+'mong-emp': 24000000,      // Mongol Empire (peak)
 
 // HISTORICAL EUROPE
 
@@ -1989,6 +2073,7 @@ venice: 70000,
 prus: 348780,             // Prussia (1910)
 'otto-emp': 5200000,      // Ottoman Empire (peak)
 'bela-1991': 207600,  // Belarus (1991–1995)
+'brit-emp': 35500000,      // British Empire (peak)
 
 // HISTORICAL NORTH AMERICA
 
@@ -2017,7 +2102,6 @@ prus: 348780,             // Prussia (1910)
 un: 510100000,      // United Nations (entire Earth)
 eu: 4233262,        // European Union
 olympics: 510100000,// Olympic movement represented globally
-
 nato: 25500000,     // NATO members combined (approx.)
 au: 30370000,       // African Union member states combined
 eac: 4940000,       // East African Community
@@ -2048,6 +2132,54 @@ caricom: 462000,    // CARICOM
 'one-world': 510100000,
 'mars-paine': 144798500, // Mars surface area
 'mars-lee': 144798500,
+'moon-albert': 37932000,   // Moon surface area
+'moon-society': 37932000,  // Moon surface area
+  
+// MICRONATIONS
+
+'free-christ': 0.034,      // Freetown Christiania (~34,000 m²)
+ladon: 1.0,                // Ladonia (~1 km²)
+moloss: 0.045,             // Molossia (~45,000 m²)
+'c-land': 0.00055,         // Sealand
+'west-aq': 620000,         // Westarctica claim
+  
+// MARITIME SIGNALS
+alf: 0,
+brav: 0,
+charl: 0,
+delt: 0,
+ech: 0,
+fox: 0,
+gol: 0,
+hot: 0,
+ind: 0,
+juli: 0,
+kil: 0,
+lim: 0,
+mik: 0,
+novem: 0,
+osc: 0,
+pap: 0,
+queb: 0,
+romeo: 0,
+sier: 0,
+tang: 0,
+unifor: 0,
+vict: 0,
+wisk: 0,
+xray: 0,
+yank: 0,
+zul: 0,
+zero: 0,
+one: 0,
+two: 0,
+three: 0,
+four: 0,
+five: 0,
+six: 0,
+seven: 0,
+eight: 0,
+nine: 0,
   
 // OTHER ICONS
 
@@ -2069,10 +2201,10 @@ const ENABLED_GROUPS = FLAG_GROUPS.filter((group) => group.enabled);
 const DEFAULT_CATEGORIES = ENABLED_GROUPS.map((group) => group.label);
 const FILTER_SECTIONS = [
   { label: 'Continents', ids: ['africa', 'asia', 'europe', 'north-america', 'south-america', 'oceania', 'antarctica'] },
-  { label: 'Regions', ids: ['us-states', 'canadian-prov-terr', 'aussie-states', 'german-states', 'territories-dependencies', 'ussr-rep'] },
+  { label: 'Regions', ids: ['us-states', 'canadian-prov-terr', 'aussie-states', 'german-states', 'territories-dependencies', 'ussr-rep', 'us-islands'] },
   { label: 'Cities', ids: ['cities'] },
   { label: 'Continents [Historical]', ids: ['historical-africa', 'historical-asia', 'historical-europe', 'historical-north-america', 'historical-south-america'] },
-  { label: 'Other', ids: ['organizations', 'unofficial', 'other-icons', 'space'] },
+  { label: 'Other', ids: ['organizations', 'unofficial', 'other-icons', 'space', 'micronations', 'maritime-signal'] },
 ];
 
 const state = {
