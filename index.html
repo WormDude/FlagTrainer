@@ -636,7 +636,7 @@ button:hover { transform: translateY(-1px); }
     <main class="app-shell">
       <section class="hero-card">
         <div>
-          <p class="eyebrow">TWO UPDATES IN A DAY?? I MUST BE A DREAMING...</p>
+          <p class="eyebrow">ITS PRETTY COLD IN HERE...</p>
           <h1>FlagTrainer</h1>
           <p class="subtitle">Guess real flags loaded from Wikimedia Commons across nations, provinces, historical banners, and more. Master every banner in the deck.</p>
         </div>
@@ -982,6 +982,7 @@ const FLAG_GROUPS = [
       { id: 'ua', name: 'Ukraine', file: 'Flag_of_Ukraine.svg' },
       { id: 'va', name: 'Vatican City (Holy See)', file: 'Flag_of_Vatican_City_(2023–present).svg' },
       { id: 'wale', name: 'Wales', file: 'Flag_of_Wales.svg' },
+      { id: 'n-ire', name: 'Northern Ireland', file: 'Flag_of_Northern_Ireland_(1953–1972).svg' },
     ],
   },
   {
@@ -1067,6 +1068,15 @@ const FLAG_GROUPS = [
       { id: 'br-antterr', name: 'British Antarctic Territory', file: 'Flag_of_the_British_Antarctic_Territory.svg' },
       { id: 'aq-tre', name: 'Antarctic Treaty', file: 'Flag_of_the_Antarctic_Treaty.svg' },
       { id: 'aq-dave', name: 'Antarctica (Dave Hamilton)', file: 'Proposed_flag_of_Antarctica_(Dave_Hamilton).svg' },
+      { id: 'aq-leroi', name: 'Antarctica (Oliver Leroi)', file: "Olivier_Leroi's_Antarctic_Flag_Proposal.svg" },
+      { id: 'aq-cooptuck', name: 'Antarctica (Cooper & Tucker)', file: "Cooper_&_Tucker’s_Antarctica_Flag_Proposal.svg" },
+      { id: 'aq-rrs', name: 'Antarctica (RRS Discovery Crew)', file: "White_flag_of_surrender.svg" },
+      { id: 'aq-amund', name: 'Amundsen–Scott South Pole Station', file: "National_Science_Foundation_Antarctic_Program_Flag_(White_Variant).svg" },
+      { id: 'aq-palm', name: 'Palmer Station', file: "National_Science_Foundation_Antarctic_Program_Flag_(Blue_Variant).svg" },
+      { id: 'aq-arturo', name: 'Captain Arturo Prat Base', file: "Bandera_de_la_Base_Naval_Capitán_Arturo_Prat.svg" },
+      { id: 'aq-castilla', name: 'Gabriel de Castilla Base', file: "Gabriel_de_Castilla_Spanish_Antarctic_Base_(Horizontal_Version).svg" },
+      { id: 'aq-rus200', name: 'Russia in Antarctica 200th Anniversary Flag', file: "200_Years_of_Russia_in_Antarctica_Commemorative_Flag.svg" },
+      { id: 'aq-ava', name: 'Antarctic Vexillological Association (AVA)', file: "Flag_of_AVA.svg" },
     ],
   },
   {
@@ -1260,6 +1270,8 @@ const FLAG_GROUPS = [
       { id: 'maur-1959', name: 'Mauritania (1959-2017)', file: 'Flag_of_Mauritania_(1959–2017).svg' },
       { id: 'eth-emp', name: 'Ethiopian Empire', file: 'Flag_of_Ethiopia_(1897–1974).svg' },
       { id: 'alm-cali', name: 'Almohad Caliphate', file: 'Flag_of_Almohad_Dynasty_(1147-1269).svg' },
+      { id: 'rwa-1961', name: 'Rwanda (1961-2001)', file: 'Flag_of_Rwanda_(1961–2001).svg' },
+      { id: 'zai', name: 'Zaire', file: 'Flag_of_Zaire_(1971–1997).svg' },
     ],
   },
   {
@@ -1276,6 +1288,8 @@ const FLAG_GROUPS = [
       { id: 'mug-emp', name: 'Mughal Empire', file: 'Alam_of_the_Mughal_Empire.svg' },
       { id: 'nor-yem', name: 'North Yemen', file: 'Flag_of_the_Yemen_Arab_Republic.svg' },
       { id: 'sou-yem', name: 'South Yemen', file: 'Flag_of_South_Yemen.svg' },
+      { id: 'syr-1980', name: 'Syria (1980-2024)', file: 'Flag_of_the_United_Arab_Republic_(1958–1971),_Flag_of_Syria_(1980–2024).svg' },
+      { id: 'per-1907', name: 'Persia (1907-1933)', file: 'State_flag_of_Persia_(1907–1933).svg' },
     ],
   },
   {
@@ -1292,6 +1306,7 @@ const FLAG_GROUPS = [
       { id: 'fr-fr', name: 'Free France', file: 'Flag_of_Free_France_(1940-1944).svg' },
       { id: 'prus', name: 'Prussia', file: 'Flag_of_Prussia_(1892-1918).svg' },
       { id: 'otto-emp', name: 'Ottoman Empire', file: '"Grand_Standard_of_the_Grand_Turk"_naval_flag,_according_to_Bowles_(1783).svg' },
+      { id: 'bela-1991', name: 'Belarus (1991-1995)', file: 'Flag_of_Belarus_(1918,_1991–1995).svg' },
     ],
   },
   {
@@ -1306,6 +1321,7 @@ const FLAG_GROUPS = [
       { id: 'first-mx', name: 'First Mexican Empire', file: 'Bandera_del_Primer_Imperio_Mexicano.svg' },
       { id: 'first-csa', name: 'Confederate States of America (1861-1863)', file: 'Flag_of_the_Confederate_States_(1861–1863).svg' },
       { id: 'vermont-rep', name: 'Second Vermont Republic', file: 'Flag_of_the_Vermont_Republic.svg' },
+      { id: 'can-1957', name: 'Canada (1957-1965)', file: 'Flag_of_Canada_(1957–1965).svg' },
     ],
   },
   {
@@ -1388,6 +1404,8 @@ const FLAG_GROUPS = [
       { id: 's-osset', name: 'South Ossetia', file: 'Flag_of_South_Ossetia.svg' },
       { id: 'tranis', name: 'Transnistria', file: 'Flag_of_Transnistria_(state).svg' },
       { id: 'kurd', name: 'Kurdistan', file: 'Flag_of_Kurdistan.svg' },
+      { id: 'sark', name: 'Sark', file: 'Flag_of_Sark_(bordered).svg' },
+      { id: 'easter', name: 'Easter Island (Rapa Nui)', file: 'Flag_of_Rapa_Nui,_Chile.svg' },
     ],
   },
   {
@@ -1422,13 +1440,10 @@ const FLAG_GROUPS = [
     ],
   },
   {
-    id: 'other-icons',
-    label: 'Other Icons',
+    id: 'space',
+    label: 'Space',
     enabled: true,
     flags: [
-      { id: 'pirate', name: 'Jolly Roger', file: 'Pirate_Flag_of_Jack_Rackham.svg' },
-      { id: 'pride', name: 'Pride Flag', file: 'Gay_Pride_Flag.svg' },
-      { id: 'checkered', name: 'Checkered/Chequered Flag', file: 'Auto_Racing_Chequered.svg' },
       { id: 'earth-ifpe', name: 'International Flag of Planet Earth', file: 'International_Flag_of_Planet_Earth.svg' },
       { id: 'earth-john', name: 'Earth Flag (John McConnell)', file: 'Earth_Day_Flag.png' },
       { id: 'earth-tijs', name: 'Earth Flag (Tijs Bonekamp)', file: 'BandeiraBlueDot.svg' },
@@ -1436,11 +1451,27 @@ const FLAG_GROUPS = [
       { id: 'earth-kirk', name: 'Earth Flag (James William van Kirk)', file: 'Peace_Congress_flag.svg' },
       { id: 'world-paul2006', name: 'World Flag (Paul Carroll)(2006)', file: 'The_world_flag_2006.svg' },
       { id: 'world-paul1988', name: 'World Flag (Paul Carroll)(1988)', file: 'Proposal_Flag_of_the_World_(1988).svg' },
+      { id: 'one-world', name: 'One World Flag (Thomas Mandl)', file: 'OWF_One_World_Flag_by_Thomas_Mandl.svg' },
+      { id: 'mars-paine', name: 'Mars (Thomas Paine)', file: 'MarsFlag137.png' },
+      { id: 'mars-lee', name: 'Mars (Pascal Lee)', file: 'FlagOfMars-OriginalColors.svg' },
+      ],
+  },
+  {
+    id: 'other-icons',
+    label: 'Other Icons',
+    enabled: true,
+    flags: [
+      { id: 'pirate', name: 'Jolly Roger', file: 'Pirate_Flag_of_Jack_Rackham.svg' },
+      { id: 'pride', name: 'Pride Flag', file: 'Gay_Pride_Flag.svg' },
+      { id: 'checkered', name: 'Checkered/Chequered Flag', file: 'Auto_Racing_Chequered.svg' },
       { id: 'christ', name: 'Christian Flag', file: 'Christian_flag.svg' },
       { id: 'esper', name: 'Esperanto', file: 'Flag_of_Esperanto.svg' },
       { id: 'rom-peo', name: 'Romani People', file: 'Flag_of_the_Romani_people.svg' },
       { id: 'a-syria', name: 'Assyria', file: 'Flag_of_the_Assyrians_(gold_and_blue_Assur).svg' },
       { id: 'aboriginal', name: 'Australian Aboriginal Flag', file: 'Australian_Aboriginal_Flag.svg' },
+      { id: 'sami', name: 'Sami Flag', file: 'Sami_flag.svg' },
+      { id: 'cherok', name: 'Cherokee Nation', file: 'Flag_of_the_Cherokee_Nation.svg' },
+      { id: 'navajo', name: 'Navajo Nation', file: 'Official_design_of_the_Navajo_Nation_flag_as_it_was_adopted_on_May_21,_1968.svg' },
     ],
   },
 ];
@@ -1591,7 +1622,7 @@ li: 160,
 lt: 65300,
 lu: 2586,
 mt: 316,
-md: 33846,
+md: 33843,
 mc: 2,
 me: 13812,
 nl: 41543,
@@ -1610,6 +1641,7 @@ ch: 41285,
 ua: 603628,
 va: 0.49,
 wale: 20779,
+'n-ire': 14130,       // Northern Ireland
 
 // NORTH AMERICA
 us: 9833517,
@@ -1673,10 +1705,17 @@ vu: 12189,
 'aq-smith': 14200000,
 'aq-dave': 14200000,
 'aq-tre': 14200000,
-
-// Antarctic claims
 'aq-ross': 450000,      // Ross Dependency
 'br-antterr': 1709000,  // British Antarctic Territory
+'aq-leroi': 14200000,
+'aq-cooptuck': 14200000,
+'aq-rrs': 14200000,
+'aq-rus200': 14200000,
+'aq-ava': 14200000,
+'aq-amund': 0.02,     // Amundsen–Scott South Pole Station (~20,000 m²)
+'aq-palm': 0.01,      // Palmer Station
+'aq-arturo': 0.01,    // Captain Arturo Prat Base
+'aq-castilla': 0.01,  // Gabriel de Castilla Base
   
 // TERRITORIES / DEPENDENCIES
 
@@ -1750,6 +1789,8 @@ somland: 176120,  // Somaliland
 's-osset': 3900,  // South Ossetia
 tranis: 4163,     // Transnistria
 kurd: 46862,     // Kurdistan
+sark: 5.5,            // Sark
+easter: 163.6,        // Easter Island
   
 // US STATES
 
@@ -1919,6 +1960,8 @@ rhode: 390757,          // Rhodesia
 'maur-1959': 1030700,   // Mauritania (1959–2017)
 'eth-emp': 1104300,     // Ethiopian Empire
 'alm-cali': 2300000,    // Almohad Caliphate (approx. peak)
+'rwa-1961': 26338,    // Rwanda (1961 flag)
+zai: 2344858,         // Zaire
 
 // HISTORICAL ASIA
 
@@ -1931,19 +1974,21 @@ qing: 13100000,         // Qing Dynasty (peak)
 'mug-emp': 4000000,     // Mughal Empire (approx. peak)
 'nor-yem': 195000,      // North Yemen
 'sou-yem': 332970,      // South Yemen
+'syr-1980': 185180,   // Syria (1980–2024)
+'per-1907': 1648195,  // Persia (using modern Iran area)
 
 // HISTORICAL EUROPE
 
 'east-germany': 108333,
 yugoslavia: 255804,
 venice: 70000,
-
 'holyroman-emp': 1000000, // Holy Roman Empire (~1200)
 'de-empire': 540857,      // German Empire
 'au-hu': 676615,          // Austria-Hungary
 'fr-fr': 551695,          // Free France (represented by France)
 prus: 348780,             // Prussia (1910)
 'otto-emp': 5200000,      // Ottoman Empire (peak)
+'bela-1991': 207600,  // Belarus (1991–1995)
 
 // HISTORICAL NORTH AMERICA
 
@@ -1954,6 +1999,7 @@ prus: 348780,             // Prussia (1910)
 'first-mx': 4925000,      // First Mexican Empire
 'first-csa': 1998000,     // Confederate States
 'vermont-rep': 24906,     // Vermont Republic
+'can-1957': 9984670,  // Canada (1957 flag)
 
 // HISTORICAL SOUTH AMERICA
 
@@ -1990,26 +2036,33 @@ caricom: 462000,    // CARICOM
 'de-lehr': 357022,  // Germany proposal
 'gua-red': 1628,    // Guadeloupe variant
 
+// SPACE
+  
+'earth-ifpe': 510100000,
+'earth-john': 510100000,
+'earth-tijs': 510100000,
+'earth-james': 510100000,
+'earth-kirk': 510100000,
+'world-paul2006': 510100000,
+'world-paul1988': 510100000,
+'one-world': 510100000,
+'mars-paine': 144798500, // Mars surface area
+'mars-lee': 144798500,
+  
 // OTHER ICONS
 
 pirate: 0,
 pride: 0,
 checkered: 0,
 
-'earth-ifpe': 510100000,
-'earth-john': 510100000,
-'earth-tijs': 510100000,
-'earth-james': 510100000,
-'earth-kirk': 510100000,
-
-'world-paul2006': 510100000,
-'world-paul1988': 510100000,
-
 christ: 0,          // symbolic
 esper: 0,           // Esperanto
 'rom-peo': 0,       // Romani people
 'a-syria': 120000,  // Assyria homeland estimate
 aboriginal: 0, //aussie aboriginial
+sami: 388350,         // Sápmi (approximate cultural region)
+cherok: 179000,       // Cherokee Nation historical homeland estimate
+Navajo: 71000,        // Navajo Nation
 };
 
 const ENABLED_GROUPS = FLAG_GROUPS.filter((group) => group.enabled);
@@ -2019,7 +2072,7 @@ const FILTER_SECTIONS = [
   { label: 'Regions', ids: ['us-states', 'canadian-prov-terr', 'aussie-states', 'german-states', 'territories-dependencies', 'ussr-rep'] },
   { label: 'Cities', ids: ['cities'] },
   { label: 'Continents [Historical]', ids: ['historical-africa', 'historical-asia', 'historical-europe', 'historical-north-america', 'historical-south-america'] },
-  { label: 'Other', ids: ['organizations', 'unofficial', 'other-icons'] },
+  { label: 'Other', ids: ['organizations', 'unofficial', 'other-icons', 'space'] },
 ];
 
 const state = {
