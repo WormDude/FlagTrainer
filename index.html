@@ -448,7 +448,23 @@ button:hover { transform: translateY(-1px); }
 
 .mastery-grid {
   display: grid;
+  gap: 32px;
+}
+
+.mastery-section-group {
+  display: grid;
   gap: 22px;
+}
+
+.mastery-section-group-title {
+  margin: 0 0 2px;
+  color: var(--muted);
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 10px;
 }
 
 .mastery-category-section {
@@ -480,11 +496,24 @@ button:hover { transform: translateY(-1px); }
   border: 1px solid var(--line);
   border-radius: 20px;
   background: rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+  transition: transform 140ms ease, border-color 140ms ease, background 140ms ease;
+}
+
+.mastery-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(113, 232, 255, 0.4);
+  background: rgba(113, 232, 255, 0.06);
 }
 
 .mastery-card.mastered {
   border-color: rgba(169, 255, 104, 0.45);
   background: rgba(169, 255, 104, 0.1);
+}
+
+.mastery-card.mastered:hover {
+  border-color: rgba(169, 255, 104, 0.7);
+  background: rgba(169, 255, 104, 0.16);
 }
 
 .mini-flag {
@@ -617,6 +646,277 @@ button:hover { transform: translateY(-1px); }
   font-weight: 900;
 }
 
+/* ===== QUIZ STREAK ===== */
+.quiz-streak-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 18px;
+  border: 1px solid rgba(169, 255, 104, 0.45);
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(169, 255, 104, 0.14), rgba(113, 232, 255, 0.1));
+  font-weight: 900;
+  font-size: 0.9rem;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.quiz-streak-badge .streak-num {
+  color: var(--accent-2);
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.quiz-streak-badge .streak-best {
+  color: var(--accent);
+  font-size: 0.78rem;
+  margin-left: 2px;
+}
+
+.quiz-topline-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ===== FLAG DETAIL MODAL ===== */
+.flag-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(2, 8, 18, 0.85);
+  backdrop-filter: blur(8px);
+  padding: 16px;
+  animation: fdFadeIn 140ms ease;
+}
+
+@keyframes fdFadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fdSlideUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
+
+.flag-modal {
+  position: relative;
+  width: min(680px, 100%);
+  max-height: 92vh;
+  overflow-y: auto;
+  border: 1px solid rgba(113, 232, 255, 0.3);
+  border-radius: 32px;
+  background: rgba(7, 17, 35, 0.99);
+  box-shadow: 0 48px 120px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(113, 232, 255, 0.08);
+  animation: fdSlideUp 200ms ease;
+}
+
+.flag-modal::-webkit-scrollbar { width: 8px; }
+.flag-modal::-webkit-scrollbar-track { background: rgba(255,255,255,0.04); border-radius: 999px; }
+.flag-modal::-webkit-scrollbar-thumb { background: linear-gradient(var(--accent), var(--accent-2)); border-radius: 999px; }
+
+.flag-modal-header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 16px;
+  align-items: start;
+  padding: 26px 26px 20px;
+  border-bottom: 1px solid var(--line);
+}
+
+.flag-modal-meta {
+  padding-right: 40px;
+}
+
+.flag-modal-meta h2 {
+  margin: 0 0 5px;
+  font-size: 1.75rem;
+  line-height: 1.1;
+  color: var(--text);
+}
+
+.flag-modal-category-tag {
+  display: inline-block;
+  padding: 3px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: rgba(255,255,255,0.05);
+}
+
+.flag-modal-thumb {
+  display: grid;
+  place-items: center;
+  width: 172px;
+  min-height: 106px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: rgba(0, 0, 0, 0.35);
+  flex-shrink: 0;
+}
+
+.flag-modal-thumb img {
+  max-height: 82px;
+  max-width: 148px;
+  object-fit: contain;
+  border-radius: 6px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+}
+
+.flag-modal-body {
+  padding: 22px 26px 26px;
+  display: grid;
+  gap: 18px;
+}
+
+.flag-modal-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.stat-chip {
+  padding: 14px 12px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.stat-chip .stat-label {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--muted);
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.stat-chip .stat-value {
+  display: block;
+  color: var(--accent);
+  font-size: 1.3rem;
+  font-weight: 900;
+  line-height: 1.1;
+}
+
+.stat-chip .stat-sub {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+
+.flag-modal-accuracy-section {
+  display: grid;
+  gap: 8px;
+}
+
+.flag-modal-accuracy-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flag-modal-accuracy-header span {
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.flag-modal-accuracy-header strong {
+  color: var(--accent-2);
+  font-size: 1.05rem;
+}
+
+.flag-modal-acc-bar {
+  display: flex;
+  height: 12px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.07);
+}
+
+.flag-modal-acc-good { background: var(--accent-2); border-radius: 999px 0 0 999px; }
+.flag-modal-acc-bad { background: var(--danger); }
+
+.flag-modal-acc-detail {
+  display: flex;
+  gap: 16px;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.acc-correct { color: var(--accent-2); }
+.acc-incorrect { color: var(--danger); }
+
+.flag-modal-map-section {
+  display: grid;
+  gap: 10px;
+}
+
+.flag-modal-map-label {
+  color: var(--muted);
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.flag-modal-map-frame {
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: rgba(0,0,0,0.28);
+}
+
+.flag-modal-map-frame iframe {
+  display: block;
+  width: 100%;
+  height: 240px;
+  border: 0;
+  border-radius: 18px;
+}
+
+.flag-modal-map-na {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.flag-modal-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+  background: rgba(0, 0, 0, 0.45);
+  font-size: 1rem;
+  font-weight: 900;
+  cursor: pointer;
+  z-index: 10;
+  transition: background 120ms ease, color 120ms ease, transform 120ms ease;
+}
+
+.flag-modal-close:hover {
+  background: rgba(255, 114, 114, 0.22);
+  color: var(--danger);
+  transform: scale(1.08);
+}
+
 .hidden { display: none; }
 
 @media (max-width: 820px) {
@@ -624,11 +924,14 @@ button:hover { transform: translateY(-1px); }
     align-items: stretch;
     flex-direction: column;
   }
-
   .game-layout { grid-template-columns: 1fr; }
   .answer-grid, .quiz-grid { grid-template-columns: 1fr; }
   .progress-summary { align-items: flex-start; }
   .combo-menu { right: 0; }
+  .flag-modal-header { grid-template-columns: 1fr; }
+  .flag-modal-thumb { width: 100%; }
+  .flag-modal-stats { grid-template-columns: repeat(2, 1fr); }
+  .quiz-topline-right { flex-direction: row; }
 }
     </style>
   </head>
@@ -772,7 +1075,13 @@ button:hover { transform: translateY(-1px); }
               <p class="eyebrow">Area quiz</p>
               <h2>Which is larger?</h2>
             </div>
-            <button id="quiz-next" class="ghost-button" type="button">New matchup</button>
+            <div class="quiz-topline-right">
+              <div class="quiz-streak-badge" aria-label="Quiz streak">
+                🔥 <span class="streak-num" id="quiz-streak-num">0</span>
+                <span class="streak-best" id="quiz-streak-best"></span>
+              </div>
+              <button id="quiz-next" class="ghost-button" type="button">New matchup</button>
+            </div>
           </div>
           <p class="hint-text">Pick the place with the larger land area. Matchups can include nations, cities, territories, and historical places.</p>
           <div id="quiz-choices" class="quiz-grid" aria-label="Land area quiz choices">
@@ -803,6 +1112,63 @@ button:hover { transform: translateY(-1px); }
       </section>
     </main>
 
+    <!-- Flag Detail Modal -->
+    <div id="flag-modal-backdrop" class="flag-modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="flag-modal-title">
+      <div class="flag-modal">
+        <button class="flag-modal-close" id="flag-modal-close" aria-label="Close flag details">✕</button>
+        <div class="flag-modal-header">
+          <div class="flag-modal-meta">
+            <h2 id="flag-modal-title">—</h2>
+            <span class="flag-modal-category-tag" id="flag-modal-category">—</span>
+          </div>
+          <div class="flag-modal-thumb">
+            <img id="flag-modal-img" src="" alt="" />
+          </div>
+        </div>
+        <div class="flag-modal-body">
+          <div class="flag-modal-stats">
+            <div class="stat-chip">
+              <span class="stat-label">Area</span>
+              <span class="stat-value" id="flag-modal-area">—</span>
+              <span class="stat-sub" id="flag-modal-area-sub">km²</span>
+            </div>
+            <div class="stat-chip">
+              <span class="stat-label">Size Rank</span>
+              <span class="stat-value" id="flag-modal-rank">—</span>
+              <span class="stat-sub" id="flag-modal-rank-sub">by land area</span>
+            </div>
+            <div class="stat-chip">
+              <span class="stat-label">Attempts</span>
+              <span class="stat-value" id="flag-modal-attempts">0</span>
+              <span class="stat-sub">times seen</span>
+            </div>
+          </div>
+
+          <div class="flag-modal-accuracy-section">
+            <div class="flag-modal-accuracy-header">
+              <span>Accuracy</span>
+              <strong id="flag-modal-acc-pct">—</strong>
+            </div>
+            <div class="flag-modal-acc-bar">
+              <div class="flag-modal-acc-good" id="flag-modal-acc-good" style="width:0%"></div>
+              <div class="flag-modal-acc-bad" id="flag-modal-acc-bad" style="width:0%"></div>
+            </div>
+            <div class="flag-modal-acc-detail">
+              <span class="acc-correct" id="flag-modal-acc-correct">0 correct</span>
+              <span class="acc-incorrect" id="flag-modal-acc-incorrect">0 incorrect</span>
+            </div>
+          </div>
+
+          <div class="flag-modal-map-section">
+            <span class="flag-modal-map-label">Location</span>
+            <div class="flag-modal-map-frame" id="flag-modal-map-frame">
+              <div class="flag-modal-map-na" id="flag-modal-map-na">No map available for this flag type.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script type="module">
 const WIKIMEDIA_FILE_PATH = 'https://commons.wikimedia.org/wiki/Special:FilePath/';
 
@@ -810,15 +1176,13 @@ function wikiFlag(fileName) {
   return `${WIKIMEDIA_FILE_PATH}${encodeURIComponent(fileName)}`;
 }
 
-// Toggle a group to enabled: false to hide that whole group from the website.
-// Example: US States is hidden until the full state set is ready to ship.
 const FLAG_GROUPS = [
   {
     id: 'africa',
     label: 'Africa',
     enabled: true,
     flags: [
-            { id: 'dz', name: 'Algeria', file: 'Flag_of_Algeria.svg' },
+      { id: 'dz', name: 'Algeria', file: 'Flag_of_Algeria.svg' },
       { id: 'ao', name: 'Angola', file: 'Flag_of_Angola.svg' },
       { id: 'bj', name: 'Benin', file: 'Flag_of_Benin.svg' },
       { id: 'bw', name: 'Botswana', file: 'Flag_of_Botswana.svg' },
@@ -900,7 +1264,6 @@ const FLAG_GROUPS = [
       { id: 'jo', name: 'Jordan', file: 'Flag_of_Jordan.svg' },
       { id: 'kz', name: 'Kazakhstan', file: 'Flag_of_Kazakhstan.svg' },
       { id: 'kp', name: 'North Korea', file: 'Flag_of_North_Korea_(March_2026-).svg' },
-      { id: 'kr', name: 'South Korea', file: 'Flag_of_South_Korea.svg' },
       { id: 'kw', name: 'Kuwait', file: 'Flag_of_Kuwait.svg' },
       { id: 'kg', name: 'Kyrgyzstan', file: 'Flag_of_Kyrgyzstan.svg' },
       { id: 'la', name: 'Laos', file: 'Flag_of_Laos.svg' },
@@ -1151,8 +1514,8 @@ const FLAG_GROUPS = [
       { id: 'palmyra', name: 'Palmyra Atoll', file: 'Flag_of_Palmyra_Atoll_(local).svg' },
       { id: 'hbj-islands', name: 'Howland, Baker, and Jarvis Islands', file: 'Unofficial_Flag_of_Howland,_Baker,_and_Jarvis_Islands.svg' },
       { id: 'navassa', name: 'Navassa Island', file: 'Unofficial_Flag_of_Navasa_Island.webp' },
-  ],
-      },
+    ],
+  },
   {
     id: 'canadian-prov-terr',
     label: 'Canadian Prov/Terr',
@@ -1173,7 +1536,7 @@ const FLAG_GROUPS = [
       { id: 'ab-prov', name: 'Alberta', file: 'Flag_of_Alberta.svg' },
     ],
   },
-    {
+  {
     id: 'aussie-states',
     label: 'Australian States/Terr',
     enabled: true,
@@ -1211,7 +1574,8 @@ const FLAG_GROUPS = [
       { id: 'meckle', name: 'Mecklenburg-Western Pomerania', file: 'Flag_of_Mecklenburg-Western_Pomerania.svg' },
     ],
   },
-  { id: 'ussr-rep',
+  {
+    id: 'ussr-rep',
     label: 'Soviet Republics',
     enabled: true,
     flags: [
@@ -1240,7 +1604,7 @@ const FLAG_GROUPS = [
       { id: 'assr-tur', name: 'Turkestan ASSR', file: "Turkestan_Autonomous_SSR_Flag.svg" },
     ],
   },
-    {
+  {
     id: 'bra-states',
     label: 'Brazilian States',
     enabled: true,
@@ -1272,8 +1636,8 @@ const FLAG_GROUPS = [
       { id: 'sergip', name: 'Sergipe', file: "Bandeira_de_Sergipe.svg" },
       { id: 'tocant', name: 'Tocantins', file: "Bandeira_do_Tocantins.svg" },
       { id: 'fed-dist', name: 'Districto Federal', file: "Bandeira_do_Distrito_Federal_(Brasil).svg" },
-      ],
-    },
+    ],
+  },
   {
     id: 'cities',
     label: 'Cities',
@@ -1462,7 +1826,6 @@ const FLAG_GROUPS = [
       { id: 'as', name: 'American Samoa', file: 'Flag_of_American_Samoa.svg' },
       { id: 'mp', name: 'Northern Mariana Islands', file: 'Flag_of_the_Northern_Mariana_Islands.svg' },
       { id: 'vi', name: 'United States Virgin Islands', file: 'Flag_of_the_United_States_Virgin_Islands.svg' },
-      { id: 'as', name: 'American Samoa', file: 'Flag_of_American_Samoa.svg' },
       { id: 'abkh', name: 'Abkhazia', file: 'Flag_of_the_Republic_of_Abkhazia.svg' },
       { id: 'arts', name: 'Artsakh', file: 'Flag_of_Artsakh.svg' },
       { id: 'turk-cyp', name: 'Northern Cyprus', file: 'Flag_of_the_Turkish_Republic_of_Northern_Cyprus.svg' },
@@ -1498,13 +1861,13 @@ const FLAG_GROUPS = [
       { id: 'eu', name: 'European Union', file: 'Flag_of_Europe.svg' },
       { id: 'olympics', name: 'Olympic Flag', file: 'Olympic_flag.svg' },
       { id: 'nato', name: 'North Atlantic Treaty Organization (NATO)', file: 'Flag_of_NATO.svg' },
-      { id: 'au', name: 'African Union', file: 'Flag_of_the_African_Union.svg' },
+      { id: 'au-org', name: 'African Union', file: 'Flag_of_the_African_Union.svg' },
       { id: 'eac', name: 'East African Community', file: 'Flag_of_the_East_African_Community_(no_logo).svg' },
       { id: 'oas', name: 'Organization of American States (OAS)', file: 'Flag_of_the_Organization_of_American_States.svg' },
       { id: 'turk', name: 'Organization of Turkic States', file: 'Flag_of_the_Organization_of_Turkic_States.svg' },
       { id: 'une', name: 'UNESCO', file: 'Flag_of_UNESCO.svg' },
       { id: 'arab', name: 'Arab League', file: 'Flag_of_the_Arab_League.svg' },
-      { id: 'arab', name: 'Caribbean Community', file: 'Flag_of_CARICOM.svg' },
+      { id: 'caricom', name: 'Caribbean Community', file: 'Flag_of_CARICOM.svg' },
     ],
   },
   {
@@ -1525,9 +1888,9 @@ const FLAG_GROUPS = [
       { id: 'moon-society', name: 'Moon (Moon Society)', file: 'Proposed_flag_for_Moon_or_Luna.gif' },
       { id: 'moon-albert', name: 'Moon (Albert Notarbartolo)', file: "Proposed_Moon_Residents'_Flag_(1976).svg" },
       { id: 'space-force', name: 'United States Space Force', file: "Flag_of_the_United_States_Space_Force_(fringed).svg" },
-      ],
+    ],
   },
-     {
+  {
     id: 'micronations',
     label: 'Micronations',
     enabled: true,
@@ -1537,51 +1900,51 @@ const FLAG_GROUPS = [
       { id: 'moloss', name: 'Molossia', file: 'Flag_of_the_Republic_of_Molossia.svg' },
       { id: 'c-land', name: 'Sealand', file: 'Flag_of_Sealand.svg' },
       { id: 'west-aq', name: 'Westarctica', file: 'Flag_of_Westarctica.png' },
-      ],
-     },
+    ],
+  },
   {
-  id: 'maritime-signal',
+    id: 'maritime-signal',
     label: 'Maritime Signal Flags',
     enabled: true,
     flags: [
       { id: 'alf', name: '(A) Alfa', file: 'ICS_Alfa.svg' },
-{ id: 'brav', name: '(B) Bravo', file: 'ICS_Bravo.svg' },
-{ id: 'charl', name: '(C) Charlie', file: 'ICS_Charlie.svg' },
-{ id: 'delt', name: '(D) Delta', file: 'ICS_Delta.svg' },
-{ id: 'ech', name: '(E) Echo', file: 'ICS_Echo.svg' },
-{ id: 'fox', name: '(F) Foxtrot', file: 'ICS_Foxtrot.svg' },
-{ id: 'gol', name: '(G) Golf', file: 'ICS_Golf.svg' },
-{ id: 'hot', name: '(H) Hotel', file: 'ICS_Hotel.svg' },
-{ id: 'ind', name: '(I) India', file: 'ICS_India.svg' },
-{ id: 'juli', name: '(J) Juliett', file: 'ICS_Juliett.svg' },
-{ id: 'kil', name: '(K) Kilo', file: 'ICS_Kilo.svg' },
-{ id: 'lim', name: '(L) Lima', file: 'ICS_Lima.svg' },
-{ id: 'mik', name: '(M) Mike', file: 'ICS_Mike.svg' },
-{ id: 'novem', name: '(N) November', file: 'ICS_November.svg' },
-{ id: 'osc', name: '(O) Oscar', file: 'ICS_Oscar.svg' },
-{ id: 'pap', name: '(P) Papa', file: 'ICS_Papa.svg' },
-{ id: 'queb', name: '(Q) Quebec', file: 'ICS_Quebec.svg' },
-{ id: 'romeo', name: '(R) Romeo', file: 'ICS_Romeo.svg' },
-{ id: 'sier', name: '(S) Sierra', file: 'ICS_Sierra.svg' },
-{ id: 'tang', name: '(T) Tango', file: 'ICS_Tango.svg' },
-{ id: 'unifor', name: '(U) Uniform', file: 'ICS_Uniform.svg' },
-{ id: 'vict', name: '(V) Victor', file: 'ICS_Victor.svg' },
-{ id: 'wisk', name: '(W) Whiskey', file: 'ICS_Whiskey.svg' },
-{ id: 'xray', name: '(X) X-ray', file: 'ICS_X-ray.svg' },
-{ id: 'yank', name: '(Y) Yankee', file: 'ICS_Yankee.svg' },
-{ id: 'zul', name: '(Z) Zulu', file: 'ICS_Zulu.svg' },
-{ id: 'zero', name: '(0) Zero', file: 'ICS_Zero.svg' },
-{ id: 'one', name: '(1) One', file: 'ICS_One.svg' },
-{ id: 'two', name: '(2) Two', file: 'ICS_Two.svg' },
-{ id: 'three', name: '(3) Three', file: 'ICS_Three.svg' },
-{ id: 'four', name: '(4) Four', file: 'ICS_Four.svg' },
-{ id: 'five', name: '(5) Five', file: 'ICS_Five.svg' },
-{ id: 'six', name: '(6) Six', file: 'ICS_Six.svg' },
-{ id: 'seven', name: '(7) Seven', file: 'ICS_Seven.svg' },
-{ id: 'eight', name: '(8) Eight', file: 'ICS_Eight.svg' },
-{ id: 'nine', name: '(9) Nine', file: 'ICS_Nine.svg' },
-  ],
-      },
+      { id: 'brav', name: '(B) Bravo', file: 'ICS_Bravo.svg' },
+      { id: 'charl', name: '(C) Charlie', file: 'ICS_Charlie.svg' },
+      { id: 'delt', name: '(D) Delta', file: 'ICS_Delta.svg' },
+      { id: 'ech', name: '(E) Echo', file: 'ICS_Echo.svg' },
+      { id: 'fox', name: '(F) Foxtrot', file: 'ICS_Foxtrot.svg' },
+      { id: 'gol', name: '(G) Golf', file: 'ICS_Golf.svg' },
+      { id: 'hot', name: '(H) Hotel', file: 'ICS_Hotel.svg' },
+      { id: 'ind', name: '(I) India', file: 'ICS_India.svg' },
+      { id: 'juli', name: '(J) Juliett', file: 'ICS_Juliett.svg' },
+      { id: 'kil', name: '(K) Kilo', file: 'ICS_Kilo.svg' },
+      { id: 'lim', name: '(L) Lima', file: 'ICS_Lima.svg' },
+      { id: 'mik', name: '(M) Mike', file: 'ICS_Mike.svg' },
+      { id: 'novem', name: '(N) November', file: 'ICS_November.svg' },
+      { id: 'osc', name: '(O) Oscar', file: 'ICS_Oscar.svg' },
+      { id: 'pap', name: '(P) Papa', file: 'ICS_Papa.svg' },
+      { id: 'queb', name: '(Q) Quebec', file: 'ICS_Quebec.svg' },
+      { id: 'romeo', name: '(R) Romeo', file: 'ICS_Romeo.svg' },
+      { id: 'sier', name: '(S) Sierra', file: 'ICS_Sierra.svg' },
+      { id: 'tang', name: '(T) Tango', file: 'ICS_Tango.svg' },
+      { id: 'unifor', name: '(U) Uniform', file: 'ICS_Uniform.svg' },
+      { id: 'vict', name: '(V) Victor', file: 'ICS_Victor.svg' },
+      { id: 'wisk', name: '(W) Whiskey', file: 'ICS_Whiskey.svg' },
+      { id: 'xray', name: '(X) X-ray', file: 'ICS_X-ray.svg' },
+      { id: 'yank', name: '(Y) Yankee', file: 'ICS_Yankee.svg' },
+      { id: 'zul', name: '(Z) Zulu', file: 'ICS_Zulu.svg' },
+      { id: 'zero', name: '(0) Zero', file: 'ICS_Zero.svg' },
+      { id: 'one', name: '(1) One', file: 'ICS_One.svg' },
+      { id: 'two', name: '(2) Two', file: 'ICS_Two.svg' },
+      { id: 'three', name: '(3) Three', file: 'ICS_Three.svg' },
+      { id: 'four', name: '(4) Four', file: 'ICS_Four.svg' },
+      { id: 'five', name: '(5) Five', file: 'ICS_Five.svg' },
+      { id: 'six', name: '(6) Six', file: 'ICS_Six.svg' },
+      { id: 'seven', name: '(7) Seven', file: 'ICS_Seven.svg' },
+      { id: 'eight', name: '(8) Eight', file: 'ICS_Eight.svg' },
+      { id: 'nine', name: '(9) Nine', file: 'ICS_Nine.svg' },
+    ],
+  },
   {
     id: 'other-icons',
     label: 'Other Icons',
@@ -1614,683 +1977,354 @@ const FLAGS = FLAG_GROUPS
   })));
 
 const RANDOM_EFFECTS = ['effect-blur', 'effect-zoom', 'effect-flip', 'effect-rotate', 'effect-grayscale', 'effect-sepia', 'effect-hue', 'effect-contrast', 'effect-tiny', 'effect-skew'];
-const LAND_AREAS = {
-// AFRICA
-dz: 2381741,
-ao: 1246700,
-bj: 114763,
-bw: 581730,
-bf: 274222,
-bi: 27834,
-cv: 4033,
-cm: 475442,
-cf: 622984,
-td: 1284000,
-km: 1862,
-cd: 2344858,
-cg: 342000,
-dj: 23200,
-eg: 1002450,
-gq: 28051,
-er: 117600,
-sz: 17364,
-et: 1104300,
-ga: 267668,
-gm: 11295,
-gh: 238533,
-gn: 245857,
-gw: 36125,
-ci: 322463,
-ke: 580367,
-ls: 30355,
-lr: 111369,
-ly: 1759540,
-mg: 587041,
-mw: 118484,
-ml: 1240192,
-mr: 1030700,
-mu: 2040,
-ma: 446550,
-mz: 801590,
-na: 825615,
-ne: 1267000,
-ng: 923768,
-rw: 26338,
-st: 964,
-sn: 196722,
-sc: 452,
-sl: 71740,
-so: 637657,
-za: 1221037,
-ss: 619745,
-sd: 1886068,
-tz: 947303,
-tg: 56785,
-tn: 163610,
-ug: 241550,
-zm: 752618,
-zw: 390757,
 
-// ASIA
-jp: 377975,
-kr: 100210,
-in: 3287263,
-cn: 9596961,
-sa: 2149690,
-af: 652230,
-am: 29743,
-az: 86600,
-bh: 765,
-bd: 148460,
-bt: 38394,
-bn: 5765,
-cy: 9251,
-ge: 69700,
-id: 1904569,
-ir: 1648195,
-iq: 438317,
-il: 22072,
-jo: 89342,
-kz: 2724900,
-kp: 120538,
-kw: 17818,
-kg: 199951,
-la: 236800,
-lb: 10452,
-my: 330803,
-mv: 300,
-mn: 1564116,
-mm: 676578,
-np: 147516,
-om: 309500,
-pk: 881913,
-ph: 300000,
-qa: 11586,
-sg: 734,
-lk: 65610,
-sy: 185180,
-tw: 36197,
-tj: 143100,
-th: 513120,
-tl: 14874,
-tr: 783562,
-tm: 488100,
-ae: 83600,
-uz: 448978,
-vn: 331212,
-ye: 527968,
-ps: 6020,
-
-// EUROPE
-de: 357022,
-fr: 551695,
-it: 301340,
-gb: 243610,
-es: 505992,
-al: 28748,
-ad: 468,
-at: 83879,
-by: 207600,
-be: 30528,
-ba: 51197,
-bg: 110994,
-hr: 56594,
-cz: 78867,
-dk: 42933,
-eng: 130279,
-ee: 45227,
-fi: 338455,
-gr: 131957,
-hu: 93028,
-is: 103000,
-ie: 70273,
-xk: 10887,
-lv: 64589,
-li: 160,
-lt: 65300,
-lu: 2586,
-mt: 316,
-md: 33843,
-mc: 2,
-me: 13812,
-nl: 41543,
-mk: 25713,
-no: 385207,
-pl: 312696,
-pt: 92090,
-ro: 238397,
-sm: 61,
-scot: 77933,
-rs: 88361,
-sk: 49035,
-si: 20273,
-se: 450295,
-ch: 41285,
-ua: 603628,
-va: 0.49,
-wale: 20779,
-'n-ire': 14130,       // Northern Ireland
-
-// NORTH AMERICA
-us: 9833517,
-ca: 9984670,
-mx: 1964375,
-jm: 10991,
-cr: 51100,
-ag: 442,
-bs: 13943,
-bb: 430,
-bz: 22966,
-cu: 109884,
-dm: 751,
-do: 48671,
-sv: 21041,
-gd: 349,
-gt: 108889,
-ht: 27750,
-hn: 112492,
-ni: 130373,
-pa: 75417,
-kn: 261,
-lc: 617,
-vc: 389,
-tt: 5131,
-
-// SOUTH AMERICA
-br: 8515767,
-ar: 2780400,
-cl: 756102,
-co: 1141748,
-pe: 1285216,
-bo: 1098581,
-ec: 256370,
-gy: 214969,
-py: 406752,
-sr: 163820,
-uy: 176215,
-ve: 916445,
-
-// OCEANIA
-au: 7692024,
-nz: 268021,
-fj: 18274,
-pg: 462840,
-pw: 459,
-ki: 811,
-mh: 181,
-fm: 702,
-nr: 21,
-ws: 2842,
-sb: 28896,
-to: 747,
-tv: 26,
-vu: 12189,
-  
-// ANTARCTICA
-'aq-graham': 14200000,
-'aq-true-south': 14200000,
-'aq-graham2024': 14200000,
-'aq-smith': 14200000,
-'aq-dave': 14200000,
-'aq-tre': 14200000,
-'aq-ross': 450000,      // Ross Dependency
-'br-antterr': 1709000,  // British Antarctic Territory
-'aq-leroi': 14200000,
-'aq-cooptuck': 14200000,
-'aq-rrs': 14200000,
-'aq-rus200': 14200000,
-'aq-ava': 14200000,
-'aq-amund': 0.02,     // Amundsen–Scott South Pole Station (~20,000 m²)
-'aq-palm': 0.01,      // Palmer Station
-'aq-arturo': 0.01,    // Captain Arturo Prat Base
-'aq-castilla': 0.01,  // Gabriel de Castilla Base
-'aus-aq': 5896500,   // Australian Antarctic Territory
-'scar-aq': 14200000, // Scientific Committee on Antarctic Research (entire Antarctica)
-'riyca-aq': 14200000,// yacht (assuming Antarctic-wide)
-  
-// TERRITORIES / DEPENDENCIES
-
-gl: 2166086,      // Greenland
-pr: 9104,         // Puerto Rico
-guam: 544,        // Guam
-fk: 12173,        // Falkland Islands
-sb: 13,           // Saba
-yt: 374,          // Mayotte
-re: 2512,         // Réunion
-cx: 135,          // Christmas Island
-cc: 14,           // Cocos (Keeling) Islands
-nf: 35,           // Norfolk Island
-hk: 2755,         // Hong Kong
-mo: 115,          // Macau
-fo: 1399,         // Faroe Islands
-ax: 1580,         // Åland
-gf: 83534,        // French Guiana
-gp: 1628,         // Guadeloupe
-mq: 1128,         // Martinique
-pf: 4167,         // French Polynesia
-bl: 21,           // Saint Barthélemy
-mf: 53,           // Saint Martin
-pm: 242,          // Saint Pierre and Miquelon
-wf: 142,          // Wallis and Futuna
-nc: 18575,        // New Caledonia
-tf: 7747,         // French Southern & Antarctic Lands
-aw: 180,          // Aruba
-cw: 444,          // Curaçao
-sx: 34,           // Sint Maarten
-bq: 328,          // Bonaire
-eustat: 21,       // Sint Eustatius
-ck: 236,          // Cook Islands
-nu: 260,          // Niue
-tk: 12,           // Tokelau
-ai: 91,           // Anguilla
-bm: 54,           // Bermuda
-vg: 151,          // British Virgin Islands
-ky: 264,          // Cayman Islands
-io: 640,          // British Indian Ocean Territory
-gi: 6.8,          // Gibraltar
-ms: 102,          // Montserrat
-pn: 47,           // Pitcairn Islands
-gs: 3903,         // South Georgia & South Sandwich Islands
-tc: 948,          // Turks & Caicos Islands
-sh: 122,          // Saint Helena
-ascen: 88,        // Ascension Island
-trist: 98,        // Tristan da Cunha
-gg: 78,           // Guernsey
-im: 572,          // Isle of Man
-je: 118,          // Jersey
-as: 199,          // American Samoa
-mp: 464,          // Northern Mariana Islands
-vi: 347,          // U.S. Virgin Islands
-abkh: 8660,       // Abkhazia
-arts: 3170,       // Artsakh (former de facto area)
-'turk-cyp': 3355, // Northern Cyprus
-'west-sahar': 266000, // Western Sahara
-somland: 176120,  // Somaliland
-'s-osset': 3900,  // South Ossetia
-tranis: 4163,     // Transnistria
-kurd: 46862,     // Kurdistan
-sark: 5.5,            // Sark
-easter: 163.6,        // Easter Island
-  
-// US STATES
-
-'al-state': 135767, // Alabama
-'ak-state': 1717854, // Alaska
-'az-state': 295234, // Arizona
-'ar-state': 137732, // Arkansas (your file accidentally uses ak-state)
-'ca-state': 423967, // California
-'co-state': 269601, // Colorado
-'ct-state': 14357, // Connecticut
-'de-state': 6446, // Delaware
-'fl-state': 170312, // Florida
-'ga-state': 153910, // Georgia
-'hi-state': 28313, // Hawaii
-'id-state': 216443, // Idaho
-'il-state': 149995, // Illinois
-'in-state': 94326, // Indiana
-'ia-state': 145746, // Iowa
-'ks-state': 213100, // Kansas
-'kt-state': 104656, // Kentucky
-'la-state': 135659, // Louisiana
-'me-state': 91633, // Maine
-'md-state': 32131, // Maryland
-'ma-state': 27336, // Massachusetts
-'mi-state': 250487, // Michigan
-'mn-state': 225163, // Minnesota
-'ms-state': 125438, // Mississippi
-'mo-state': 180540, // Missouri
-'mt-state': 380831, // Montana
-'nb-state': 200330, // Nebraska
-'nv-state': 286380, // Nevada
-'nh-state': 24214, // New Hampshire
-'nj-state': 22591, // New Jersey
-'nm-state': 314917, // New Mexico
-'ny-state': 141297, // New York
-'nc-state': 139391, // North Carolina
-'nd-state': 183108, // North Dakota
-'oh-state': 116098, // Ohio
-'ok-state': 181037, // Oklahoma
-'or-state': 254799, // Oregon
-'pe-state': 119280, // Pennsylvania
-'ri-state': 4001, // Rhode Island
-'sc-state': 82933, // South Carolina
-'sd-state': 199729, // South Dakota
-'tn-state': 109153, // Tennessee
-'tx-state': 695662, // Texas
-'ut-state': 219882, // Utah
-'vt-state': 24906, // Vermont
-'vi-state': 110787, // Virginia
-'wa-state': 184661, // Washington
-'wv-state': 62756, // West Virginia
-'wi-state': 169635, // Wisconsin
-'wy-state': 253335, // Wyoming
-
-// US MINOR OUTLYING ISLANDS
-
-midway: 15.5,
-wake: 13.86,
-johnston: 2.67,
-kingman: 0.03,
-palmyra: 11.9,
-'hbj-islands': 9.2,
-navassa: 5.4,
-
-// CANADIAN PROVINCES & TERRITORIES
-
-'on-prov': 1076395, // Ontario
-'qc-prov': 1542056, // Quebec
-'bc-prov': 944735, // British Columbia
-'nu-terr': 2093190, // Nunavut
-'ns-prov': 55284, // Nova Scotia
-'nb-prov': 72908, // New Brunswick
-'mb-prov': 647797, // Manitoba
-'pe-prov': 5660, // Prince Edward Island
-'sk-prov': 651900, // Saskatchewan
-'nl-prov': 405212, // Newfoundland & Labrador
-'yt-terr': 482443, // Yukon
-'nt-terr': 1346106, // Northwest Territories
-'ab-prov': 661848, // Alberta
-  
-  // AUS STATES
-  
-  nsw: 800150,
-  vtria: 227416,
-  queen: 1729742,
-  's-aus': 984321,
-  'w-aus': 2527013,
-  tas: 68401,
-  act: 2358,
-  'nt-aus': 1347791,
-  
-  // DEU STATES
-  
-    hamburg: 755,
-    berlin: 891,
-    schlewis: 15804,
-    brem: 420,
-    'l-sax': 47710,
-    'sax-anh': 20440,
-    brand: 29654,
-    sax: 18450,
-    thur: 16202,
-    bav: 70542,
-    'baden-wert': 35748,
-    saar: 2572,
-    'rhine-pal': 19858,
-    hes: 21116,
-    'n-rhine': 34113,
-    meckle: 23295,
-    
-  // BRAZILIAN STATES
-
-acre: 164123,
-alago: 27843,
-amapa: 142815,
-amazon: 1559168,      // Amazonas
-bahia: 564733,
-ceara: 148894,
-'esp-santo': 46095,   // Espírito Santo
-goias: 340111,
-maran: 331983,        // Maranhão
-'mat-gros': 903207,   // Mato Grosso
-'mat-sul': 357145,    // Mato Grosso do Sul
-'min-ger': 586528,    // Minas Gerais
-para: 1247689,
-paraiba: 56468,
-parana: 199315,
-pernam: 98312,        // Pernambuco
-piaui: 251755,
-'rio-jane': 43750,    // Rio de Janeiro
-'grande-nort': 52811, // Rio Grande do Norte
-'grande-sul': 281730, // Rio Grande do Sul
-rondon: 237576,       // Rondônia
-rorai: 223644,        // Roraima
-'santa-catar': 95730, // Santa Catarina
-'sao-paul': 248219,
-sergip: 21910,
-tocant: 277621,
-'fed-dist': 5761,     // Federal District
-  
-  // SOVIET
-  
-  'ussr-rus': 17125200,
-  'ussr-ukr': 603700,
-  'ussr-bela': 207600,
-  'ussr-uzb': 447400,
-  'ussr-kaz': 2717300,
-  'ussr-geo': 69700,
-  'ussr-aze': 86600,
-  'ussr-lit': 65200,
-  'ussr-mol': 33843,
-  'ussr-lat': 64589,
-  'ussr-kyr': 200105,
-  'ussr-taj': 143100,
-  'ussr-arm': 29743,
-  'ussr-tur': 491210,
-  'ussr-est': 45227,
-  'ussr-fin': 172400,
-  'ussr-abk': 8665,
-  'ussr-buk': 182193,
-  'ussr-kho': 62200,
-  'assr-mol': 8288,
-  'assr-taj': 143100,
-  'ussr-cau': 186043,
-  'assr-tur': 1707003,
-  
-// CITIES
-
-'chicago-city': 606,
-'amsterdam-city': 219,
-'tokyo-city': 2194,
-'washington-dc-city': 177,
-'sao-paulo-city': 1521,
-  'la-city': 498,
-  'moscow-city': 2562,
-  'paris-city': 105,
-  'seoul-city': 605,
-  'kuala-city': 243,
-  'toronto-city': 631,
-  'barcelona-city': 101,
-  'peters-city': 1439,
-  'sydney-city': 12368,
-  'jew-city': 125,
-  'dhabi-city': 972,
-  'dubai-city': 1491,
-  'ulaan-city': 4704,
-  'kath-city': 49,
-  'nuuk-city': 49,
-  'vaduz-city': 17,
-  'quebec-city': 452,
-  'ottawa-city': 2790,
-  'dayton-city': 148,
-  'denver-city': 401,
-  'indianapolis-city': 953,
-  'kansas-city': 826,
-  'rome-city': 5363,
-  'miami-city': 143,
-'houston-city': 1700,
-'dallas-city': 999,
-'alexandria-city': 15,
-'ny-city': 778,
-'ceuta-city': 18.5,
-'melilla-city': 12.3,
-'tulsa-city': 517,
-'tampa-city': 455,
-
-// HISTORICAL AFRICA
-
-'za-1928': 1221037,     // South Africa (1928–1994)
-rhode: 390757,          // Rhodesia
-'br-somal': 176120,     // British Somaliland
-'green-lib': 1759540,   // Libya (1977–2011)
-'maur-1959': 1030700,   // Mauritania (1959–2017)
-'eth-emp': 1104300,     // Ethiopian Empire
-'alm-cali': 2300000,    // Almohad Caliphate (approx. peak)
-'rwa-1961': 26338,    // Rwanda (1961 flag)
- zai: 2344858,         // Zaire
-'mala-2010': 118484, // Malawi (2010–2012)
-
-// HISTORICAL ASIA
-
-ussr: 22402200,         // Soviet Union
-qing: 13100000,         // Qing Dynasty (peak)
-'rus-emp': 22800000,    // Russian Empire (approx. peak)
-'n-viet': 158000,       // North Vietnam
-'s-viet': 173809,       // South Vietnam
-'war-jpn': 7400000,     // Japanese Empire (WWII peak)
-'mug-emp': 4000000,     // Mughal Empire (approx. peak)
-'nor-yem': 195000,      // North Yemen
-'sou-yem': 332970,      // South Yemen
-'syr-1980': 185180,   // Syria (1980–2024)
-'per-1907': 1648195,  // Persia (using modern Iran area)
-'mong-emp': 24000000,      // Mongol Empire (peak)
-
-// HISTORICAL EUROPE
-
-'east-germany': 108333,
-yugoslavia: 255804,
-venice: 70000,
-'holyroman-emp': 1000000, // Holy Roman Empire (~1200)
-'de-empire': 540857,      // German Empire
-'au-hu': 676615,          // Austria-Hungary
-'fr-fr': 551695,          // Free France (represented by France)
-prus: 348780,             // Prussia (1910)
-'otto-emp': 5200000,      // Ottoman Empire (peak)
-'bela-1991': 207600,  // Belarus (1991–1995)
-'brit-emp': 35500000,      // British Empire (peak)
-'span-emp': 20000000,   // Spanish Empire (peak)
-'ast-emp': 5300000,     // Austro-Hungarian Empire (peak)
-'pol-lit': 1050000,     // Polish-Lithuanian Commonwealth
-'duchy-lit': 930000,    // Grand Duchy of Lithuania (peak)
-
-
-// HISTORICAL NORTH AMERICA
-
-'new-france': 8000000,
-'us-1776': 2278000,       // United States after independence
-'na-1959': 993,           // Netherlands Antilles
-'na-1986': 960,           // Netherlands Antilles (post-Aruba)
-'first-mx': 4925000,      // First Mexican Empire
-'first-csa': 1998000,     // Confederate States
-'vermont-rep': 24906,     // Vermont Republic
-'can-1957': 9984670,  // Canada (1957 flag)
-
-// HISTORICAL SOUTH AMERICA
-
-'gran-colombia': 2500000,
-'bra-emp': 8515767,       // Empire of Brazil
-'ven-1859': 916445,       // Venezuela
-'first-ven': 900000,      // First Republic of Venezuela
-'scnd-ven': 900000,       // Second Republic of Venezuela
-'thrd-ven': 900000,       // Third Republic of Venezuela
-'ecu-1845': 256370,       // Ecuador
-'sur-1959': 163820,       // Suriname
-  
-// ORGANIZATIONS
-
-un: 510100000,      // United Nations (entire Earth)
-eu: 4233262,        // European Union
-olympics: 510100000,// Olympic movement represented globally
-nato: 25500000,     // NATO members combined (approx.)
-au: 30370000,       // African Union member states combined
-eac: 4940000,       // East African Community
-oas: 42500000,      // Organization of American States
-turk: 4880000,      // Organization of Turkic States
-une: 510100000,     // UNESCO (global)
-arab: 13900000,     // Arab League
-caricom: 462000,    // CARICOM
-
-// UNOFFICIAL
-
-'pnm-bunau': 75417, // Panama proposal
-'ang-2003': 1246700,// Angola proposal
-'eu-rem': 4233262,  // EU proposal
-'ru-2022': 17098246,// Russia proposal flag
-'de-lehr': 357022,  // Germany proposal
-'gua-red': 1628,    // Guadeloupe variant
-
-// SPACE
-  
-'earth-ifpe': 510100000,
-'earth-john': 510100000,
-'earth-tijs': 510100000,
-'earth-james': 510100000,
-'earth-kirk': 510100000,
-'world-paul2006': 510100000,
-'world-paul1988': 510100000,
-'one-world': 510100000,
-'mars-paine': 144798500, // Mars surface area
-'mars-lee': 144798500,
-'moon-society': 37932000,  // Moon surface area
-'moon-albert': 37932000, // Moon surface area
-'space-force': 9833517,  // United States
-  
-// MICRONATIONS
-
-'free-christ': 0.034,      // Freetown Christiania (~34,000 m²)
-ladon: 1.0,                // Ladonia (~1 km²)
-moloss: 0.045,             // Molossia (~45,000 m²)
-'c-land': 0.00055,         // Sealand
-'west-aq': 620000,         // Westarctica claim
-  
-// MARITIME SIGNALS
-alf: 0,
-brav: 0,
-charl: 0,
-delt: 0,
-ech: 0,
-fox: 0,
-gol: 0,
-hot: 0,
-ind: 0,
-juli: 0,
-kil: 0,
-lim: 0,
-mik: 0,
-novem: 0,
-osc: 0,
-pap: 0,
-queb: 0,
-romeo: 0,
-sier: 0,
-tang: 0,
-unifor: 0,
-vict: 0,
-wisk: 0,
-xray: 0,
-yank: 0,
-zul: 0,
-zero: 0,
-one: 0,
-two: 0,
-three: 0,
-four: 0,
-five: 0,
-six: 0,
-seven: 0,
-eight: 0,
-nine: 0,
-  
-// OTHER ICONS
-
-pirate: 0,
-pride: 0,
-checkered: 0,
-
-christ: 0,          // symbolic
-esper: 0,           // Esperanto
-'rom-peo': 0,       // Romani people
-'a-syria': 120000,  // Assyria homeland estimate
-aboriginal: 0, //aussie aboriginial
-sami: 388350,         // Sápmi (approximate cultural region)
-cherok: 179000,       // Cherokee Nation historical homeland estimate
-Navajo: 71000,        // Navajo Nation
-maori: 268021,       // New Zealand (rough cultural homeland approximation)
-smom: 0.007          // Sovereign Military Order of Malta headquarters (~7,000 m²)
+// ===== LAND AREA & MAP COORDINATES =====
+// mapCoords: { lat, lng, zoom } for OpenStreetMap embed
+const FLAG_DATA = {
+  dz: { area: 2381741, coords: { lat: 28.0, lng: 1.66, zoom: 4 } },
+  ao: { area: 1246700, coords: { lat: -11.2, lng: 17.9, zoom: 4 } },
+  bj: { area: 114763, coords: { lat: 9.3, lng: 2.3, zoom: 6 } },
+  bw: { area: 581730, coords: { lat: -22.3, lng: 24.7, zoom: 5 } },
+  bf: { area: 274222, coords: { lat: 12.4, lng: -1.6, zoom: 5 } },
+  bi: { area: 27834, coords: { lat: -3.4, lng: 29.9, zoom: 7 } },
+  cv: { area: 4033, coords: { lat: 16.0, lng: -24.0, zoom: 8 } },
+  cm: { area: 475442, coords: { lat: 3.8, lng: 11.5, zoom: 5 } },
+  cf: { area: 622984, coords: { lat: 6.6, lng: 20.9, zoom: 5 } },
+  td: { area: 1284000, coords: { lat: 15.5, lng: 18.7, zoom: 4 } },
+  km: { area: 1862, coords: { lat: -11.6, lng: 43.3, zoom: 9 } },
+  cd: { area: 2344858, coords: { lat: -4.0, lng: 21.8, zoom: 4 } },
+  cg: { area: 342000, coords: { lat: -0.2, lng: 15.8, zoom: 5 } },
+  dj: { area: 23200, coords: { lat: 11.8, lng: 42.6, zoom: 7 } },
+  eg: { area: 1002450, coords: { lat: 26.8, lng: 30.8, zoom: 4 } },
+  gq: { area: 28051, coords: { lat: 1.6, lng: 10.3, zoom: 7 } },
+  er: { area: 117600, coords: { lat: 15.2, lng: 39.8, zoom: 6 } },
+  sz: { area: 17364, coords: { lat: -26.5, lng: 31.5, zoom: 7 } },
+  et: { area: 1104300, coords: { lat: 9.1, lng: 40.5, zoom: 4 } },
+  ga: { area: 267668, coords: { lat: -0.8, lng: 11.6, zoom: 5 } },
+  gm: { area: 11295, coords: { lat: 13.4, lng: -15.3, zoom: 7 } },
+  gh: { area: 238533, coords: { lat: 7.9, lng: -1.0, zoom: 5 } },
+  gn: { area: 245857, coords: { lat: 11.0, lng: -10.9, zoom: 5 } },
+  gw: { area: 36125, coords: { lat: 11.8, lng: -15.2, zoom: 7 } },
+  ci: { area: 322463, coords: { lat: 7.5, lng: -5.5, zoom: 5 } },
+  ke: { area: 580367, coords: { lat: 0.0, lng: 37.9, zoom: 5 } },
+  ls: { area: 30355, coords: { lat: -29.6, lng: 28.2, zoom: 7 } },
+  lr: { area: 111369, coords: { lat: 6.4, lng: -9.4, zoom: 6 } },
+  ly: { area: 1759540, coords: { lat: 26.3, lng: 17.2, zoom: 4 } },
+  mg: { area: 587041, coords: { lat: -18.8, lng: 46.9, zoom: 4 } },
+  mw: { area: 118484, coords: { lat: -13.3, lng: 34.3, zoom: 5 } },
+  ml: { area: 1240192, coords: { lat: 17.6, lng: -3.0, zoom: 4 } },
+  mr: { area: 1030700, coords: { lat: 21.0, lng: -10.9, zoom: 4 } },
+  mu: { area: 2040, coords: { lat: -20.3, lng: 57.6, zoom: 9 } },
+  ma: { area: 446550, coords: { lat: 31.8, lng: -7.1, zoom: 5 } },
+  mz: { area: 801590, coords: { lat: -18.7, lng: 35.5, zoom: 4 } },
+  na: { area: 825615, coords: { lat: -22.0, lng: 17.1, zoom: 4 } },
+  ne: { area: 1267000, coords: { lat: 17.6, lng: 8.1, zoom: 4 } },
+  ng: { area: 923768, coords: { lat: 9.1, lng: 8.7, zoom: 4 } },
+  rw: { area: 26338, coords: { lat: -1.9, lng: 29.9, zoom: 7 } },
+  st: { area: 964, coords: { lat: 0.2, lng: 6.6, zoom: 9 } },
+  sn: { area: 196722, coords: { lat: 14.5, lng: -14.5, zoom: 5 } },
+  sc: { area: 452, coords: { lat: -4.7, lng: 55.5, zoom: 9 } },
+  sl: { area: 71740, coords: { lat: 8.5, lng: -11.8, zoom: 6 } },
+  so: { area: 637657, coords: { lat: 5.2, lng: 46.2, zoom: 5 } },
+  za: { area: 1221037, coords: { lat: -30.6, lng: 22.9, zoom: 4 } },
+  ss: { area: 619745, coords: { lat: 7.9, lng: 30.2, zoom: 5 } },
+  sd: { area: 1886068, coords: { lat: 15.6, lng: 32.5, zoom: 4 } },
+  tz: { area: 947303, coords: { lat: -6.4, lng: 34.9, zoom: 5 } },
+  tg: { area: 56785, coords: { lat: 8.6, lng: 0.8, zoom: 6 } },
+  tn: { area: 163610, coords: { lat: 33.9, lng: 9.5, zoom: 5 } },
+  ug: { area: 241550, coords: { lat: 1.4, lng: 32.3, zoom: 5 } },
+  zm: { area: 752618, coords: { lat: -13.1, lng: 27.9, zoom: 5 } },
+  zw: { area: 390757, coords: { lat: -19.0, lng: 29.2, zoom: 5 } },
+  jp: { area: 377975, coords: { lat: 36.2, lng: 138.3, zoom: 4 } },
+  kr: { area: 100210, coords: { lat: 35.9, lng: 127.8, zoom: 6 } },
+  in: { area: 3287263, coords: { lat: 20.6, lng: 79.1, zoom: 4 } },
+  cn: { area: 9596961, coords: { lat: 35.9, lng: 104.2, zoom: 3 } },
+  sa: { area: 2149690, coords: { lat: 24.7, lng: 45.7, zoom: 4 } },
+  af: { area: 652230, coords: { lat: 33.9, lng: 67.7, zoom: 5 } },
+  am: { area: 29743, coords: { lat: 40.1, lng: 45.0, zoom: 7 } },
+  az: { area: 86600, coords: { lat: 40.1, lng: 47.6, zoom: 6 } },
+  bh: { area: 765, coords: { lat: 26.0, lng: 50.6, zoom: 9 } },
+  bd: { area: 148460, coords: { lat: 23.7, lng: 90.4, zoom: 6 } },
+  bt: { area: 38394, coords: { lat: 27.5, lng: 90.4, zoom: 7 } },
+  bn: { area: 5765, coords: { lat: 4.5, lng: 114.7, zoom: 8 } },
+  cy: { area: 9251, coords: { lat: 35.1, lng: 33.4, zoom: 8 } },
+  ge: { area: 69700, coords: { lat: 42.3, lng: 43.4, zoom: 6 } },
+  id: { area: 1904569, coords: { lat: -0.8, lng: 113.9, zoom: 4 } },
+  ir: { area: 1648195, coords: { lat: 32.4, lng: 53.7, zoom: 4 } },
+  iq: { area: 438317, coords: { lat: 33.2, lng: 43.7, zoom: 5 } },
+  il: { area: 22072, coords: { lat: 31.0, lng: 35.0, zoom: 7 } },
+  jo: { area: 89342, coords: { lat: 30.6, lng: 36.2, zoom: 6 } },
+  kz: { area: 2724900, coords: { lat: 48.0, lng: 67.0, zoom: 4 } },
+  kp: { area: 120538, coords: { lat: 40.3, lng: 127.5, zoom: 5 } },
+  kw: { area: 17818, coords: { lat: 29.3, lng: 47.5, zoom: 7 } },
+  kg: { area: 199951, coords: { lat: 41.2, lng: 74.8, zoom: 5 } },
+  la: { area: 236800, coords: { lat: 19.9, lng: 102.5, zoom: 5 } },
+  lb: { area: 10452, coords: { lat: 33.9, lng: 35.5, zoom: 8 } },
+  my: { area: 330803, coords: { lat: 2.6, lng: 112.5, zoom: 5 } },
+  mv: { area: 300, coords: { lat: 3.2, lng: 73.2, zoom: 8 } },
+  mn: { area: 1564116, coords: { lat: 46.9, lng: 103.8, zoom: 4 } },
+  mm: { area: 676578, coords: { lat: 17.1, lng: 96.7, zoom: 5 } },
+  np: { area: 147516, coords: { lat: 28.4, lng: 84.1, zoom: 6 } },
+  om: { area: 309500, coords: { lat: 22.0, lng: 57.5, zoom: 5 } },
+  pk: { area: 881913, coords: { lat: 30.4, lng: 69.3, zoom: 4 } },
+  ph: { area: 300000, coords: { lat: 12.9, lng: 121.8, zoom: 5 } },
+  qa: { area: 11586, coords: { lat: 25.4, lng: 51.2, zoom: 8 } },
+  sg: { area: 734, coords: { lat: 1.4, lng: 103.8, zoom: 10 } },
+  lk: { area: 65610, coords: { lat: 7.9, lng: 80.8, zoom: 6 } },
+  sy: { area: 185180, coords: { lat: 34.8, lng: 38.8, zoom: 5 } },
+  tw: { area: 36197, coords: { lat: 23.7, lng: 121.0, zoom: 7 } },
+  tj: { area: 143100, coords: { lat: 38.9, lng: 71.3, zoom: 5 } },
+  th: { area: 513120, coords: { lat: 15.9, lng: 101.0, zoom: 5 } },
+  tl: { area: 14874, coords: { lat: -8.9, lng: 125.7, zoom: 7 } },
+  tr: { area: 783562, coords: { lat: 38.9, lng: 35.2, zoom: 5 } },
+  tm: { area: 488100, coords: { lat: 39.0, lng: 59.6, zoom: 5 } },
+  ae: { area: 83600, coords: { lat: 23.4, lng: 53.8, zoom: 6 } },
+  uz: { area: 448978, coords: { lat: 41.4, lng: 63.9, zoom: 5 } },
+  vn: { area: 331212, coords: { lat: 14.1, lng: 108.3, zoom: 5 } },
+  ye: { area: 527968, coords: { lat: 15.6, lng: 48.5, zoom: 5 } },
+  ps: { area: 6020, coords: { lat: 31.9, lng: 35.3, zoom: 8 } },
+  de: { area: 357022, coords: { lat: 51.2, lng: 10.5, zoom: 5 } },
+  fr: { area: 551695, coords: { lat: 46.2, lng: 2.2, zoom: 5 } },
+  it: { area: 301340, coords: { lat: 42.8, lng: 12.6, zoom: 5 } },
+  gb: { area: 243610, coords: { lat: 55.4, lng: -3.4, zoom: 5 } },
+  es: { area: 505992, coords: { lat: 40.5, lng: -3.7, zoom: 5 } },
+  al: { area: 28748, coords: { lat: 41.2, lng: 20.2, zoom: 7 } },
+  ad: { area: 468, coords: { lat: 42.5, lng: 1.6, zoom: 10 } },
+  at: { area: 83879, coords: { lat: 47.5, lng: 14.6, zoom: 6 } },
+  by: { area: 207600, coords: { lat: 53.7, lng: 28.0, zoom: 5 } },
+  be: { area: 30528, coords: { lat: 50.5, lng: 4.5, zoom: 7 } },
+  ba: { area: 51197, coords: { lat: 44.2, lng: 17.6, zoom: 6 } },
+  bg: { area: 110994, coords: { lat: 42.7, lng: 25.5, zoom: 6 } },
+  hr: { area: 56594, coords: { lat: 45.1, lng: 16.4, zoom: 6 } },
+  cz: { area: 78867, coords: { lat: 49.8, lng: 15.5, zoom: 6 } },
+  dk: { area: 42933, coords: { lat: 56.3, lng: 9.5, zoom: 6 } },
+  eng: { area: 130279, coords: { lat: 52.4, lng: -1.5, zoom: 6 } },
+  ee: { area: 45227, coords: { lat: 58.6, lng: 25.0, zoom: 6 } },
+  fi: { area: 338455, coords: { lat: 64.0, lng: 26.0, zoom: 4 } },
+  gr: { area: 131957, coords: { lat: 39.1, lng: 22.0, zoom: 5 } },
+  hu: { area: 93028, coords: { lat: 47.2, lng: 19.5, zoom: 6 } },
+  is: { area: 103000, coords: { lat: 65.0, lng: -18.0, zoom: 5 } },
+  ie: { area: 70273, coords: { lat: 53.2, lng: -8.2, zoom: 6 } },
+  xk: { area: 10887, coords: { lat: 42.6, lng: 20.9, zoom: 7 } },
+  lv: { area: 64589, coords: { lat: 56.9, lng: 24.6, zoom: 6 } },
+  li: { area: 160, coords: { lat: 47.2, lng: 9.6, zoom: 10 } },
+  lt: { area: 65300, coords: { lat: 56.0, lng: 24.0, zoom: 6 } },
+  lu: { area: 2586, coords: { lat: 49.8, lng: 6.1, zoom: 9 } },
+  mt: { area: 316, coords: { lat: 35.9, lng: 14.4, zoom: 10 } },
+  md: { area: 33843, coords: { lat: 47.4, lng: 28.4, zoom: 7 } },
+  mc: { area: 2, coords: { lat: 43.7, lng: 7.4, zoom: 12 } },
+  me: { area: 13812, coords: { lat: 42.8, lng: 19.4, zoom: 7 } },
+  nl: { area: 41543, coords: { lat: 52.3, lng: 5.3, zoom: 6 } },
+  mk: { area: 25713, coords: { lat: 41.6, lng: 21.7, zoom: 7 } },
+  no: { area: 385207, coords: { lat: 64.6, lng: 17.0, zoom: 4 } },
+  pl: { area: 312696, coords: { lat: 52.1, lng: 19.4, zoom: 5 } },
+  pt: { area: 92090, coords: { lat: 39.4, lng: -8.2, zoom: 6 } },
+  ro: { area: 238397, coords: { lat: 45.9, lng: 24.9, zoom: 5 } },
+  sm: { area: 61, coords: { lat: 43.9, lng: 12.5, zoom: 11 } },
+  scot: { area: 77933, coords: { lat: 56.5, lng: -4.2, zoom: 6 } },
+  rs: { area: 88361, coords: { lat: 44.0, lng: 21.0, zoom: 6 } },
+  sk: { area: 49035, coords: { lat: 48.7, lng: 19.7, zoom: 6 } },
+  si: { area: 20273, coords: { lat: 46.1, lng: 14.8, zoom: 7 } },
+  se: { area: 450295, coords: { lat: 60.1, lng: 18.6, zoom: 4 } },
+  ch: { area: 41285, coords: { lat: 46.8, lng: 8.2, zoom: 7 } },
+  ua: { area: 603628, coords: { lat: 48.4, lng: 31.2, zoom: 5 } },
+  va: { area: 0.49, coords: { lat: 41.9, lng: 12.5, zoom: 14 } },
+  wale: { area: 20779, coords: { lat: 52.1, lng: -3.8, zoom: 7 } },
+  'n-ire': { area: 14130, coords: { lat: 54.6, lng: -6.7, zoom: 7 } },
+  us: { area: 9833517, coords: { lat: 38.0, lng: -97.0, zoom: 3 } },
+  ca: { area: 9984670, coords: { lat: 56.1, lng: -96.3, zoom: 3 } },
+  mx: { area: 1964375, coords: { lat: 23.6, lng: -102.5, zoom: 4 } },
+  jm: { area: 10991, coords: { lat: 18.1, lng: -77.3, zoom: 8 } },
+  cr: { area: 51100, coords: { lat: 9.7, lng: -83.8, zoom: 7 } },
+  ag: { area: 442, coords: { lat: 17.1, lng: -61.8, zoom: 10 } },
+  bs: { area: 13943, coords: { lat: 25.0, lng: -78.0, zoom: 7 } },
+  bb: { area: 430, coords: { lat: 13.2, lng: -59.6, zoom: 10 } },
+  bz: { area: 22966, coords: { lat: 17.2, lng: -88.5, zoom: 7 } },
+  cu: { area: 109884, coords: { lat: 22.0, lng: -79.5, zoom: 6 } },
+  dm: { area: 751, coords: { lat: 15.4, lng: -61.4, zoom: 10 } },
+  do: { area: 48671, coords: { lat: 18.7, lng: -70.2, zoom: 6 } },
+  sv: { area: 21041, coords: { lat: 13.8, lng: -88.9, zoom: 7 } },
+  gd: { area: 349, coords: { lat: 12.1, lng: -61.7, zoom: 10 } },
+  gt: { area: 108889, coords: { lat: 15.8, lng: -90.2, zoom: 6 } },
+  ht: { area: 27750, coords: { lat: 18.9, lng: -72.7, zoom: 7 } },
+  hn: { area: 112492, coords: { lat: 15.2, lng: -86.2, zoom: 6 } },
+  ni: { area: 130373, coords: { lat: 12.9, lng: -85.2, zoom: 6 } },
+  pa: { area: 75417, coords: { lat: 8.5, lng: -80.8, zoom: 6 } },
+  kn: { area: 261, coords: { lat: 17.3, lng: -62.7, zoom: 10 } },
+  lc: { area: 617, coords: { lat: 13.9, lng: -60.9, zoom: 10 } },
+  vc: { area: 389, coords: { lat: 12.9, lng: -61.3, zoom: 10 } },
+  tt: { area: 5131, coords: { lat: 10.7, lng: -61.2, zoom: 8 } },
+  br: { area: 8515767, coords: { lat: -14.2, lng: -51.9, zoom: 3 } },
+  ar: { area: 2780400, coords: { lat: -38.4, lng: -63.6, zoom: 3 } },
+  cl: { area: 756102, coords: { lat: -35.7, lng: -71.5, zoom: 4 } },
+  co: { area: 1141748, coords: { lat: 4.6, lng: -74.3, zoom: 4 } },
+  pe: { area: 1285216, coords: { lat: -9.2, lng: -75.0, zoom: 4 } },
+  bo: { area: 1098581, coords: { lat: -16.3, lng: -63.6, zoom: 4 } },
+  ec: { area: 256370, coords: { lat: -1.8, lng: -78.2, zoom: 5 } },
+  gy: { area: 214969, coords: { lat: 4.9, lng: -58.9, zoom: 5 } },
+  py: { area: 406752, coords: { lat: -23.4, lng: -58.4, zoom: 5 } },
+  sr: { area: 163820, coords: { lat: 3.9, lng: -56.0, zoom: 6 } },
+  uy: { area: 176215, coords: { lat: -32.5, lng: -55.8, zoom: 6 } },
+  ve: { area: 916445, coords: { lat: 6.4, lng: -66.6, zoom: 5 } },
+  au: { area: 7692024, coords: { lat: -25.3, lng: 133.8, zoom: 3 } },
+  nz: { area: 268021, coords: { lat: -40.9, lng: 174.9, zoom: 5 } },
+  fj: { area: 18274, coords: { lat: -17.7, lng: 178.1, zoom: 7 } },
+  pg: { area: 462840, coords: { lat: -6.3, lng: 143.9, zoom: 5 } },
+  pw: { area: 459, coords: { lat: 7.5, lng: 134.6, zoom: 9 } },
+  ki: { area: 811, coords: { lat: 1.9, lng: -157.4, zoom: 8 } },
+  mh: { area: 181, coords: { lat: 7.1, lng: 171.2, zoom: 8 } },
+  fm: { area: 702, coords: { lat: 6.9, lng: 158.2, zoom: 8 } },
+  nr: { area: 21, coords: { lat: -0.5, lng: 166.9, zoom: 11 } },
+  ws: { area: 2842, coords: { lat: -13.8, lng: -172.1, zoom: 8 } },
+  sb: { area: 28896, coords: { lat: -9.6, lng: 160.2, zoom: 7 } },
+  to: { area: 747, coords: { lat: -21.2, lng: -175.2, zoom: 9 } },
+  tv: { area: 26, coords: { lat: -8.5, lng: 179.2, zoom: 11 } },
+  vu: { area: 12189, coords: { lat: -15.4, lng: 166.9, zoom: 7 } },
+  gl: { area: 2166086, coords: { lat: 71.7, lng: -42.6, zoom: 3 } },
+  pr: { area: 9104, coords: { lat: 18.2, lng: -66.6, zoom: 8 } },
+  guam: { area: 544, coords: { lat: 13.4, lng: 144.8, zoom: 9 } },
+  fk: { area: 12173, coords: { lat: -51.8, lng: -59.5, zoom: 7 } },
+  hk: { area: 2755, coords: { lat: 22.4, lng: 114.1, zoom: 9 } },
+  mo: { area: 115, coords: { lat: 22.2, lng: 113.5, zoom: 11 } },
+  fo: { area: 1399, coords: { lat: 62.0, lng: -7.0, zoom: 8 } },
+  ax: { area: 1580, coords: { lat: 60.2, lng: 20.1, zoom: 8 } },
+  gf: { area: 83534, coords: { lat: 3.9, lng: -53.1, zoom: 6 } },
+  gg: { area: 78, coords: { lat: 49.5, lng: -2.5, zoom: 11 } },
+  im: { area: 572, coords: { lat: 54.2, lng: -4.5, zoom: 9 } },
+  je: { area: 118, coords: { lat: 49.2, lng: -2.1, zoom: 11 } },
+  gi: { area: 6.8, coords: { lat: 36.1, lng: -5.4, zoom: 12 } },
+  // cities
+  'chicago-city': { area: 606, coords: { lat: 41.8, lng: -87.6, zoom: 10 } },
+  'amsterdam-city': { area: 219, coords: { lat: 52.4, lng: 4.9, zoom: 11 } },
+  'tokyo-city': { area: 2194, coords: { lat: 35.7, lng: 139.7, zoom: 9 } },
+  'washington-dc-city': { area: 177, coords: { lat: 38.9, lng: -77.0, zoom: 11 } },
+  'sao-paulo-city': { area: 1521, coords: { lat: -23.5, lng: -46.6, zoom: 10 } },
+  'la-city': { area: 498, coords: { lat: 34.1, lng: -118.2, zoom: 10 } },
+  'moscow-city': { area: 2562, coords: { lat: 55.8, lng: 37.6, zoom: 9 } },
+  'paris-city': { area: 105, coords: { lat: 48.9, lng: 2.3, zoom: 11 } },
+  'seoul-city': { area: 605, coords: { lat: 37.6, lng: 127.0, zoom: 10 } },
+  'toronto-city': { area: 631, coords: { lat: 43.7, lng: -79.4, zoom: 10 } },
+  'ny-city': { area: 778, coords: { lat: 40.7, lng: -73.9, zoom: 10 } },
+  'rome-city': { area: 5363, coords: { lat: 41.9, lng: 12.5, zoom: 10 } },
+  'sydney-city': { area: 12368, coords: { lat: -33.9, lng: 151.2, zoom: 9 } },
 };
+
+// Merge into flat LAND_AREAS and MAP_COORDS
+const LAND_AREAS = {};
+const MAP_COORDS = {};
+for (const [id, d] of Object.entries(FLAG_DATA)) {
+  LAND_AREAS[id] = d.area;
+  if (d.coords) MAP_COORDS[id] = d.coords;
+}
+
+// Fill in remaining land areas that aren't in FLAG_DATA
+const EXTRA_AREAS = {
+  'aq-graham': 14200000, 'aq-true-south': 14200000, 'aq-graham2024': 14200000,
+  'aq-smith': 14200000, 'aq-dave': 14200000, 'aq-tre': 14200000,
+  'aq-ross': 450000, 'br-antterr': 1709000, 'aq-leroi': 14200000,
+  'aq-cooptuck': 14200000, 'aq-rrs': 14200000, 'aq-rus200': 14200000,
+  'aq-ava': 14200000, 'aq-amund': 0.02, 'aq-palm': 0.01,
+  'aq-arturo': 0.01, 'aq-castilla': 0.01, 'aus-aq': 5896500,
+  'scar-aq': 14200000, 'riyca-aq': 14200000,
+  'al-state': 135767, 'ak-state': 1717854, 'az-state': 295234, 'ar-state': 137732,
+  'ca-state': 423967, 'co-state': 269601, 'ct-state': 14357, 'de-state': 6446,
+  'fl-state': 170312, 'ga-state': 153910, 'hi-state': 28313, 'id-state': 216443,
+  'il-state': 149995, 'in-state': 94326, 'ia-state': 145746, 'ks-state': 213100,
+  'kt-state': 104656, 'la-state': 135659, 'me-state': 91633, 'md-state': 32131,
+  'ma-state': 27336, 'mi-state': 250487, 'mn-state': 225163, 'ms-state': 125438,
+  'mo-state': 180540, 'mt-state': 380831, 'nb-state': 200330, 'nv-state': 286380,
+  'nh-state': 24214, 'nj-state': 22591, 'nm-state': 314917, 'ny-state': 141297,
+  'nc-state': 139391, 'nd-state': 183108, 'oh-state': 116098, 'ok-state': 181037,
+  'or-state': 254799, 'pe-state': 119280, 'ri-state': 4001, 'sc-state': 82933,
+  'sd-state': 199729, 'tn-state': 109153, 'tx-state': 695662, 'ut-state': 219882,
+  'vt-state': 24906, 'vi-state': 110787, 'wa-state': 184661, 'wv-state': 62756,
+  'wi-state': 169635, 'wy-state': 253335,
+  midway: 15.5, wake: 13.86, johnston: 2.67, kingman: 0.03, palmyra: 11.9,
+  'hbj-islands': 9.2, navassa: 5.4,
+  'on-prov': 1076395, 'qc-prov': 1542056, 'bc-prov': 944735, 'nu-terr': 2093190,
+  'ns-prov': 55284, 'nb-prov': 72908, 'mb-prov': 647797, 'pe-prov': 5660,
+  'sk-prov': 651900, 'nl-prov': 405212, 'yt-terr': 482443, 'nt-terr': 1346106,
+  'ab-prov': 661848,
+  nsw: 800150, vtria: 227416, queen: 1729742, 's-aus': 984321,
+  'w-aus': 2527013, tas: 68401, act: 2358, 'nt-aus': 1347791,
+  hamburg: 755, berlin: 891, schleswis: 15804, brem: 420, 'l-sax': 47710,
+  'sax-anh': 20440, brand: 29654, sax: 18450, thur: 16202, bav: 70542,
+  'baden-wert': 35748, saar: 2572, 'rhine-pal': 19858, hes: 21116,
+  'n-rhine': 34113, meckle: 23295,
+  acre: 164123, alago: 27843, amapa: 142815, amazon: 1559168, bahia: 564733,
+  ceara: 148894, 'esp-santo': 46095, goias: 340111, maran: 331983, 'mat-gros': 903207,
+  'mat-sul': 357145, 'min-ger': 586528, para: 1247689, paraiba: 56468, parana: 199315,
+  pernam: 98312, piaui: 251755, 'rio-jane': 43750, 'grande-nort': 52811,
+  'grande-sul': 281730, rondon: 237576, rorai: 223644, 'santa-catar': 95730,
+  'sao-paul': 248219, sergip: 21910, tocant: 277621, 'fed-dist': 5761,
+  'ussr-rus': 17125200, 'ussr-ukr': 603700, 'ussr-bela': 207600, 'ussr-uzb': 447400,
+  'ussr-kaz': 2717300, 'ussr-geo': 69700, 'ussr-aze': 86600, 'ussr-lit': 65200,
+  'ussr-mol': 33843, 'ussr-lat': 64589, 'ussr-kyr': 200105, 'ussr-taj': 143100,
+  'ussr-arm': 29743, 'ussr-tur': 491210, 'ussr-est': 45227, 'ussr-fin': 172400,
+  'ussr-abk': 8665, 'ussr-buk': 182193, 'ussr-kho': 62200, 'assr-mol': 8288,
+  'assr-taj': 143100, 'ussr-cau': 186043, 'assr-tur': 1707003,
+  'kuala-city': 243, 'barcelona-city': 101, 'peters-city': 1439, 'jew-city': 125,
+  'dhabi-city': 972, 'dubai-city': 1491, 'ulaan-city': 4704, 'kath-city': 49,
+  'nuuk-city': 49, 'vaduz-city': 17, 'quebec-city': 452, 'ottawa-city': 2790,
+  'dayton-city': 148, 'denver-city': 401, 'indianapolis-city': 953,
+  'kansas-city': 826, 'miami-city': 143, 'houston-city': 1700, 'dallas-city': 999,
+  'alexandria-city': 15, 'ceuta-city': 18.5, 'melilla-city': 12.3,
+  'tulsa-city': 517, 'tampa-city': 455,
+  'za-1928': 1221037, rhode: 390757, 'br-somal': 176120, 'green-lib': 1759540,
+  'maur-1959': 1030700, 'eth-emp': 1104300, 'alm-cali': 2300000, 'rwa-1961': 26338,
+  zai: 2344858, 'mala-2010': 118484,
+  ussr: 22402200, qing: 13100000, 'rus-emp': 22800000, 'n-viet': 158000,
+  's-viet': 173809, 'war-jpn': 7400000, 'mug-emp': 4000000, 'nor-yem': 195000,
+  'sou-yem': 332970, 'syr-1980': 185180, 'per-1907': 1648195, 'mong-emp': 24000000,
+  'east-germany': 108333, yugoslavia: 255804, venice: 70000, 'holyroman-emp': 1000000,
+  'de-empire': 540857, 'au-hu': 676615, 'fr-fr': 551695, prus: 348780,
+  'otto-emp': 5200000, 'bela-1991': 207600, 'brit-emp': 35500000, 'span-emp': 20000000,
+  'ast-emp': 5300000, 'pol-lit': 1050000, 'duchy-lit': 930000,
+  'new-france': 8000000, 'us-1776': 2278000, 'na-1959': 993, 'na-1986': 960,
+  'first-mx': 4925000, 'first-csa': 1998000, 'vermont-rep': 24906, 'can-1957': 9984670,
+  'gran-colombia': 2500000, 'bra-emp': 8515767, 'ven-1859': 916445,
+  'first-ven': 900000, 'scnd-ven': 900000, 'thrd-ven': 900000,
+  'ecu-1845': 256370, 'sur-1959': 163820,
+  yt: 374, re: 2512, cx: 135, cc: 14, nf: 35, ax: 1580, gp: 1628, mq: 1128,
+  pf: 4167, bl: 21, mf: 53, pm: 242, wf: 142, nc: 18575, tf: 7747,
+  aw: 180, cw: 444, sx: 34, bq: 328, eustat: 21, ck: 236, nu: 260, tk: 12,
+  ai: 91, bm: 54, vg: 151, ky: 264, io: 640, ms: 102, pn: 47, gs: 3903,
+  tc: 948, sh: 122, ascen: 88, trist: 98, as: 199, mp: 464, vi: 347,
+  abkh: 8660, arts: 3170, 'turk-cyp': 3355, 'west-sahar': 266000,
+  somland: 176120, 's-osset': 3900, tranis: 4163, kurd: 46862, sark: 5.5,
+  easter: 163.6, azad: 0,
+  un: 510100000, eu: 4233262, olympics: 510100000, nato: 25500000,
+  'au-org': 30370000, eac: 4940000, oas: 42500000, turk: 4880000,
+  une: 510100000, arab: 13900000, caricom: 462000,
+  'pnm-bunau': 75417, 'ang-2003': 1246700, 'eu-rem': 4233262,
+  'ru-2022': 17098246, 'de-lehr': 357022, 'gua-red': 1628,
+  'earth-ifpe': 510100000, 'earth-john': 510100000, 'earth-tijs': 510100000,
+  'earth-james': 510100000, 'earth-kirk': 510100000, 'world-paul2006': 510100000,
+  'world-paul1988': 510100000, 'one-world': 510100000,
+  'mars-paine': 144798500, 'mars-lee': 144798500,
+  'moon-society': 37932000, 'moon-albert': 37932000, 'space-force': 9833517,
+  'free-christ': 0.034, ladon: 1.0, moloss: 0.045, 'c-land': 0.00055, 'west-aq': 620000,
+  'a-syria': 120000, sami: 388350, cherok: 179000, Navajo: 71000,
+  maori: 268021, smom: 0.007,
+};
+for (const [k, v] of Object.entries(EXTRA_AREAS)) {
+  if (!(k in LAND_AREAS)) LAND_AREAS[k] = v;
+}
+
+// Build sorted rank list (descending area, only flags with area > 0)
+const AREA_RANK_LIST = FLAGS
+  .filter(f => (LAND_AREAS[f.id] || 0) > 0)
+  .sort((a, b) => (LAND_AREAS[b.id] || 0) - (LAND_AREAS[a.id] || 0));
+
+function getAreaRank(flagId) {
+  const idx = AREA_RANK_LIST.findIndex(f => f.id === flagId);
+  return idx >= 0 ? { rank: idx + 1, total: AREA_RANK_LIST.length } : null;
+}
 
 const ENABLED_GROUPS = FLAG_GROUPS.filter((group) => group.enabled);
 const DEFAULT_CATEGORIES = ENABLED_GROUPS.map((group) => group.label);
+
+// FILTER_SECTIONS defines the canonical display order for mastery
 const FILTER_SECTIONS = [
   { label: 'Continents', ids: ['africa', 'asia', 'europe', 'north-america', 'south-america', 'oceania', 'antarctica'] },
   { label: 'Regions', ids: ['us-states', 'canadian-prov-terr', 'aussie-states', 'german-states', 'territories-dependencies', 'ussr-rep', 'us-islands', 'bra-states'] },
@@ -2299,12 +2333,23 @@ const FILTER_SECTIONS = [
   { label: 'Other', ids: ['organizations', 'unofficial', 'other-icons', 'space', 'micronations', 'maritime-signal'] },
 ];
 
+// Build category → section label map
+const CATEGORY_TO_SECTION = {};
+for (const section of FILTER_SECTIONS) {
+  for (const id of section.ids) {
+    const group = ENABLED_GROUPS.find(g => g.id === id);
+    if (group) CATEGORY_TO_SECTION[group.label] = section.label;
+  }
+}
+
 const state = {
   mode: localStorage.getItem('flagcraftle-mode') || 'easy',
   current: null,
   currentEffect: '',
   quizPair: [],
   quizLocked: false,
+  quizStreak: Number(localStorage.getItem('flagcraftle-quiz-streak') || 0),
+  quizBestStreak: Number(localStorage.getItem('flagcraftle-quiz-best') || 0),
   daily: getDailyFlag(),
   playStreak: 0,
   isLocked: false,
@@ -2361,11 +2406,29 @@ const elements = {
   quizChoiceB: document.querySelector('#quiz-choice-b'),
   quizFeedback: document.querySelector('#quiz-feedback'),
   quizNext: document.querySelector('#quiz-next'),
+  quizStreakNum: document.querySelector('#quiz-streak-num'),
+  quizStreakBest: document.querySelector('#quiz-streak-best'),
   completionPercent: document.querySelector('#completion-percent'),
   completionCount: document.querySelector('#completion-count'),
   progressFill: document.querySelector('#progress-fill'),
   categoryFilters: document.querySelector('#category-filters'),
   masteryGrid: document.querySelector('#mastery-grid'),
+  flagModalBackdrop: document.querySelector('#flag-modal-backdrop'),
+  flagModalClose: document.querySelector('#flag-modal-close'),
+  flagModalTitle: document.querySelector('#flag-modal-title'),
+  flagModalCategory: document.querySelector('#flag-modal-category'),
+  flagModalImg: document.querySelector('#flag-modal-img'),
+  flagModalArea: document.querySelector('#flag-modal-area'),
+  flagModalAreaSub: document.querySelector('#flag-modal-area-sub'),
+  flagModalRank: document.querySelector('#flag-modal-rank'),
+  flagModalRankSub: document.querySelector('#flag-modal-rank-sub'),
+  flagModalAttempts: document.querySelector('#flag-modal-attempts'),
+  flagModalAccPct: document.querySelector('#flag-modal-acc-pct'),
+  flagModalAccGood: document.querySelector('#flag-modal-acc-good'),
+  flagModalAccBad: document.querySelector('#flag-modal-acc-bad'),
+  flagModalAccCorrect: document.querySelector('#flag-modal-acc-correct'),
+  flagModalAccIncorrect: document.querySelector('#flag-modal-acc-incorrect'),
+  flagModalMapFrame: document.querySelector('#flag-modal-map-frame'),
 };
 
 function sample(array, count) {
@@ -2411,6 +2474,14 @@ function saveDailyCorrect() {
   localStorage.setItem('flagcraftle-daily-correct', JSON.stringify([...state.dailyCorrect]));
 }
 
+function saveQuizStreak() {
+  localStorage.setItem('flagcraftle-quiz-streak', String(state.quizStreak));
+  localStorage.setItem('flagcraftle-quiz-best', String(state.quizBestStreak));
+  elements.quizStreakNum.textContent = state.quizStreak;
+  const best = state.quizBestStreak;
+  elements.quizStreakBest.textContent = best > 0 ? `best: ${best}` : '';
+}
+
 function resetPlayStreak() {
   state.playStreak = 0;
   elements.score.textContent = state.playStreak;
@@ -2443,9 +2514,7 @@ function pruneCycleToSelected() {
 }
 
 function advanceRetryCounters() {
-  state.retryQueue.forEach((entry) => {
-    entry.dueIn -= 1;
-  });
+  state.retryQueue.forEach((entry) => { entry.dueIn -= 1; });
 }
 
 function takeDueRetry() {
@@ -2472,7 +2541,7 @@ function chooseRound(statusMessage = '', options = {}) {
     elements.categoryLabel.textContent = state.hideCategory ? '???' : 'No groups selected';
     elements.flagDisplay.innerHTML = '<div class="flag-fallback">Pick at least one flag type in the checklist.</div>';
     elements.easyControls.innerHTML = '';
-    elements.feedback.textContent = 'Choose a flag type under “How it plays” to start.';
+    elements.feedback.textContent = 'Choose a flag type under "How it plays" to start.';
     elements.hintText.textContent = 'No active flag groups.';
     return;
   }
@@ -2566,9 +2635,7 @@ function lockAfterGuess() {
   state.isLocked = true;
   elements.hardAnswer.disabled = true;
   elements.hardControls.querySelector('.combo-submit').disabled = true;
-  elements.easyControls.querySelectorAll('.answer-button').forEach((button) => {
-    button.disabled = true;
-  });
+  elements.easyControls.querySelectorAll('.answer-button').forEach((button) => { button.disabled = true; });
   hideCombo(elements.hardAnswer, elements.playComboMenu);
 }
 
@@ -2596,10 +2663,8 @@ function guess(answer) {
   const correct = normalize(answer) === normalize(state.current.name);
   lockAfterGuess();
   recordAttempt(state.current, correct);
-
   if (state.mode === 'easy') showEasyResult(answer, correct);
   else showHardResult(correct);
-
   let message = '';
   if (correct) {
     state.playStreak += 1;
@@ -2625,10 +2690,8 @@ function renderCombo(input, menu, query = '', pool = FLAGS) {
     .filter((flag) => normalize(flag.name).includes(normalizedQuery))
     .sort((a, b) => a.name.localeCompare(b.name))
     .slice(0, 40);
-
   menu.innerHTML = matches.length
-    ? matches.map((flag) => `
-      <button class="combo-option" type="button" data-answer="${flag.name}" role="option">${flag.name}</button>`).join('')
+    ? matches.map((flag) => `<button class="combo-option" type="button" data-answer="${flag.name}" role="option">${flag.name}</button>`).join('')
     : '<div class="combo-option" role="option">No matches</div>';
   menu.classList.remove('hidden');
   input.setAttribute('aria-expanded', 'true');
@@ -2688,7 +2751,7 @@ function accuracyFor(flag) {
 }
 
 function getQuizFlags() {
-  return FLAGS.filter((flag) => LAND_AREAS[flag.id] > 0);
+  return FLAGS.filter((flag) => (LAND_AREAS[flag.id] || 0) > 0);
 }
 
 function areaFor(flag) {
@@ -2704,7 +2767,6 @@ function chooseQuizRound(message = '', statusClass = '') {
     elements.quizFeedback.textContent = 'Add land-area data for at least two flags to play Quiz.';
     return;
   }
-
   let pair = sample(pool, 2);
   while (areaFor(pair[0]) === areaFor(pair[1])) pair = sample(pool, 2);
   state.quizPair = pair;
@@ -2736,6 +2798,14 @@ function answerQuiz(flagId) {
     if (button.dataset.answer === larger.id) button.classList.add('correct');
     else if (button.dataset.answer === flagId) button.classList.add('incorrect');
   });
+
+  if (correct) {
+    state.quizStreak += 1;
+    if (state.quizStreak > state.quizBestStreak) state.quizBestStreak = state.quizStreak;
+  } else {
+    state.quizStreak = 0;
+  }
+  saveQuizStreak();
 
   chooseQuizRound(
     `${correct ? 'Correct' : 'Not quite'} — ${larger.name} is larger by land area.`,
@@ -2791,7 +2861,6 @@ function answerStudy(answer) {
   state.studyLocked = true;
   const correct = normalize(answer) === normalize(state.studyCurrent.name);
   recordAttempt(state.studyCurrent, correct);
-
   elements.studyControls.querySelectorAll('.answer-button').forEach((button) => {
     button.disabled = true;
     if (normalize(button.dataset.answer) === normalize(answer)) {
@@ -2801,19 +2870,15 @@ function answerStudy(answer) {
       button.classList.add('correct');
     }
   });
-
-  if (correct) {
-    markMastered(state.studyCurrent);
-  } else {
-    renderMastery();
-  }
-
+  if (correct) markMastered(state.studyCurrent);
+  else renderMastery();
   chooseStudyRound(
     correct ? `Correct — ${state.studyCurrent.name}!` : `Not quite. That flag is ${state.studyCurrent.name}.`,
     correct ? 'success' : 'error'
   );
 }
 
+// ===== MASTERY with FILTER_SECTIONS ordering =====
 function renderMastery() {
   const masteredCount = FLAGS.filter((flag) => state.mastered.has(flag.id)).length;
   const percent = Math.round((masteredCount / FLAGS.length) * 100);
@@ -2822,46 +2887,68 @@ function renderMastery() {
   elements.progressFill.style.width = `${percent}%`;
 
   const visibleFlags = FLAGS.filter((flag) => state.visibleCategories.has(flag.category));
-  const groupedFlags = DEFAULT_CATEGORIES
-    .map((category) => ({
-      category,
-      flags: visibleFlags
-        .filter((flag) => flag.category === category)
-        .sort((a, b) => a.name.localeCompare(b.name)),
-    }))
-    .filter((group) => group.flags.length)
-    .sort((a, b) => a.category.localeCompare(b.category));
 
-  elements.masteryGrid.innerHTML = groupedFlags
-    .map((group) => `
-      <section class="mastery-category-section">
-        <h3 class="mastery-category-title">${group.category}</h3>
-        <div class="mastery-category-grid">
-          ${group.flags.map((flag) => {
-            const mastered = state.mastered.has(flag.id);
-            const accuracy = accuracyFor(flag);
-            const dailyIcon = state.dailyCorrect.has(flag.id) ? '<span class="daily-mastered" title="Solved as a daily flag">📅✓</span>' : '';
-            return `
-              <article class="mastery-card ${mastered ? 'mastered' : ''}">
-                <div class="mini-flag"><img src="${flag.image}" alt="${flag.name}" loading="lazy" /></div>
-                ${dailyIcon}
-                <div>
-                  <h3>${flag.name}</h3>
-                  <p>${flag.category}</p>
-                </div>
-                <span class="mastery-check ${mastered ? '' : 'not-mastered'}" aria-label="${mastered ? 'Mastered' : 'Not mastered'}">${mastered ? '✓' : '✕'}</span>
-                <div class="accuracy-wrap">
-                  <div class="accuracy-label"><span>${accuracy.correctPercent}% correct</span><span>${accuracy.correct}✓ / ${accuracy.incorrect}✕</span></div>
-                  <div class="accuracy-bar" aria-label="${flag.name} accuracy">
-                    <span class="accuracy-good" style="width: ${accuracy.correctPercent}%"></span>
-                    <span class="accuracy-bad" style="width: ${accuracy.incorrectPercent}%"></span>
-                  </div>
-                </div>
-              </article>`;
-          }).join('')}
-        </div>
-      </section>`)
-    .join('');
+  // Build category → flags map
+  const categoryMap = {};
+  for (const flag of visibleFlags) {
+    if (!categoryMap[flag.category]) categoryMap[flag.category] = [];
+    categoryMap[flag.category].push(flag);
+  }
+  for (const cat of Object.keys(categoryMap)) {
+    categoryMap[cat].sort((a, b) => a.name.localeCompare(b.name));
+  }
+
+  // Render sections in FILTER_SECTIONS order
+  let html = '';
+  for (const section of FILTER_SECTIONS) {
+    const sectionCategories = section.ids
+      .map(id => ENABLED_GROUPS.find(g => g.id === id))
+      .filter(Boolean)
+      .map(g => g.label)
+      .filter(cat => categoryMap[cat] && categoryMap[cat].length > 0);
+
+    if (!sectionCategories.length) continue;
+
+    const categorySections = sectionCategories.map((category) => {
+      const flags = categoryMap[category];
+      const cards = flags.map((flag) => {
+        const mastered = state.mastered.has(flag.id);
+        const accuracy = accuracyFor(flag);
+        const dailyIcon = state.dailyCorrect.has(flag.id)
+          ? '<span class="daily-mastered" title="Solved as a daily flag">📅✓</span>' : '';
+        return `
+          <article class="mastery-card ${mastered ? 'mastered' : ''}" data-flag-id="${flag.id}" role="button" tabindex="0" aria-label="View details for ${flag.name}">
+            <div class="mini-flag"><img src="${flag.image}" alt="${flag.name}" loading="lazy" /></div>
+            ${dailyIcon}
+            <div>
+              <h3>${flag.name}</h3>
+              <p>${flag.category}</p>
+            </div>
+            <span class="mastery-check ${mastered ? '' : 'not-mastered'}" aria-label="${mastered ? 'Mastered' : 'Not mastered'}">${mastered ? '✓' : '✕'}</span>
+            <div class="accuracy-wrap">
+              <div class="accuracy-label"><span>${accuracy.correctPercent}% correct</span><span>${accuracy.correct}✓ / ${accuracy.incorrect}✕</span></div>
+              <div class="accuracy-bar" aria-label="${flag.name} accuracy">
+                <span class="accuracy-good" style="width: ${accuracy.correctPercent}%"></span>
+                <span class="accuracy-bad" style="width: ${accuracy.incorrectPercent}%"></span>
+              </div>
+            </div>
+          </article>`;
+      }).join('');
+      return `
+        <section class="mastery-category-section">
+          <h3 class="mastery-category-title">${category}</h3>
+          <div class="mastery-category-grid">${cards}</div>
+        </section>`;
+    }).join('');
+
+    html += `
+      <div class="mastery-section-group">
+        <p class="mastery-section-group-title">${section.label}</p>
+        ${categorySections}
+      </div>`;
+  }
+
+  elements.masteryGrid.innerHTML = html;
 }
 
 function renderDailyGuesses() {
@@ -2883,9 +2970,7 @@ function renderDaily() {
   renderFlag(elements.dailyFlagDisplay, state.daily, 'Daily flag');
   renderDailyGuesses();
   lockDailyInput(state.dailyState.solved || state.dailyState.failed || state.dailyState.guesses.length >= 6);
-
   if (!state.dailyState.solved && state.dailyState.guesses.length >= 6) state.dailyState.failed = true;
-
   if (state.dailyState.solved) {
     elements.dailyFeedback.textContent = `Solved today — ${state.daily.name}!`;
     elements.dailyFeedback.className = 'feedback success';
@@ -2904,7 +2989,6 @@ function submitDaily(answer) {
   recordAttempt(state.daily, correct);
   state.dailyState.guesses.push({ answer, correct });
   elements.dailyAnswer.classList.add(correct ? 'correct' : 'incorrect');
-
   if (correct) {
     state.dailyState.solved = true;
     state.dailyStreak += 1;
@@ -2928,11 +3012,80 @@ function submitDaily(answer) {
     elements.dailyFeedback.className = 'feedback error';
     renderMastery();
   }
-
   saveDailyState();
   renderDailyGuesses();
   hideCombo(elements.dailyAnswer, elements.dailyComboMenu);
   setTimeout(() => elements.dailyAnswer.classList.remove('correct', 'incorrect'), 2000);
+}
+
+// ===== FLAG DETAIL MODAL =====
+function formatArea(area) {
+  if (!area || area === 0) return { value: 'N/A', sub: 'no data' };
+  if (area >= 1000000) return { value: (area / 1000000).toFixed(2) + 'M', sub: 'km²' };
+  if (area >= 1000) return { value: area.toLocaleString(), sub: 'km²' };
+  if (area < 1) return { value: (area * 1000000).toLocaleString(undefined, { maximumFractionDigits: 0 }), sub: 'm² (Tiny!)' };
+  return { value: area.toLocaleString(undefined, { maximumFractionDigits: 2 }), sub: 'km²' };
+}
+
+function openFlagModal(flagId) {
+  const flag = FLAGS.find(f => f.id === flagId);
+  if (!flag) return;
+
+  const accuracy = accuracyFor(flag);
+  const area = LAND_AREAS[flag.id] || 0;
+  const areaFmt = formatArea(area);
+  const rankInfo = getAreaRank(flag.id);
+  const coords = MAP_COORDS[flag.id];
+
+  // populate
+  elements.flagModalTitle.textContent = flag.name;
+  elements.flagModalCategory.textContent = flag.category;
+  elements.flagModalImg.src = flag.image;
+  elements.flagModalImg.alt = flag.name;
+
+  elements.flagModalArea.textContent = areaFmt.value;
+  elements.flagModalAreaSub.textContent = areaFmt.sub;
+
+  if (rankInfo) {
+    elements.flagModalRank.textContent = `#${rankInfo.rank}`;
+    elements.flagModalRankSub.textContent = `of ${rankInfo.total} largest`;
+  } else {
+    elements.flagModalRank.textContent = 'N/A';
+    elements.flagModalRankSub.textContent = 'no area data';
+  }
+
+  elements.flagModalAttempts.textContent = accuracy.total;
+
+  if (accuracy.total > 0) {
+    elements.flagModalAccPct.textContent = `${accuracy.correctPercent}%`;
+    elements.flagModalAccGood.style.width = `${accuracy.correctPercent}%`;
+    elements.flagModalAccBad.style.width = `${accuracy.incorrectPercent}%`;
+  } else {
+    elements.flagModalAccPct.textContent = '—';
+    elements.flagModalAccGood.style.width = '0%';
+    elements.flagModalAccBad.style.width = '0%';
+  }
+  elements.flagModalAccCorrect.textContent = `${accuracy.correct} correct`;
+  elements.flagModalAccIncorrect.textContent = `${accuracy.incorrect} incorrect`;
+
+  // Map
+  if (coords) {
+    const { lat, lng, zoom } = coords;
+    const mapUrl = `https://www.openstreetmap.org/export/embed.html?bbox=${lng - 15},${lat - 10},${lng + 15},${lat + 10}&layer=mapnik&marker=${lat},${lng}`;
+    elements.flagModalMapFrame.innerHTML = `<iframe src="${mapUrl}" loading="lazy" title="Map of ${flag.name}"></iframe>`;
+  } else {
+    elements.flagModalMapFrame.innerHTML = `<div class="flag-modal-map-na">No map available for this flag type.</div>`;
+  }
+
+  elements.flagModalBackdrop.classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeFlagModal() {
+  elements.flagModalBackdrop.classList.add('hidden');
+  document.body.style.overflow = '';
+  // clear iframe to stop tile loading
+  elements.flagModalMapFrame.innerHTML = '';
 }
 
 function wireCombo(input, menu, onSelect, getPool = () => FLAGS) {
@@ -3038,6 +3191,29 @@ function bindEvents() {
     if (!event.target.closest('[data-combo="daily"]')) hideCombo(elements.dailyAnswer, elements.dailyComboMenu);
   });
 
+  // Mastery card click → open modal
+  elements.masteryGrid.addEventListener('click', (event) => {
+    const card = event.target.closest('.mastery-card[data-flag-id]');
+    if (card) openFlagModal(card.dataset.flagId);
+  });
+  elements.masteryGrid.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      const card = event.target.closest('.mastery-card[data-flag-id]');
+      if (card) { event.preventDefault(); openFlagModal(card.dataset.flagId); }
+    }
+  });
+
+  // Modal close
+  elements.flagModalClose.addEventListener('click', closeFlagModal);
+  elements.flagModalBackdrop.addEventListener('click', (event) => {
+    if (event.target === elements.flagModalBackdrop) closeFlagModal();
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && !elements.flagModalBackdrop.classList.contains('hidden')) {
+      closeFlagModal();
+    }
+  });
+
   wireCombo(elements.hardAnswer, elements.playComboMenu, (answer) => {
     elements.hardAnswer.value = answer;
   }, getPlayableFlags);
@@ -3052,6 +3228,7 @@ renderMastery();
 renderDaily();
 chooseStudyRound();
 chooseQuizRound();
+saveQuizStreak();
 elements.hideCategoryToggle.checked = state.hideCategory;
 setMode(state.mode);
 bindEvents();
