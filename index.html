@@ -2510,7 +2510,7 @@ const EXTRA_AREAS = {
   'moon-society': 37932000, 'moon-albert': 37932000, 'space-force': 9833517,
   'free-christ': 0.034, ladon: 1.0, moloss: 0.045, 'c-land': 0.00055, 'west-aq': 620000,
   'a-syria': 120000, sami: 388350, cherok: 179000, Navajo: 71000,
-  maori: 268021, smom: 0.007,
+  smom: 0.007,
 };
 for (const [k, v] of Object.entries(EXTRA_AREAS)) {
   if (!(k in LAND_AREAS)) LAND_AREAS[k] = v;
@@ -3349,32 +3349,7 @@ const OSM_RELATIONS = {
 
 // ===== Wikipedia historical map images for flags without coordinates =====
 const WIKI_MAP_IMAGES = {
-  ussr: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Union_of_Soviet_Socialist_Republics_%28orthographic_projection%29.svg/500px-Union_of_Soviet_Socialist_Republics_%28orthographic_projection%29.svg.png',
-  'rus-emp': 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Russian_Empire_%28orthographic_projection%29.svg/500px-Russian_Empire_%28orthographic_projection%29.svg.png',
-  qing: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Qing_dynasty_in_1760.svg/500px-Qing_dynasty_in_1760.svg.png',
-  'mong-emp': 'https://commons.wikimedia.org/wiki/Special:FilePath/Mongol_Empire_map.gif',
-  'otto-emp': 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/OttomanEmpire1566.png/960px-OttomanEmpire1566.png',
-  'brit-emp': 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/The_British_Empire_5.png/960px-The_British_Empire_5.png',
-  'span-emp': 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Imperio_Español_%281714-1800%29.png/960px-Imperio_Español_%281714-1800%29.png',
-  'holyroman-emp': 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Holy_Roman_Empire_%28c._1600%29.svg/1280px-Holy_Roman_Empire_%28c._1600%29.svg.png',
-  'de-empire': 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/German_Empire_1914.svg/1280px-German_Empire_1914.svg.png',
-  'au-hu': 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Austro-Hungarian_Monarchy_%281914%29.svg/1280px-Austro-Hungarian_Monarchy_%281914%29.svg.png',
-  'pol-lit': 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Map_of_the_Polish–Lithuanian_Commonwealth_%281619–1621%29.png/1280px-Map_of_the_Polish–Lithuanian_Commonwealth_%281619–1621%29.png',
-  'duchy-lit': 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Grand_Duchy_of_Lithuania_1430.png/1280px-Grand_Duchy_of_Lithuania_1430.png',
-  yugoslavia: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Kingdom_of_Yugoslavia_1930.svg/1280px-Kingdom_of_Yugoslavia_1930.svg.png',
-  'east-germany': 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/East_Germany_1956-1990.svg/1280px-East_Germany_1956-1990.svg.png',
-  prus: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Kingdom_of_Prussia_1870.svg/1280px-Kingdom_of_Prussia_1870.svg.png',
-  'ast-emp': 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Austrian_Empire_%281815%29.svg/1280px-Austrian_Empire_%281815%29.svg.png',
-  'war-jpn': 'https://commons.wikimedia.org/wiki/Special:FilePath/Japanese_Empire2.png',
-  'mug-emp': 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Joppen_map-India_in_1525_published_1907_by_Longmans.jpg/960px-Joppen_map-India_in_1525_published_1907_by_Longmans.jpg',
-  'gran-colombia': 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Great_Colombia_%28orthographic_projection%29.svg/1280px-Great_Colombia_%28orthographic_projection%29.svg.png',
-  'bra-emp': 'https://upload.wikimedia.org/wikipedia/commons/7/70/Map_of_Empire_of_Brazil_in_1822-1828.png',
-  'new-france': 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/New_France_%28orthographic_projection%29.svg/1280px-New_France_%28orthographic_projection%29.svg.png',
-  'first-mx': 'https://upload.wikimedia.org/wikipedia/commons/9/96/Primera_Republica_Federal_de_Mexico.png',
-  'first-csa': 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Confederate_States_of_America_%28orthographic_projection%29.svg/1280px-Confederate_States_of_America_%28orthographic_projection%29.svg.png',
-  'eth-emp': 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Pdr_ethiopia.png/1280px-Pdr_ethiopia.png',
-  'alm-cali': 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Almohad_dynasty_en.svg/1280px-Almohad_dynasty_en.svg.png',
-  zai: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Republic_of_Zaire_%28orthographic_projection%29.svg/1280px-Republic_of_Zaire_%28orthographic_projection%29.svg.png',
+  
   'ussr-rus': 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Russian_SFSR_in_Soviet_Union.svg/1280px-Russian_SFSR_in_Soviet_Union.svg.png',
   'ussr-cau': 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Transcaucasian_SFSR_in_Soviet_Union.svg/1280px-Transcaucasian_SFSR_in_Soviet_Union.svg.png',
   // Africa
@@ -3736,8 +3711,214 @@ const WIKI_MAP_IMAGES = {
   'sark': 'https://upload.wikimedia.org/wikipedia/commons/3/37/Guernsey-Sark.png', // Sark
   'easter': 'https://upload.wikimedia.org/wikipedia/commons/7/7b/Easter_Island_in_its_region_%28excluding_Isla_Salas_y_Gómez%29.svg', // Easter Island (Rapa Nui)
   'azad': 'https://upload.wikimedia.org/wikipedia/commons/d/da/Jammu_and_Kashmir_in_1946_map_of_India_by_National_Geographic.jpg', // Azad Kashmir
+  
+  // BRAZIL STATES
+  'acre': 'https://upload.wikimedia.org/wikipedia/commons/8/84/Acre_in_Brazil.svg', // Acre
+  'alago': 'https://upload.wikimedia.org/wikipedia/commons/2/21/Alagoas_in_Brazil.svg', // Alagoas
+  'amapa': 'https://upload.wikimedia.org/wikipedia/commons/c/cd/Amapa_in_Brazil.svg', // Amapa
+  'amazon': 'https://upload.wikimedia.org/wikipedia/commons/3/30/Amazonas_in_Brazil.svg', // Amazonas
+  'bahia': 'https://upload.wikimedia.org/wikipedia/commons/e/e4/Bahia_in_Brazil.svg', // Bahia
+  'ceara': 'https://en.wikipedia.org/wiki/Ceará#/media/File:Ceara_in_Brazil.svg', // Ceara
+  'esp-santo': 'https://upload.wikimedia.org/wikipedia/commons/d/d1/Espirito_Santo_in_Brazil.svg', // Espirito Santo
+  'goias': 'https://upload.wikimedia.org/wikipedia/commons/d/d7/Goias_in_Brazil.svg', // Goias
+  'maran': 'https://en.wikipedia.org/wiki/Maranhão#/media/File:Maranhao_in_Brazil.svg', // Maranhao
+  'mat-gros': 'https://upload.wikimedia.org/wikipedia/commons/1/13/Mato_Grosso_in_Brazil.svg', // Mato Grosso
+  'mat-sul': 'https://en.wikipedia.org/wiki/Mato_Grosso_do_Sul#/media/File:Mato_Grosso_do_Sul_in_Brazil.svg', // Mato Grosso do Sul
+  'min-ger': 'https://upload.wikimedia.org/wikipedia/commons/3/31/Minas_Gerais_in_Brazil.svg', // Minas Gerais
+  'para': 'https://upload.wikimedia.org/wikipedia/commons/c/c0/Para_in_Brazil.svg', // Para
+  'paraiba': 'https://upload.wikimedia.org/wikipedia/commons/3/3e/Paraiba_in_Brazil.svg', // Paraiba
+  'parana': 'https://upload.wikimedia.org/wikipedia/commons/0/0e/Parana_in_Brazil.svg', // Parana
+  'pernam': 'https://upload.wikimedia.org/wikipedia/commons/e/e0/Pernambuco_in_Brazil.svg', // Pernambuco
+  'piaui': 'https://upload.wikimedia.org/wikipedia/commons/e/ec/Piaui_in_Brazil.svg', // Piaui
+  'rio-jane': 'https://upload.wikimedia.org/wikipedia/commons/4/49/Rio_de_Janeiro_in_Brazil.svg', // Rio de Janeiro
+  'grande-nort': 'https://upload.wikimedia.org/wikipedia/commons/e/e6/Rio_Grande_do_Norte_in_Brazil.svg', // Rio Grande do Norte
+  'grande-sul': 'https://upload.wikimedia.org/wikipedia/commons/3/34/Rio_Grande_do_Sul_in_Brazil.svg', // Rio Grande do Sul
+  'rondon': 'https://upload.wikimedia.org/wikipedia/commons/8/8f/Rondonia_in_Brazil.svg', // Rondonia
+  'rorai': 'https://upload.wikimedia.org/wikipedia/commons/b/be/Roraima_in_Brazil.svg', // Roraima
+  'santa-catar': 'https://upload.wikimedia.org/wikipedia/commons/a/a1/Santa_Catarina_in_Brazil.svg', // Santa Catarina
+  'sao-paul': 'https://upload.wikimedia.org/wikipedia/commons/5/55/Sao_Paulo_in_Brazil.svg', // Sao Paulo
+  'sergip': 'https://upload.wikimedia.org/wikipedia/commons/d/d7/Sergipe_in_Brazil.svg', // Sergipe
+  'tocant': 'https://upload.wikimedia.org/wikipedia/commons/a/a0/Tocantins_in_Brazil.svg', // Tocantins
+  'fed-dist': 'https://upload.wikimedia.org/wikipedia/commons/9/9d/Distrito_Federal_in_Brazil.svg', // Districto Federal
+  
+  // CANANA PROV/TERR
+ 'on-prov': 'https://upload.wikimedia.org/wikipedia/commons/5/5b/Ontario_in_Canada_2.svg', // Ontario
+  'qc-prov': 'https://upload.wikimedia.org/wikipedia/commons/b/b4/Quebec_in_Canada_2.svg', // Quebec
+  'bc-prov': 'https://upload.wikimedia.org/wikipedia/commons/6/6d/British_Columbia_in_Canada_2.svg', // British Columbia
+  'nu-terr': 'https://upload.wikimedia.org/wikipedia/commons/6/68/Nunavut_in_Canada_2.svg', // Nunavut
+  'ns-prov': 'https://upload.wikimedia.org/wikipedia/commons/1/1f/Nova_Scotia_in_Canada_2.svg', // Nova Scotia
+  'nb-prov': 'https://upload.wikimedia.org/wikipedia/commons/8/8a/New_Brunswick_in_Canada_2.svg', // New Brunswick
+  'mb-prov': 'https://upload.wikimedia.org/wikipedia/commons/3/39/Manitoba_in_Canada_2.svg', // Manitoba
+  'pe-prov': 'https://upload.wikimedia.org/wikipedia/commons/1/1d/Prince_Edward_Island_in_Canada_%28special_marker%29_2.svg', // Prince Edward Island
+  'sk-prov': 'https://upload.wikimedia.org/wikipedia/commons/2/24/Saskatchewan_in_Canada_2.svg', // Saskatchewan
+  'nl-prov': 'https://upload.wikimedia.org/wikipedia/commons/1/11/Newfoundland_and_Labrador_in_Canada_2.svg', // Newfoundland and Labrador
+  'yt-terr': 'https://upload.wikimedia.org/wikipedia/commons/3/35/Yukon_in_Canada_2.svg', // Yukon
+  'nt-terr': 'https://upload.wikimedia.org/wikipedia/commons/5/59/Northwest_Territories_in_Canada_2.svg', // Northwest Territories
+  'ab-prov': 'https://upload.wikimedia.org/wikipedia/commons/d/d0/Alberta_in_Canada_2.svg', // Alberta
+  
+  // SPACE
+  'earth-ifpe': 'https://upload.wikimedia.org/wikipedia/commons/2/2d/Meteosat-12-fci-march-equinox-2025-noon.jpg', // International Flag of Planet Earth
+  'earth-john': 'https://upload.wikimedia.org/wikipedia/commons/2/2d/Meteosat-12-fci-march-equinox-2025-noon.jpg', // Earth Flag (John McConnell)
+  'earth-tijs': 'https://upload.wikimedia.org/wikipedia/commons/2/2d/Meteosat-12-fci-march-equinox-2025-noon.jpg', // Earth Flag (Tijs Bonekamp)
+  'earth-james': 'https://upload.wikimedia.org/wikipedia/commons/2/2d/Meteosat-12-fci-march-equinox-2025-noon.jpg', // Earth Flag (James Cadle)
+  'earth-kirk': 'https://upload.wikimedia.org/wikipedia/commons/2/2d/Meteosat-12-fci-march-equinox-2025-noon.jpg', // Earth Flag (James William van Kirk)
+  'world-paul2006': 'https://upload.wikimedia.org/wikipedia/commons/2/2d/Meteosat-12-fci-march-equinox-2025-noon.jpg', // World Flag (Paul Carroll)(2006)
+  'world-paul1988': 'https://upload.wikimedia.org/wikipedia/commons/2/2d/Meteosat-12-fci-march-equinox-2025-noon.jpg', // World Flag (Paul Carroll)(1988)
+  'one-world': 'https://upload.wikimedia.org/wikipedia/commons/2/2d/Meteosat-12-fci-march-equinox-2025-noon.jpg', // One World Flag (Thomas Mandl)
+  'mars-paine': 'https://upload.wikimedia.org/wikipedia/commons/0/0c/Mars_-_August_30_2021_-_Flickr_-_Kevin_M._Gill.png', // Mars (Thomas Paine)
+  'mars-lee': 'https://upload.wikimedia.org/wikipedia/commons/0/0c/Mars_-_August_30_2021_-_Flickr_-_Kevin_M._Gill.png', // Mars (Pascal Lee)
+  'moon-society': 'https://upload.wikimedia.org/wikipedia/commons/e/e1/FullMoon2010.jpg', // Moon (Moon Society)
+  'moon-albert': 'https://upload.wikimedia.org/wikipedia/commons/e/e1/FullMoon2010.jpg', // Moon (Albert Notarbartolo)
+  'space-force': 'https://upload.wikimedia.org/wikipedia/commons/d/dc/USA_orthographic.svg', // United States Space Force
+  
+  // AFR HIST
+  'za-1928': 'https://upload.wikimedia.org/wikipedia/commons/6/65/South_Africa_%281915-1990%29_%28orthographic_projection%29.svg', // South Africa (1928–1994)
+  'rhode': 'https://upload.wikimedia.org/wikipedia/commons/a/a0/Rhodesia.png', // Rhodesia
+  'br-somal': 'https://upload.wikimedia.org/wikipedia/commons/1/13/British_Somaliland_in_its_region.svg', // British Somaliland
+  'green-lib': 'https://upload.wikimedia.org/wikipedia/commons/0/07/Libya_%28orthographic_projection%29.svg', // Libya (1977-2011)
+  'maur-1959': 'https://upload.wikimedia.org/wikipedia/commons/a/ac/Mauritania_%28orthographic_projection%29.svg', // Mauritania (1959-2017)
+  'eth-emp': 'https://upload.wikimedia.org/wikipedia/commons/d/d2/Pdr_ethiopia.png', // Ethiopian Empire
+  'alm-cali': 'https://upload.wikimedia.org/wikipedia/commons/9/9f/Almohad_dynasty_en.svg', // Almohad Caliphate
+  'rwa-1961': 'https://upload.wikimedia.org/wikipedia/commons/1/19/Rwanda_%28orthographic_projection_with_locator%29.svg', // Rwanda (1961-2001)
+  'zai': 'https://upload.wikimedia.org/wikipedia/commons/3/39/Republic_of_Zaire_%28orthographic_projection%29.svg', // Zaire
+  'mala-2010': 'https://upload.wikimedia.org/wikipedia/commons/1/1a/Malawi_%28orthographic_projection%29.svg', // Malawi (2010-2012)
+// ASIA HIST
+  'ussr': 'https://upload.wikimedia.org/wikipedia/commons/7/75/Union_of_Soviet_Socialist_Republics_%28orthographic_projection%29.svg', // Soviet Union
+  'qing': 'https://upload.wikimedia.org/wikipedia/commons/2/21/Qing_dynasty_in_1760.svg', // Qing Dynasty
+  'rus-emp': 'https://upload.wikimedia.org/wikipedia/commons/6/6d/Russian_Empire_%28orthographic_projection%29.svg', // Russian Empire
+  'n-viet': 'https://upload.wikimedia.org/wikipedia/commons/e/ee/Viet_Minh-controlled_French_Indochina.png', // North Vietnam
+  's-viet': 'https://upload.wikimedia.org/wikipedia/commons/5/5b/South_Vietnam_Cold_War_%28orthographic_projection%29.svg', // South Vietnam
+  'war-jpn': 'https://upload.wikimedia.org/wikipedia/commons/b/b3/Japanese_Empire_%28orthographic_projection%29.svg', // Japanese Empire (War Flag)
+  'mug-emp': 'https://upload.wikimedia.org/wikipedia/commons/0/06/Joppen_map-India_in_1525_published_1907_by_Longmans.jpg', // Mughal Empire
+  'nor-yem': 'https://upload.wikimedia.org/wikipedia/commons/b/b1/Mutawakkilite_Kingdom_of_Yemen_in_its_region.svg', // North Yemen
+  'sou-yem': 'https://upload.wikimedia.org/wikipedia/commons/9/9a/South_Yemen_in_its_region.svg', // South Yemen
+  'syr-1980': 'https://upload.wikimedia.org/wikipedia/commons/5/5a/Syria_projection_%282024–present%29.svg', // Syria (1980-2024)
+  'per-1907': 'https://upload.wikimedia.org/wikipedia/commons/a/a8/Iran_%28orthographic_projection%29.svg', // Persia (1907-1933)
+  'mong-emp': 'https://upload.wikimedia.org/wikipedia/commons/6/62/Expansion_of_the_Mongol_Empire_1206–1294.gif', // Mongol Empire
+// EU HIST
+  'east-germany': 'https://upload.wikimedia.org/wikipedia/commons/9/94/East_Germany_1956-1990.svg', // East Germany
+  'yugoslavia': 'https://upload.wikimedia.org/wikipedia/commons/b/bb/Yugoslavia_1956-1990.svg', // Yugoslavia
+  'venice': 'https://upload.wikimedia.org/wikipedia/commons/3/39/Venezianische_Kolonien.png', // Republic of Venice
+  'holyroman-emp': 'https://upload.wikimedia.org/wikipedia/commons/f/fe/Holy_Roman_Empire_%28c._1600%29.svg', // Holy Roman Empire
+  'de-empire': 'https://upload.wikimedia.org/wikipedia/commons/b/ba/German_Empire_1914.svg', // German Empire
+  'au-hu': 'https://upload.wikimedia.org/wikipedia/commons/0/06/Austro-Hungarian_Monarchy_%281914%29.svg', // Austria-Hungary
+  'fr-fr': 'https://upload.wikimedia.org/wikipedia/commons/2/22/Vichy_france_map.png', // Free France
+  'prus': 'https://upload.wikimedia.org/wikipedia/commons/b/bc/Kingdom_of_Prussia_1870.svg', // Prussia
+  'otto-emp': 'https://upload.wikimedia.org/wikipedia/commons/2/2b/OttomanEmpireMain.png', // Ottoman Empire
+  'bela-1991': 'https://upload.wikimedia.org/wikipedia/commons/a/af/Europe-Belarus.svg', // Belarus (1991-1995)
+  'brit-emp': 'https://upload.wikimedia.org/wikipedia/commons/a/a9/The_British_Empire_5.png', // British Empire
+  'span-emp': 'https://upload.wikimedia.org/wikipedia/commons/1/1b/Imperio_Español_%281714-1800%29.png', // Spanish Empire
+  'ast-emp': 'https://upload.wikimedia.org/wikipedia/commons/3/3c/Austrian_Empire_%281815%29.svg', // Austrian Empire
+  'pol-lit': 'https://upload.wikimedia.org/wikipedia/commons/c/c3/Map_of_the_Polish–Lithuanian_Commonwealth_%281619–1621%29.png', // Polish–Lithuanian Commonwealth
+  'duchy-lit': 'https://upload.wikimedia.org/wikipedia/commons/f/f3/Grand_Duchy_of_Lithuania_1430.png', // Grand Duchy of Lithuania
+// NA HIST
+  'new-france': 'https://upload.wikimedia.org/wikipedia/commons/8/8f/New_France_%28orthographic_projection%29.svg', // New France
+  'us-1776': 'https://i.redd.it/ntl72t27x6de1.jpeg', // United States (1776-1777)
+  'na-1959': 'https://upload.wikimedia.org/wikipedia/commons/9/9d/Kingdom_of_the_Netherlands_in_its_region_%28Caribbean_special%29.svg', // Netherlands Antilles (1959-1986)
+  'na-1986': 'https://upload.wikimedia.org/wikipedia/commons/9/9d/Kingdom_of_the_Netherlands_in_its_region_%28Caribbean_special%29.svg', // Netherlands Antilles (1986-2010)
+  'first-mx': 'https://upload.wikimedia.org/wikipedia/commons/4/40/First_Mexican_Empire_%28orthographic_projection%29.svg', // First Mexican Empire
+  'first-csa': 'https://upload.wikimedia.org/wikipedia/commons/b/b0/Confederate_States_of_America_%28orthographic_projection%29.svg', // Confederate States of America (1861-1863)
+  'vermont-rep': 'https://upload.wikimedia.org/wikipedia/commons/f/ff/Vermont_Republic_Map.png', // Second Vermont Republic
+  'can-1957': 'https://upload.wikimedia.org/wikipedia/commons/6/67/CAN_orthographic.svg', // Canada (1957-1965)
+// SA HIST
+  'gran-colombia': 'https://upload.wikimedia.org/wikipedia/commons/4/46/Great_Colombia_%28orthographic_projection%29.svg', // Gran Colombia
+  'bra-emp': 'https://upload.wikimedia.org/wikipedia/commons/7/70/Map_of_Empire_of_Brazil_in_1822-1828.png', // Empire of Brazil
+  'ven-1859': 'https://upload.wikimedia.org/wikipedia/commons/0/05/Venezuela_Orthographic_Map.svg', // Venezuela (1859-1863)
+  'first-ven': 'https://upload.wikimedia.org/wikipedia/commons/0/05/Venezuela_Orthographic_Map.svg', // First Republic of Venezuela
+  'scnd-ven': 'https://upload.wikimedia.org/wikipedia/commons/0/05/Venezuela_Orthographic_Map.svg', // Second Republic of Venezuela
+  'thrd-ven': 'https://upload.wikimedia.org/wikipedia/commons/0/05/Venezuela_Orthographic_Map.svg', // Third Republic of Venezuela
+  'ecu-1845': 'https://upload.wikimedia.org/wikipedia/commons/6/61/Ecuador_%281830–1904%29.svg', // Ecuador (1845-1860)
+  'sur-1959': 'https://upload.wikimedia.org/wikipedia/commons/6/63/SURINAME_orthographic.svg', // Suriname (1959-1975)
+  
+  // DEU STATES
+  'schleswis': 'https://upload.wikimedia.org/wikipedia/commons/8/8b/Locator_map_Schleswig-Holstein_in_Germany.svg', // Schleswis-Holstein
+  'hamburg': 'https://upload.wikimedia.org/wikipedia/commons/5/52/Hamburg_state_association.png', // Hamburg
+  'brem': 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Locator_map_Bremen_in_Germany.svg/250px-Locator_map_Bremen_in_Germany.svg.png', // Bremen
+  'l-sax': 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Locator_map_Lower-Saxony_in_Germany.svg/250px-Locator_map_Lower-Saxony_in_Germany.svg.png', // Lower Saxony
+  'berlin': 'https://upload.wikimedia.org/wikipedia/commons/9/9a/Berlin_state_association.png', // Berlin
+  'sax-anh': 'https://upload.wikimedia.org/wikipedia/commons/b/bd/Locator_map_Saxony-Anhalt_in_Germany.svg', // Saxony Anhalt
+  'brand': 'https://upload.wikimedia.org/wikipedia/commons/5/5d/Brandenburg_state_association.png', // Brandenburg
+  'sax': 'https://upload.wikimedia.org/wikipedia/commons/0/01/Locator_map_Saxony_in_Germany.svg', // Saxony
+  'thur': 'https://upload.wikimedia.org/wikipedia/commons/d/d5/Locator_map_Thuringia_in_Germany.svg', // Thuringia
+  'bav': 'https://upload.wikimedia.org/wikipedia/commons/0/05/Locator_map_Bavaria_in_Germany.svg', // Bavaria
+  'baden-wert': 'https://upload.wikimedia.org/wikipedia/commons/4/44/Locator_map_Baden-Württemberg_in_Germany.svg', // Baden-Wurttemberg
+  'saar': 'https://upload.wikimedia.org/wikipedia/commons/a/ac/Locator_map_Saarland_in_Germany.svg', // Saarland
+  'rhine-pal': 'https://upload.wikimedia.org/wikipedia/commons/4/48/Locator_map_Rhineland-Palatinate_in_Germany.svg', // Rhineland-Palatinate
+  'hes': 'https://upload.wikimedia.org/wikipedia/commons/7/77/Locator_map_Hesse_in_Germany.svg', // Hesse
+  'n-rhine': 'https://upload.wikimedia.org/wikipedia/commons/9/9e/Locator_map_North_Rhine-Westphalia_in_Germany.svg', // North Rhine-Westphalia
+  'meckle': 'https://upload.wikimedia.org/wikipedia/commons/9/98/Locator_map_Mecklenburg-Vorpommern_in_Germany.svg', // Mecklenburg-Western Pomerania
 };
-
+      
+  //AUS STATES
+  'nsw': 'https://upload.wikimedia.org/wikipedia/commons/a/a8/New_South_Wales_in_Australia.svg', // New South Wales
+  'vtria': 'https://upload.wikimedia.org/wikipedia/commons/7/74/Victoria_in_Australia.svg', // Victoria
+  'queen': 'https://upload.wikimedia.org/wikipedia/commons/a/ac/Queensland_in_Australia.svg', // Queensland
+  's-aus': 'https://upload.wikimedia.org/wikipedia/commons/f/f4/South_Australia_in_Australia.svg', // South Australia
+  'w-aus': 'https://upload.wikimedia.org/wikipedia/commons/e/ea/Western_Australia_in_Australia.svg', // Western Australia
+  'tas': 'https://upload.wikimedia.org/wikipedia/commons/e/e6/Tasmania_in_Australia.svg', // Tasmania
+  'act': 'https://upload.wikimedia.org/wikipedia/commons/c/c9/Australian_Capital_Territory_in_Australia.svg', // Australian Capital Territory
+  'nt-aus': 'https://upload.wikimedia.org/wikipedia/commons/0/08/Northern_Territory_in_Australia.svg', // Northern Territory
+    
+  //USSR REP
+  'ussr-rus': 'https://upload.wikimedia.org/wikipedia/commons/f/f5/Russian_SFSR_in_Soviet_Union.svg', // Russian SFSR
+  'ussr-ukr': 'https://upload.wikimedia.org/wikipedia/commons/7/7f/Ukrainian_SSR_in_the_Soviet_Union.svg', // Ukrainian SSR
+  'ussr-bela': 'https://upload.wikimedia.org/wikipedia/commons/8/81/Byelorussian_SSR_in_the_Soviet_Union.svg', // Byelorussian SSR
+  'ussr-uzb': 'https://upload.wikimedia.org/wikipedia/commons/b/b8/Uzbek_SSR_in_the_Soviet_Union.svg', // Uzbek SSR
+  'ussr-kaz': 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Kazakh_SSR_in_the_Soviet_Union.svg/330px-Kazakh_SSR_in_the_Soviet_Union.svg.png', // Kazakh SSR
+  'ussr-geo': 'https://upload.wikimedia.org/wikipedia/commons/e/ee/Georgian_SSR_in_the_Soviet_Union.svg', // Georgian SSR
+  'ussr-aze': 'https://upload.wikimedia.org/wikipedia/commons/e/ea/Azerbaijan_SSR_in_the_Soviet_Union.svg', // Azerbaijani SSR
+  'ussr-lit': 'https://upload.wikimedia.org/wikipedia/commons/b/bf/Lithuanian_SSR_in_the_Soviet_Union.svg', // Lithuanian SSR
+  'ussr-mol': 'https://upload.wikimedia.org/wikipedia/commons/f/fb/Moldavian_SSR_in_the_Soviet_Union.svg', // Moldavian SSR
+  'ussr-lat': 'https://upload.wikimedia.org/wikipedia/commons/c/c1/Latvian_SSR_in_the_Soviet_Union.svg', // Latvian SSR
+  'ussr-kyr': 'https://upload.wikimedia.org/wikipedia/commons/c/ca/Kirghiz_SSR_in_the_Soviet_Union.svg', // Kirghiz SSR
+  'ussr-taj': 'https://upload.wikimedia.org/wikipedia/commons/2/27/Tajik_SSR_in_the_Soviet_Union.svg', // Tajik SSR
+  'ussr-arm': 'https://upload.wikimedia.org/wikipedia/commons/e/e5/Armenian_SSR_in_the_Soviet_Union.svg', // Armenian SSR
+  'ussr-tur': 'https://upload.wikimedia.org/wikipedia/commons/3/34/Turkmen_SSR_in_the_Soviet_Union.svg', // Turkmen SSR
+  'ussr-est': 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Estonian_SSR_in_the_Soviet_Union.svg', // Estonian SSR
+  'ussr-fin': 'https://upload.wikimedia.org/wikipedia/commons/d/d6/Karelo-Finnish_SSR_in_Soviet_Union_%281940%29.svg', // Karelo-Finnish SSR
+  'ussr-abk': 'https://upload.wikimedia.org/wikipedia/commons/7/7b/Europe_location_Abkhazia_1921.PNG', // SSR of Abkhazia
+  'ussr-buk': 'https://upload.wikimedia.org/wikipedia/commons/d/d8/Bukharan_PSR_in_Soviet_Union_%281922%29.svg', // Bukharan PSR
+  'ussr-kho': 'https://upload.wikimedia.org/wikipedia/commons/f/f6/Khorezm_PSR_in_Soviet_Union_%281922%29.svg', // Khorezm PSR
+  'assr-mol': 'https://upload.wikimedia.org/wikipedia/commons/0/07/Moldavian_ASSR_in_Soviet_Union_%281930%2C_zoom%29.svg', // Moldavian ASSR
+  'assr-taj': 'https://upload.wikimedia.org/wikipedia/commons/9/94/Uzbek_SSR_in_1927.jpg', // Tajik ASSR
+  'ussr-cau': 'https://upload.wikimedia.org/wikipedia/commons/4/4f/Transcaucasian_SFSR_in_Soviet_Union.svg', // Transcaucasian SFSR
+  'assr-tur': 'https://upload.wikimedia.org/wikipedia/commons/f/f5/SovietCentralAsia1922.svg', // Turkestan ASSR
+    
+  //UNOFFICIAL
+  'pnm-bunau': 'https://upload.wikimedia.org/wikipedia/commons/3/39/PAN_orthographic.svg', // Panama (Bunau-Varilla)
+  'ang-2003': 'https://upload.wikimedia.org/wikipedia/commons/8/89/Angola_%28orthographic_projection%29.svg', // Angola (2003 proposal)
+  'eu-rem': 'https://upload.wikimedia.org/wikipedia/commons/e/e2/Europe_and_the_European_Union.svg', // European Union (Rem Koolhaas)
+  'ru-2022': 'https://upload.wikimedia.org/wikipedia/commons/5/5e/Russian_Federation_%28orthographic_projection%29_-_All_Territorial_Disputes.svg', // Russia (2022 proposal)
+  'de-lehr': 'https://upload.wikimedia.org/wikipedia/commons/2/26/EU-Germany.svg', // Germany (Robert Lehr)
+  'gua-red': 'https://upload.wikimedia.org/wikipedia/commons/d/d7/Guadeloupe_in_France_2016.svg', // Guadeloupe (Red)
+    
+    //ORGANIZATIONS
+    'un': 'https://upload.wikimedia.org/wikipedia/commons/1/15/United_Nations_%28Member_States_and_Territories%29.svg', // United Nations
+    'eu': 'https://upload.wikimedia.org/wikipedia/commons/e/e2/Europe_and_the_European_Union.svg', // European Union
+    'olympics': 'https://upload.wikimedia.org/wikipedia/commons/e/e2/Europe_and_the_European_Union.svg', // Olympic Flag
+    'nato': 'https://upload.wikimedia.org/wikipedia/commons/a/ae/NATO_%28Orthographic_Projection%29.svg', // North Atlantic Treaty Organization (NATO)
+    'au-org': 'https://upload.wikimedia.org/wikipedia/commons/b/bf/Map_of_the_African_Union_with_Suspended_States.svg', // African Union
+    'eac': 'https://upload.wikimedia.org/wikipedia/commons/4/41/East_African_Community_%28orthographic_projection%29.svg', // East African Community
+    'oas': 'https://upload.wikimedia.org/wikipedia/commons/6/66/Organization_of_American_States_%28orthographic_projection%29_-_disputed_version.svg', // Organization of American States (OAS)
+    'turk': 'https://upload.wikimedia.org/wikipedia/commons/a/ae/Organization_of_Turkic_States_%28orthographic_projection%29.svg', // Organization of Turkic States
+    'une': 'https://upload.wikimedia.org/wikipedia/commons/1/15/United_Nations_%28Member_States_and_Territories%29.svg', // UNESCO
+    'arab': 'https://upload.wikimedia.org/wikipedia/commons/9/98/Member_states_of_the_Arab_League_%28orthographic_projection%29.svg', // Arab League
+    'caricom': 'https://upload.wikimedia.org/wikipedia/commons/4/40/Caricom_Member_states_2024.png', // Caribbean Community
+      
+  //MICRONATIONS
+  'free-christ': 'https://cdn.micro.wiki/en/d/dd/Christiania_%28OpenStreetMap_within_Copenhagen%29.png', // Freetown Christiania
+  'ladon': 'https://cdn.micro.wiki/en/7/74/LocationLadonia.png', // Ladonia
+  'moloss': 'https://upload.wikimedia.org/wikipedia/commons/1/1b/Map_of_Molossia_small.png', // Molossia
+  'c-land': 'https://cdn.micro.wiki/en/f/fd/Sealand_Map.svg', // Sealand
+  'west-aq': 'https://upload.wikimedia.org/wikipedia/commons/5/57/Map_of_Westarctica.svg', // Westarctica
+    
+  //OTHER
+  'a-syria': 'https://upload.wikimedia.org/wikipedia/commons/1/1c/Assyria_World_War_1_relief_English.png', // Assyria
+  'sami': 'https://upload.wikimedia.org/wikipedia/commons/8/8d/Sami_Language_Recognition.jpg', // Sami Flag
+  'cherok': 'https://upload.wikimedia.org/wikipedia/commons/a/ae/CherokeeOSTA.svg', // Cherokee Nation
+  'navajo': 'https://maps.wikimedia.org/img/osm-intl,a,a,a,290x240.png?lang=en&domain=en.wikipedia.org&title=Navajo_Nation&groups=_1382bd5d8b1a464f7d555390f4ff696d7d84fdaa&parser=legacy', // Navajo Nation
+  'smom': 'https://upload.wikimedia.org/wikipedia/commons/b/ba/Map_of_SMOM_headquarters_in_Rome.png', // Sovereign Military Order of Malta
+      
 // ===== FLAG DETAIL MODAL =====
 function formatArea(area) {
   if (!area || area === 0) return { value: 'N/A', sub: 'no data' };
