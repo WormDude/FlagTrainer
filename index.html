@@ -1449,6 +1449,7 @@ const FLAG_GROUPS = [
       { id: 'bt', name: 'Bhutan', file: 'Flag_of_Bhutan.svg' },
       { id: 'bn', name: 'Brunei', file: 'Flag_of_Brunei.svg' },
       { id: 'cy', name: 'Cyprus', file: 'Flag_of_Cyprus.svg' },
+      { id: 'kh', name: 'Cambodia', file: 'Flag_of_Cambodia.svg' },
       { id: 'ge', name: 'Georgia (Nation)', file: 'Flag_of_Georgia.svg' },
       { id: 'id', name: 'Indonesia', file: 'Flag_of_Indonesia.svg' },
       { id: 'ir', name: 'Iran', file: 'Flag_of_Iran.svg' },
@@ -2175,233 +2176,241 @@ const RANDOM_EFFECTS = ['effect-blur', 'effect-zoom', 'effect-flip', 'effect-rot
 // ===== LAND AREA & MAP COORDINATES =====
 // mapCoords: { lat, lng, zoom } for OpenStreetMap embed
 const FLAG_DATA = {
-  dz: { area: 2381741, coords: { lat: 28.0, lng: 1.66, zoom: 4 } },
-  ao: { area: 1246700, coords: { lat: -11.2, lng: 17.9, zoom: 4 } },
-  bj: { area: 114763, coords: { lat: 9.3, lng: 2.3, zoom: 6 } },
-  bw: { area: 581730, coords: { lat: -22.3, lng: 24.7, zoom: 5 } },
-  bf: { area: 274222, coords: { lat: 12.4, lng: -1.6, zoom: 5 } },
-  bi: { area: 27834, coords: { lat: -3.4, lng: 29.9, zoom: 7 } },
-  cv: { area: 4033, coords: { lat: 16.0, lng: -24.0, zoom: 8 } },
-  cm: { area: 475442, coords: { lat: 3.8, lng: 11.5, zoom: 5 } },
-  cf: { area: 622984, coords: { lat: 6.6, lng: 20.9, zoom: 5 } },
-  td: { area: 1284000, coords: { lat: 15.5, lng: 18.7, zoom: 4 } },
-  km: { area: 1862, coords: { lat: -11.6, lng: 43.3, zoom: 9 } },
-  cd: { area: 2344858, coords: { lat: -4.0, lng: 21.8, zoom: 4 } },
-  cg: { area: 342000, coords: { lat: -0.2, lng: 15.8, zoom: 5 } },
-  dj: { area: 23200, coords: { lat: 11.8, lng: 42.6, zoom: 7 } },
-  eg: { area: 1002450, coords: { lat: 26.8, lng: 30.8, zoom: 4 } },
-  gq: { area: 28051, coords: { lat: 1.6, lng: 10.3, zoom: 7 } },
-  er: { area: 117600, coords: { lat: 15.2, lng: 39.8, zoom: 6 } },
-  sz: { area: 17364, coords: { lat: -26.5, lng: 31.5, zoom: 7 } },
-  et: { area: 1104300, coords: { lat: 9.1, lng: 40.5, zoom: 4 } },
-  ga: { area: 267668, coords: { lat: -0.8, lng: 11.6, zoom: 5 } },
-  gm: { area: 11295, coords: { lat: 13.4, lng: -15.3, zoom: 7 } },
-  gh: { area: 238533, coords: { lat: 7.9, lng: -1.0, zoom: 5 } },
-  gn: { area: 245857, coords: { lat: 11.0, lng: -10.9, zoom: 5 } },
-  gw: { area: 36125, coords: { lat: 11.8, lng: -15.2, zoom: 7 } },
-  ci: { area: 322463, coords: { lat: 7.5, lng: -5.5, zoom: 5 } },
-  ke: { area: 580367, coords: { lat: 0.0, lng: 37.9, zoom: 5 } },
-  ls: { area: 30355, coords: { lat: -29.6, lng: 28.2, zoom: 7 } },
-  lr: { area: 111369, coords: { lat: 6.4, lng: -9.4, zoom: 6 } },
-  ly: { area: 1759540, coords: { lat: 26.3, lng: 17.2, zoom: 4 } },
-  mg: { area: 587041, coords: { lat: -18.8, lng: 46.9, zoom: 4 } },
-  mw: { area: 118484, coords: { lat: -13.3, lng: 34.3, zoom: 5 } },
-  ml: { area: 1240192, coords: { lat: 17.6, lng: -3.0, zoom: 4 } },
-  mr: { area: 1030700, coords: { lat: 21.0, lng: -10.9, zoom: 4 } },
-  mu: { area: 2040, coords: { lat: -20.3, lng: 57.6, zoom: 9 } },
-  ma: { area: 446550, coords: { lat: 31.8, lng: -7.1, zoom: 5 } },
-  mz: { area: 801590, coords: { lat: -18.7, lng: 35.5, zoom: 4 } },
-  na: { area: 825615, coords: { lat: -22.0, lng: 17.1, zoom: 4 } },
-  ne: { area: 1267000, coords: { lat: 17.6, lng: 8.1, zoom: 4 } },
-  ng: { area: 923768, coords: { lat: 9.1, lng: 8.7, zoom: 4 } },
-  rw: { area: 26338, coords: { lat: -1.9, lng: 29.9, zoom: 7 } },
-  st: { area: 964, coords: { lat: 0.2, lng: 6.6, zoom: 9 } },
-  sn: { area: 196722, coords: { lat: 14.5, lng: -14.5, zoom: 5 } },
-  sc: { area: 452, coords: { lat: -4.7, lng: 55.5, zoom: 9 } },
-  sl: { area: 71740, coords: { lat: 8.5, lng: -11.8, zoom: 6 } },
-  so: { area: 637657, coords: { lat: 5.2, lng: 46.2, zoom: 5 } },
-  za: { area: 1221037, coords: { lat: -30.6, lng: 22.9, zoom: 4 } },
-  ss: { area: 619745, coords: { lat: 7.9, lng: 30.2, zoom: 5 } },
-  sd: { area: 1886068, coords: { lat: 15.6, lng: 32.5, zoom: 4 } },
-  tz: { area: 947303, coords: { lat: -6.4, lng: 34.9, zoom: 5 } },
-  tg: { area: 56785, coords: { lat: 8.6, lng: 0.8, zoom: 6 } },
-  tn: { area: 163610, coords: { lat: 33.9, lng: 9.5, zoom: 5 } },
-  ug: { area: 241550, coords: { lat: 1.4, lng: 32.3, zoom: 5 } },
-  zm: { area: 752618, coords: { lat: -13.1, lng: 27.9, zoom: 5 } },
-  zw: { area: 390757, coords: { lat: -19.0, lng: 29.2, zoom: 5 } },
-  jp: { area: 377975, coords: { lat: 36.2, lng: 138.3, zoom: 4 } },
-  kr: { area: 100210, coords: { lat: 35.9, lng: 127.8, zoom: 6 } },
-  in: { area: 3287263, coords: { lat: 20.6, lng: 79.1, zoom: 4 } },
-  cn: { area: 9596961, coords: { lat: 35.9, lng: 104.2, zoom: 3 } },
-  sa: { area: 2149690, coords: { lat: 24.7, lng: 45.7, zoom: 4 } },
-  af: { area: 652230, coords: { lat: 33.9, lng: 67.7, zoom: 5 } },
-  am: { area: 29743, coords: { lat: 40.1, lng: 45.0, zoom: 7 } },
-  az: { area: 86600, coords: { lat: 40.1, lng: 47.6, zoom: 6 } },
-  bh: { area: 765, coords: { lat: 26.0, lng: 50.6, zoom: 9 } },
-  bd: { area: 148460, coords: { lat: 23.7, lng: 90.4, zoom: 6 } },
-  bt: { area: 38394, coords: { lat: 27.5, lng: 90.4, zoom: 7 } },
-  bn: { area: 5765, coords: { lat: 4.5, lng: 114.7, zoom: 8 } },
-  cy: { area: 9251, coords: { lat: 35.1, lng: 33.4, zoom: 8 } },
-  ge: { area: 69700, coords: { lat: 42.3, lng: 43.4, zoom: 6 } },
-  id: { area: 1904569, coords: { lat: -0.8, lng: 113.9, zoom: 4 } },
-  ir: { area: 1648195, coords: { lat: 32.4, lng: 53.7, zoom: 4 } },
-  iq: { area: 438317, coords: { lat: 33.2, lng: 43.7, zoom: 5 } },
-  il: { area: 22072, coords: { lat: 31.0, lng: 35.0, zoom: 7 } },
-  jo: { area: 89342, coords: { lat: 30.6, lng: 36.2, zoom: 6 } },
-  kz: { area: 2724900, coords: { lat: 48.0, lng: 67.0, zoom: 4 } },
-  kp: { area: 120538, coords: { lat: 40.3, lng: 127.5, zoom: 5 } },
-  kw: { area: 17818, coords: { lat: 29.3, lng: 47.5, zoom: 7 } },
-  kg: { area: 199951, coords: { lat: 41.2, lng: 74.8, zoom: 5 } },
-  la: { area: 236800, coords: { lat: 19.9, lng: 102.5, zoom: 5 } },
-  lb: { area: 10452, coords: { lat: 33.9, lng: 35.5, zoom: 8 } },
-  my: { area: 330803, coords: { lat: 2.6, lng: 112.5, zoom: 5 } },
-  mv: { area: 300, coords: { lat: 3.2, lng: 73.2, zoom: 8 } },
-  mn: { area: 1564116, coords: { lat: 46.9, lng: 103.8, zoom: 4 } },
-  mm: { area: 676578, coords: { lat: 17.1, lng: 96.7, zoom: 5 } },
-  np: { area: 147516, coords: { lat: 28.4, lng: 84.1, zoom: 6 } },
-  om: { area: 309500, coords: { lat: 22.0, lng: 57.5, zoom: 5 } },
-  pk: { area: 881913, coords: { lat: 30.4, lng: 69.3, zoom: 4 } },
-  ph: { area: 300000, coords: { lat: 12.9, lng: 121.8, zoom: 5 } },
-  qa: { area: 11586, coords: { lat: 25.4, lng: 51.2, zoom: 8 } },
-  sg: { area: 734, coords: { lat: 1.4, lng: 103.8, zoom: 10 } },
-  lk: { area: 65610, coords: { lat: 7.9, lng: 80.8, zoom: 6 } },
-  sy: { area: 185180, coords: { lat: 34.8, lng: 38.8, zoom: 5 } },
-  tw: { area: 36197, coords: { lat: 23.7, lng: 121.0, zoom: 7 } },
-  tj: { area: 143100, coords: { lat: 38.9, lng: 71.3, zoom: 5 } },
-  th: { area: 513120, coords: { lat: 15.9, lng: 101.0, zoom: 5 } },
-  tl: { area: 14874, coords: { lat: -8.9, lng: 125.7, zoom: 7 } },
-  tr: { area: 783562, coords: { lat: 38.9, lng: 35.2, zoom: 5 } },
-  tm: { area: 488100, coords: { lat: 39.0, lng: 59.6, zoom: 5 } },
-  ae: { area: 83600, coords: { lat: 23.4, lng: 53.8, zoom: 6 } },
-  uz: { area: 448978, coords: { lat: 41.4, lng: 63.9, zoom: 5 } },
-  vn: { area: 331212, coords: { lat: 14.1, lng: 108.3, zoom: 5 } },
-  ye: { area: 527968, coords: { lat: 15.6, lng: 48.5, zoom: 5 } },
-  ps: { area: 6020, coords: { lat: 31.9, lng: 35.3, zoom: 8 } },
-  de: { area: 357022, coords: { lat: 51.2, lng: 10.5, zoom: 5 } },
-  fr: { area: 551695, coords: { lat: 46.2, lng: 2.2, zoom: 5 } },
-  it: { area: 301340, coords: { lat: 42.8, lng: 12.6, zoom: 5 } },
-  gb: { area: 243610, coords: { lat: 55.4, lng: -3.4, zoom: 5 } },
-  es: { area: 505992, coords: { lat: 40.5, lng: -3.7, zoom: 5 } },
-  al: { area: 28748, coords: { lat: 41.2, lng: 20.2, zoom: 7 } },
-  ad: { area: 468, coords: { lat: 42.5, lng: 1.6, zoom: 10 } },
-  at: { area: 83879, coords: { lat: 47.5, lng: 14.6, zoom: 6 } },
-  by: { area: 207600, coords: { lat: 53.7, lng: 28.0, zoom: 5 } },
-  be: { area: 30528, coords: { lat: 50.5, lng: 4.5, zoom: 7 } },
-  ba: { area: 51197, coords: { lat: 44.2, lng: 17.6, zoom: 6 } },
-  bg: { area: 110994, coords: { lat: 42.7, lng: 25.5, zoom: 6 } },
-  hr: { area: 56594, coords: { lat: 45.1, lng: 16.4, zoom: 6 } },
-  cz: { area: 78867, coords: { lat: 49.8, lng: 15.5, zoom: 6 } },
-  dk: { area: 42933, coords: { lat: 56.3, lng: 9.5, zoom: 6 } },
-  eng: { area: 130279, coords: { lat: 52.4, lng: -1.5, zoom: 6 } },
-  ee: { area: 45227, coords: { lat: 58.6, lng: 25.0, zoom: 6 } },
-  fi: { area: 338455, coords: { lat: 64.0, lng: 26.0, zoom: 4 } },
-  gr: { area: 131957, coords: { lat: 39.1, lng: 22.0, zoom: 5 } },
-  hu: { area: 93028, coords: { lat: 47.2, lng: 19.5, zoom: 6 } },
-  is: { area: 103000, coords: { lat: 65.0, lng: -18.0, zoom: 5 } },
-  ie: { area: 70273, coords: { lat: 53.2, lng: -8.2, zoom: 6 } },
-  xk: { area: 10887, coords: { lat: 42.6, lng: 20.9, zoom: 7 } },
-  lv: { area: 64589, coords: { lat: 56.9, lng: 24.6, zoom: 6 } },
-  li: { area: 160, coords: { lat: 47.2, lng: 9.6, zoom: 10 } },
-  lt: { area: 65300, coords: { lat: 56.0, lng: 24.0, zoom: 6 } },
-  lu: { area: 2586, coords: { lat: 49.8, lng: 6.1, zoom: 9 } },
-  mt: { area: 316, coords: { lat: 35.9, lng: 14.4, zoom: 10 } },
-  md: { area: 33843, coords: { lat: 47.4, lng: 28.4, zoom: 7 } },
-  mc: { area: 2, coords: { lat: 43.7, lng: 7.4, zoom: 12 } },
-  me: { area: 13812, coords: { lat: 42.8, lng: 19.4, zoom: 7 } },
-  nl: { area: 41543, coords: { lat: 52.3, lng: 5.3, zoom: 6 } },
-  mk: { area: 25713, coords: { lat: 41.6, lng: 21.7, zoom: 7 } },
-  no: { area: 385207, coords: { lat: 64.6, lng: 17.0, zoom: 4 } },
-  pl: { area: 312696, coords: { lat: 52.1, lng: 19.4, zoom: 5 } },
-  pt: { area: 92090, coords: { lat: 39.4, lng: -8.2, zoom: 6 } },
-  ro: { area: 238397, coords: { lat: 45.9, lng: 24.9, zoom: 5 } },
-  sm: { area: 61, coords: { lat: 43.9, lng: 12.5, zoom: 11 } },
-  scot: { area: 77933, coords: { lat: 56.5, lng: -4.2, zoom: 6 } },
-  rs: { area: 88361, coords: { lat: 44.0, lng: 21.0, zoom: 6 } },
-  sk: { area: 49035, coords: { lat: 48.7, lng: 19.7, zoom: 6 } },
-  si: { area: 20273, coords: { lat: 46.1, lng: 14.8, zoom: 7 } },
-  se: { area: 450295, coords: { lat: 60.1, lng: 18.6, zoom: 4 } },
-  ch: { area: 41285, coords: { lat: 46.8, lng: 8.2, zoom: 7 } },
-  ua: { area: 603628, coords: { lat: 48.4, lng: 31.2, zoom: 5 } },
-  va: { area: 0.49, coords: { lat: 41.9, lng: 12.5, zoom: 14 } },
-  wale: { area: 20779, coords: { lat: 52.1, lng: -3.8, zoom: 7 } },
-  'n-ire': { area: 14130, coords: { lat: 54.6, lng: -6.7, zoom: 7 } },
-  us: { area: 9833517, coords: { lat: 38.0, lng: -97.0, zoom: 3 } },
-  ca: { area: 9984670, coords: { lat: 56.1, lng: -96.3, zoom: 3 } },
-  mx: { area: 1964375, coords: { lat: 23.6, lng: -102.5, zoom: 4 } },
-  jm: { area: 10991, coords: { lat: 18.1, lng: -77.3, zoom: 8 } },
-  cr: { area: 51100, coords: { lat: 9.7, lng: -83.8, zoom: 7 } },
-  ag: { area: 442, coords: { lat: 17.1, lng: -61.8, zoom: 10 } },
-  bs: { area: 13943, coords: { lat: 25.0, lng: -78.0, zoom: 7 } },
-  bb: { area: 430, coords: { lat: 13.2, lng: -59.6, zoom: 10 } },
-  bz: { area: 22966, coords: { lat: 17.2, lng: -88.5, zoom: 7 } },
-  cu: { area: 109884, coords: { lat: 22.0, lng: -79.5, zoom: 6 } },
-  dm: { area: 751, coords: { lat: 15.4, lng: -61.4, zoom: 10 } },
-  do: { area: 48671, coords: { lat: 18.7, lng: -70.2, zoom: 6 } },
-  sv: { area: 21041, coords: { lat: 13.8, lng: -88.9, zoom: 7 } },
-  gd: { area: 349, coords: { lat: 12.1, lng: -61.7, zoom: 10 } },
-  gt: { area: 108889, coords: { lat: 15.8, lng: -90.2, zoom: 6 } },
-  ht: { area: 27750, coords: { lat: 18.9, lng: -72.7, zoom: 7 } },
-  hn: { area: 112492, coords: { lat: 15.2, lng: -86.2, zoom: 6 } },
-  ni: { area: 130373, coords: { lat: 12.9, lng: -85.2, zoom: 6 } },
-  pa: { area: 75417, coords: { lat: 8.5, lng: -80.8, zoom: 6 } },
-  kn: { area: 261, coords: { lat: 17.3, lng: -62.7, zoom: 10 } },
-  lc: { area: 617, coords: { lat: 13.9, lng: -60.9, zoom: 10 } },
-  vc: { area: 389, coords: { lat: 12.9, lng: -61.3, zoom: 10 } },
-  tt: { area: 5131, coords: { lat: 10.7, lng: -61.2, zoom: 8 } },
-  br: { area: 8515767, coords: { lat: -14.2, lng: -51.9, zoom: 3 } },
-  ar: { area: 2780400, coords: { lat: -38.4, lng: -63.6, zoom: 3 } },
-  cl: { area: 756102, coords: { lat: -35.7, lng: -71.5, zoom: 4 } },
-  co: { area: 1141748, coords: { lat: 4.6, lng: -74.3, zoom: 4 } },
-  pe: { area: 1285216, coords: { lat: -9.2, lng: -75.0, zoom: 4 } },
-  bo: { area: 1098581, coords: { lat: -16.3, lng: -63.6, zoom: 4 } },
-  ec: { area: 256370, coords: { lat: -1.8, lng: -78.2, zoom: 5 } },
-  gy: { area: 214969, coords: { lat: 4.9, lng: -58.9, zoom: 5 } },
-  py: { area: 406752, coords: { lat: -23.4, lng: -58.4, zoom: 5 } },
-  sr: { area: 163820, coords: { lat: 3.9, lng: -56.0, zoom: 6 } },
-  uy: { area: 176215, coords: { lat: -32.5, lng: -55.8, zoom: 6 } },
-  ve: { area: 916445, coords: { lat: 6.4, lng: -66.6, zoom: 5 } },
-  au: { area: 7692024, coords: { lat: -25.3, lng: 133.8, zoom: 3 } },
-  nz: { area: 268021, coords: { lat: -40.9, lng: 174.9, zoom: 5 } },
-  fj: { area: 18274, coords: { lat: -17.7, lng: 178.1, zoom: 7 } },
-  pg: { area: 462840, coords: { lat: -6.3, lng: 143.9, zoom: 5 } },
-  pw: { area: 459, coords: { lat: 7.5, lng: 134.6, zoom: 9 } },
-  ki: { area: 811, coords: { lat: 1.9, lng: -157.4, zoom: 8 } },
-  mh: { area: 181, coords: { lat: 7.1, lng: 171.2, zoom: 8 } },
-  fm: { area: 702, coords: { lat: 6.9, lng: 158.2, zoom: 8 } },
-  nr: { area: 21, coords: { lat: -0.5, lng: 166.9, zoom: 11 } },
-  ws: { area: 2842, coords: { lat: -13.8, lng: -172.1, zoom: 8 } },
-  sb: { area: 28896, coords: { lat: -9.6, lng: 160.2, zoom: 7 } },
-  to: { area: 747, coords: { lat: -21.2, lng: -175.2, zoom: 9 } },
-  tv: { area: 26, coords: { lat: -8.5, lng: 179.2, zoom: 11 } },
-  vu: { area: 12189, coords: { lat: -15.4, lng: 166.9, zoom: 7 } },
-  gl: { area: 2166086, coords: { lat: 71.7, lng: -42.6, zoom: 3 } },
-  pr: { area: 9104, coords: { lat: 18.2, lng: -66.6, zoom: 8 } },
-  guam: { area: 544, coords: { lat: 13.4, lng: 144.8, zoom: 9 } },
-  fk: { area: 12173, coords: { lat: -51.8, lng: -59.5, zoom: 7 } },
-  hk: { area: 2755, coords: { lat: 22.4, lng: 114.1, zoom: 9 } },
-  mo: { area: 115, coords: { lat: 22.2, lng: 113.5, zoom: 11 } },
-  fo: { area: 1399, coords: { lat: 62.0, lng: -7.0, zoom: 8 } },
-  ax: { area: 1580, coords: { lat: 60.2, lng: 20.1, zoom: 8 } },
-  gf: { area: 83534, coords: { lat: 3.9, lng: -53.1, zoom: 6 } },
-  gg: { area: 78, coords: { lat: 49.5, lng: -2.5, zoom: 11 } },
-  im: { area: 572, coords: { lat: 54.2, lng: -4.5, zoom: 9 } },
-  je: { area: 118, coords: { lat: 49.2, lng: -2.1, zoom: 11 } },
-  gi: { area: 6.8, coords: { lat: 36.1, lng: -5.4, zoom: 12 } },
-  ru: { area: 17098242, coords: { lat: 61.5, lng: 105.3, zoom: 2 } },
-  // cities
-  'chicago-city': { area: 606, coords: { lat: 41.8, lng: -87.6, zoom: 10 } },
-  'amsterdam-city': { area: 219, coords: { lat: 52.4, lng: 4.9, zoom: 11 } },
-  'tokyo-city': { area: 2194, coords: { lat: 35.7, lng: 139.7, zoom: 9 } },
-  'washington-dc-city': { area: 177, coords: { lat: 38.9, lng: -77.0, zoom: 11 } },
-  'sao-paulo-city': { area: 1521, coords: { lat: -23.5, lng: -46.6, zoom: 10 } },
-  'la-city': { area: 498, coords: { lat: 34.1, lng: -118.2, zoom: 10 } },
-  'moscow-city': { area: 2562, coords: { lat: 55.8, lng: 37.6, zoom: 9 } },
-  'paris-city': { area: 105, coords: { lat: 48.9, lng: 2.3, zoom: 11 } },
-  'seoul-city': { area: 605, coords: { lat: 37.6, lng: 127.0, zoom: 10 } },
-  'toronto-city': { area: 631, coords: { lat: 43.7, lng: -79.4, zoom: 10 } },
-  'ny-city': { area: 778, coords: { lat: 40.7, lng: -73.9, zoom: 10 } },
-  'rome-city': { area: 5363, coords: { lat: 41.9, lng: 12.5, zoom: 10 } },
-  'sydney-city': { area: 12368, coords: { lat: -33.9, lng: 151.2, zoom: 9 } },
+  dz: { area: 2381741 },
+  ao: { area: 1246700 },
+  bj: { area: 114763 },
+  bw: { area: 581730 },
+  bf: { area: 274222 },
+  bi: { area: 27834 },
+  cv: { area: 4033 },
+  cm: { area: 475442 },
+  cf: { area: 622984 },
+  td: { area: 1284000 },
+  km: { area: 1862 },
+  cd: { area: 2344858 },
+  cg: { area: 342000 },
+  dj: { area: 23200 },
+  eg: { area: 1002450 },
+  gq: { area: 28051 },
+  er: { area: 117600 },
+  sz: { area: 17364 },
+  et: { area: 1104300 },
+  ga: { area: 267668 },
+  gm: { area: 11295 },
+  gh: { area: 238533 },
+  gn: { area: 245857 },
+  gw: { area: 36125 },
+  ci: { area: 322463 },
+  ke: { area: 580367 },
+  ls: { area: 30355 },
+  lr: { area: 111369 },
+  ly: { area: 1759540 },
+  mg: { area: 587041 },
+  mw: { area: 118484 },
+  ml: { area: 1240192 },
+  mr: { area: 1030700 },
+  mu: { area: 2040 },
+  ma: { area: 446550 },
+  mz: { area: 801590 },
+  na: { area: 825615 },
+  ne: { area: 1267000 },
+  ng: { area: 923768 },
+  rw: { area: 26338 },
+  st: { area: 964 },
+  sn: { area: 196722 },
+  sc: { area: 452 },
+  sl: { area: 71740 },
+  so: { area: 637657 },
+  za: { area: 1221037 },
+  ss: { area: 619745 },
+  sd: { area: 1886068 },
+  tz: { area: 947303 },
+  tg: { area: 56785 },
+  tn: { area: 163610 },
+  ug: { area: 241550 },
+  zm: { area: 752618 },
+  zw: { area: 390757 },
+
+  jp: { area: 377975 },
+  kr: { area: 100210 },
+  in: { area: 3287263 },
+  cn: { area: 9596961 },
+  sa: { area: 2149690 },
+  af: { area: 652230 },
+  am: { area: 29743 },
+  az: { area: 86600 },
+  bh: { area: 765 },
+  bd: { area: 148460 },
+  bt: { area: 38394 },
+  bn: { area: 5765 },
+  kh: { area: 181035 },
+  cy: { area: 9251 },
+  ge: { area: 69700 },
+  id: { area: 1904569 },
+  ir: { area: 1648195 },
+  iq: { area: 438317 },
+  il: { area: 22072 },
+  jo: { area: 89342 },
+  kz: { area: 2724900 },
+  kp: { area: 120538 },
+  kw: { area: 17818 },
+  kg: { area: 199951 },
+  la: { area: 236800 },
+  lb: { area: 10452 },
+  my: { area: 330803 },
+  mv: { area: 300 },
+  mn: { area: 1564116 },
+  mm: { area: 676578 },
+  np: { area: 147516 },
+  om: { area: 309500 },
+  pk: { area: 881913 },
+  ph: { area: 300000 },
+  qa: { area: 11586 },
+  sg: { area: 734 },
+  lk: { area: 65610 },
+  sy: { area: 185180 },
+  tw: { area: 36197 },
+  tj: { area: 143100 },
+  th: { area: 513120 },
+  tl: { area: 14874 },
+  tr: { area: 783562 },
+  tm: { area: 488100 },
+  ae: { area: 83600 },
+  uz: { area: 448978 },
+  vn: { area: 331212 },
+  ye: { area: 527968 },
+  ps: { area: 6020 },
+
+  de: { area: 357022 },
+  fr: { area: 551695 },
+  it: { area: 301340 },
+  gb: { area: 243610 },
+  es: { area: 505992 },
+  al: { area: 28748 },
+  ad: { area: 468 },
+  at: { area: 83879 },
+  by: { area: 207600 },
+  be: { area: 30528 },
+  ba: { area: 51197 },
+  bg: { area: 110994 },
+  hr: { area: 56594 },
+  cz: { area: 78867 },
+  dk: { area: 42933 },
+  eng: { area: 130279 },
+  ee: { area: 45227 },
+  fi: { area: 338455 },
+  gr: { area: 131957 },
+  hu: { area: 93028 },
+  is: { area: 103000 },
+  ie: { area: 70273 },
+  xk: { area: 10887 },
+  lv: { area: 64589 },
+  li: { area: 160 },
+  lt: { area: 65300 },
+  lu: { area: 2586 },
+  mt: { area: 316 },
+  md: { area: 33843 },
+  mc: { area: 2 },
+  me: { area: 13812 },
+  nl: { area: 41543 },
+  mk: { area: 25713 },
+  no: { area: 385207 },
+  pl: { area: 312696 },
+  pt: { area: 92090 },
+  ro: { area: 238397 },
+  sm: { area: 61 },
+  scot: { area: 77933 },
+  rs: { area: 88361 },
+  sk: { area: 49035 },
+  si: { area: 20273 },
+  se: { area: 450295 },
+  ch: { area: 41285 },
+  ua: { area: 603628 },
+  va: { area: 0.49 },
+  wale: { area: 20779 },
+  'n-ire': { area: 14130 },
+
+  us: { area: 9833517 },
+  ca: { area: 9984670 },
+  mx: { area: 1964375 },
+  jm: { area: 10991 },
+  cr: { area: 51100 },
+  ag: { area: 442 },
+  bs: { area: 13943 },
+  bb: { area: 430 },
+  bz: { area: 22966 },
+  cu: { area: 109884 },
+  dm: { area: 751 },
+  do: { area: 48671 },
+  sv: { area: 21041 },
+  gd: { area: 349 },
+  gt: { area: 108889 },
+  ht: { area: 27750 },
+  hn: { area: 112492 },
+  ni: { area: 130373 },
+  pa: { area: 75417 },
+  kn: { area: 261 },
+  lc: { area: 617 },
+  vc: { area: 389 },
+  tt: { area: 5131 },
+
+  br: { area: 8515767 },
+  ar: { area: 2780400 },
+  cl: { area: 756102 },
+  co: { area: 1141748 },
+  pe: { area: 1285216 },
+  bo: { area: 1098581 },
+  ec: { area: 256370 },
+  gy: { area: 214969 },
+  py: { area: 406752 },
+  sr: { area: 163820 },
+  uy: { area: 176215 },
+  ve: { area: 916445 },
+
+  au: { area: 7692024 },
+  nz: { area: 268021 },
+  fj: { area: 18274 },
+  pg: { area: 462840 },
+  pw: { area: 459 },
+  ki: { area: 811 },
+  mh: { area: 181 },
+  fm: { area: 702 },
+  nr: { area: 21 },
+  ws: { area: 2842 },
+  sb: { area: 28896 },
+  to: { area: 747 },
+  tv: { area: 26 },
+  vu: { area: 12189 },
+
+  gl: { area: 2166086 },
+  pr: { area: 9104 },
+  guam: { area: 544 },
+  fk: { area: 12173 },
+  hk: { area: 2755 },
+  mo: { area: 115 },
+  fo: { area: 1399 },
+  ax: { area: 1580 },
+  gf: { area: 83534 },
+  gg: { area: 78 },
+  im: { area: 572 },
+  je: { area: 118 },
+  gi: { area: 6.8 },
+
+  ru: { area: 17098242 },
+
+  'chicago-city': { area: 606 },
+  'amsterdam-city': { area: 219 },
+  'tokyo-city': { area: 2194 },
+  'washington-dc-city': { area: 177 },
+  'sao-paulo-city': { area: 1521 },
+  'la-city': { area: 498 },
+  'moscow-city': { area: 2562 },
+  'paris-city': { area: 105 },
+  'seoul-city': { area: 605 },
+  'toronto-city': { area: 631 },
+  'ny-city': { area: 778 },
+  'rome-city': { area: 5363 },
+  'sydney-city': { area: 12368 },
 };
 
 // Merge into flat LAND_AREAS and MAP_COORDS
@@ -2449,7 +2458,7 @@ const EXTRA_AREAS = {
   acre: 164123, alago: 27843, amapa: 142815, amazon: 1559168, bahia: 564733,
   ceara: 148894, 'esp-santo': 46095, goias: 340111, maran: 331983, 'mat-gros': 903207,
   'mat-sul': 357145, 'min-ger': 586528, para: 1247689, paraiba: 56468, parana: 199315,
-  pernam: 98312, piaui: 251755, 'rio-jane': 43750, 'grande-nort': 52811,
+  pernam: 98312, piaui: 251755, 'rio-jane': 43750, 'grande-nort': 52811, 
   'grande-sul': 281730, rondon: 237576, rorai: 223644, 'santa-catar': 95730,
   'sao-paul': 248219, sergip: 21910, tocant: 277621, 'fed-dist': 5761,
   'ussr-rus': 17125200, 'ussr-ukr': 603700, 'ussr-bela': 207600, 'ussr-uzb': 447400,
@@ -3367,6 +3376,218 @@ const WIKI_MAP_IMAGES = {
   zai: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Republic_of_Zaire_%28orthographic_projection%29.svg/1280px-Republic_of_Zaire_%28orthographic_projection%29.svg.png',
   'ussr-rus': 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Russian_SFSR_in_Soviet_Union.svg/1280px-Russian_SFSR_in_Soviet_Union.svg.png',
   'ussr-cau': 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Transcaucasian_SFSR_in_Soviet_Union.svg/1280px-Transcaucasian_SFSR_in_Soviet_Union.svg.png',
+  // Africa
+  dz: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Location_Algeria_AU_Africa.svg/3840px-Location_Algeria_AU_Africa.svg.png', // Algeria
+  ao: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Location_Angola_AU_Africa.svg/3840px-Location_Angola_AU_Africa.svg.png', // Angola
+  bj: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Location_Benin_AU_Africa.svg/3840px-Location_Benin_AU_Africa.svg.png', // Benin
+  bw: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Location_Botswana_AU_Africa.svg/3840px-Location_Botswana_AU_Africa.svg.png', // Botswana
+  bf: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Location_Burkina_Faso_AU_Africa.svg/3840px-Location_Burkina_Faso_AU_Africa.svg.png', // Burkina Faso
+  bi: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Location_Burundi_AU_Africa.svg/3840px-Location_Burundi_AU_Africa.svg.png', // Burundi
+  cv: 'https://upload.wikimedia.org/wikipedia/commons/d/d8/Location_Cape_Verde_AU_Africa.svg', // Cape Verde
+  cm: 'https://upload.wikimedia.org/wikipedia/commons/4/42/Location_Cameroon_AU_Africa.svg', // Cameroon
+  cf: 'https://upload.wikimedia.org/wikipedia/commons/f/f0/Location_Central_African_Republic_AU_Africa.svg', // Central African Republic
+  td: 'https://upload.wikimedia.org/wikipedia/commons/e/ec/Location_Chad_AU_Africa.svg', // Chad
+  km: 'https://upload.wikimedia.org/wikipedia/commons/2/25/Location_Comoros_AU_Africa.svg', // Comoros
+  cd: 'https://upload.wikimedia.org/wikipedia/commons/a/a9/Location_DR_Congo_AU_Africa.svg', // Democratic Republic of the Congo
+  cg: 'https://upload.wikimedia.org/wikipedia/commons/b/ba/Location_Republic_of_the_Congo_AU_Africa.svg', // Republic of the Congo
+  dj: 'https://upload.wikimedia.org/wikipedia/commons/5/53/Location_Djibouti_AU_Africa.svg', // Djibouti
+  eg: 'https://upload.wikimedia.org/wikipedia/commons/d/df/Location_Egypt_AU_Africa.svg', // Egypt
+  gq: 'https://upload.wikimedia.org/wikipedia/commons/e/e2/Location_Equatorial_Guinea_AU_Africa.svg', // Equatorial Guinea
+  er: 'https://upload.wikimedia.org/wikipedia/commons/9/9f/Location_Eritrea_AU_Africa.svg', // Eritrea
+  sz: 'https://upload.wikimedia.org/wikipedia/commons/c/c4/Location_Eswatini_AU_Africa.svg', // Eswatini
+  et: 'https://upload.wikimedia.org/wikipedia/commons/e/e7/Location_Ethiopia_AU_Africa.svg', // Ethiopia
+  ga: 'https://upload.wikimedia.org/wikipedia/commons/9/9c/Location_Gabon_AU_Africa.svg', // Gabon
+  gm: 'https://upload.wikimedia.org/wikipedia/commons/5/52/Location_Gambia_AU_Africa.svg', // Gambia
+  gh: 'https://upload.wikimedia.org/wikipedia/commons/5/5b/Location_Ghana_AU_Africa.svg', // Ghana
+  gn: 'https://upload.wikimedia.org/wikipedia/commons/0/04/Location_Guinea_AU_Africa.svg', // Guinea
+  gw: 'https://upload.wikimedia.org/wikipedia/commons/f/fe/Location_Guinea_Bissau_AU_Africa.svg', // Guinea-Bissau
+  ci: 'https://upload.wikimedia.org/wikipedia/commons/c/cd/Location_Côte_d%27Ivoire_AU_Africa.svg', // Côte d'Ivoire
+  ke: 'https://upload.wikimedia.org/wikipedia/commons/1/16/Location_Kenya_AU_Africa.svg', // Kenya
+  ls: 'https://upload.wikimedia.org/wikipedia/commons/d/d2/Location_Lesotho_AU_Africa.svg', // Lesotho
+  lr: 'https://upload.wikimedia.org/wikipedia/commons/6/6f/Location_Liberia_AU_Africa.svg', // Liberia
+  ly: 'https://upload.wikimedia.org/wikipedia/commons/1/1b/Location_Libya_AU_Africa.svg', // Libya
+  mg: 'https://upload.wikimedia.org/wikipedia/commons/4/41/Location_Madagascar_AU_Africa.svg', // Madagascar
+  mw: 'https://upload.wikimedia.org/wikipedia/commons/a/ab/Location_Malawi_AU_Africa.svg', // Malawi
+  ml: 'https://upload.wikimedia.org/wikipedia/commons/4/45/Location_Mali_AU_Africa.svg', // Mali
+  mr: 'https://upload.wikimedia.org/wikipedia/commons/4/4a/Location_Mauritania_AU_Africa.svg', // Mauritania
+  mu: 'https://upload.wikimedia.org/wikipedia/commons/6/66/Location_Mauritius_AU_Africa.svg', // Mauritius
+  ma: 'https://upload.wikimedia.org/wikipedia/commons/e/e6/Location_Morocco_AU_Africa.svg', // Morocco
+  mz: 'https://upload.wikimedia.org/wikipedia/commons/3/32/Location_Mozambique_AU_Africa.svg', // Mozambique
+  na: 'https://upload.wikimedia.org/wikipedia/commons/6/67/Location_Namibia_AU_Africa.svg', // Namibia
+  ne: 'https://upload.wikimedia.org/wikipedia/commons/6/68/Location_Niger_AU_Africa.svg', // Niger
+  ng: 'https://upload.wikimedia.org/wikipedia/commons/2/2d/Location_Nigeria_AU_Africa.svg', // Nigeria
+  rw: 'https://upload.wikimedia.org/wikipedia/commons/6/60/Location_Rwanda_AU_Africa.svg', // Rwanda
+  st: 'https://upload.wikimedia.org/wikipedia/commons/3/35/Location_São_Tomé_and_Príncipe_AU_Africa.svg', // Sao Tome and Principe
+  sn: 'https://upload.wikimedia.org/wikipedia/commons/3/33/Location_Senegal_AU_Africa.svg', // Senegal
+  sc: 'https://upload.wikimedia.org/wikipedia/commons/b/bd/Location_Seychelles_AU_Africa.svg', // Seychelles
+  sl: 'https://upload.wikimedia.org/wikipedia/commons/4/4f/Location_Sierra_Leone_AU_Africa.svg', // Sierra Leone
+  so: 'https://upload.wikimedia.org/wikipedia/commons/d/dd/Location_Somalia_AU_Africa.svg', // Somalia
+  za: 'https://upload.wikimedia.org/wikipedia/commons/8/85/Location_South_Africa_AU_Africa.svg', // South Africa
+  ss: 'https://upload.wikimedia.org/wikipedia/commons/b/b1/Location_South_Sudan_AU_Africa.svg', // South Sudan
+  sd: 'https://upload.wikimedia.org/wikipedia/commons/9/92/Location_Sudan_before_2011_AU_Africa.svg', // Sudan
+  tz: 'https://upload.wikimedia.org/wikipedia/commons/8/83/Location_Tanzania_AU_Africa.svg', // Tanzania
+  tg: 'https://upload.wikimedia.org/wikipedia/commons/1/1b/Location_Togo_AU_Africa.svg', // Togo
+  tn: 'https://upload.wikimedia.org/wikipedia/commons/7/7c/Location_Tunisia_AU_Africa.svg', // Tunisia
+  ug: 'https://upload.wikimedia.org/wikipedia/commons/e/e5/Location_Uganda_AU_Africa.svg', // Uganda
+  zm: 'https://upload.wikimedia.org/wikipedia/commons/b/bb/Location_Zambia_AU_Africa.svg', // Zambia
+  zw: 'https://upload.wikimedia.org/wikipedia/commons/a/a1/Location_Zimbabwe_AU_Africa.svg', // Zimbabwe,
+
+  // Asia
+  jp: 'https://upload.wikimedia.org/wikipedia/commons/6/62/Japan_%28orthographic_projection%29.svg', // Japan
+  kr: 'https://upload.wikimedia.org/wikipedia/commons/b/b1/Republic_of_Korea_%28orthographic_projection%29.svg', // South Korea
+  in: 'https://upload.wikimedia.org/wikipedia/commons/b/bb/India_%28orthographic_projection%29.svg', // India
+  cn: 'https://upload.wikimedia.org/wikipedia/commons/a/a4/CHN_orthographic.svg', // China
+  sa: 'https://upload.wikimedia.org/wikipedia/commons/4/47/Saudi_Arabia_%28orthographic_projection%29.svg', // Saudi Arabia
+  af: 'https://upload.wikimedia.org/wikipedia/commons/1/19/Afghanistan_%28orthographic_projection%29.svg', // Afghanistan
+  am: 'https://upload.wikimedia.org/wikipedia/commons/9/96/Armenia_%28orthographic_projection%29.svg', // Armenia
+  az: 'https://upload.wikimedia.org/wikipedia/commons/7/75/Azerbaijan_orthographic_projection.svg', // Azerbaijan
+  bh: 'https://upload.wikimedia.org/wikipedia/commons/9/95/Bahrain_on_the_globe_%28Bahrain_centered%29.svg', // Bahrain
+  bd: 'https://upload.wikimedia.org/wikipedia/commons/f/f2/Bangladesh_%28orthographic_projection%29.svg', // Bangladesh
+  bt: 'https://upload.wikimedia.org/wikipedia/commons/c/ce/Bhutan_%28orthographic_projection%29.svg', // Bhutan
+  bn: 'https://upload.wikimedia.org/wikipedia/commons/9/9c/Brunei_%28orthographic_projection%29.svg', // Brunei
+  kh: 'https://upload.wikimedia.org/wikipedia/commons/c/cb/Cambodia_on_the_globe_%28Cambodia_centered%29.svg', // Cambodia
+  cy: 'https://upload.wikimedia.org/wikipedia/commons/a/a3/Republic_of_Cyprus_%28orthographic_projection%29.svg', // Cyprus
+  ge: 'https://upload.wikimedia.org/wikipedia/commons/6/67/Georgia_%28orthographic_projection_with_inset%29.svg', // Georgia
+  id: 'https://upload.wikimedia.org/wikipedia/commons/0/05/Indonesia_%28orthographic_projection%29.svg', // Indonesia
+  ir: 'https://upload.wikimedia.org/wikipedia/commons/a/a8/Iran_%28orthographic_projection%29.svghttps://upload.wikimedia.org/wikipedia/commons/5/5c/Iraq_%28orthographic%29.svg', // Iran
+  iq: 'https://upload.wikimedia.org/wikipedia/commons/5/5c/Iraq_%28orthographic%29.svg', // Iraq
+  il: 'https://upload.wikimedia.org/wikipedia/commons/1/13/Israel_%28centered_orthographic_projection%29.svg', // Israel
+  jo: 'https://upload.wikimedia.org/wikipedia/commons/b/b2/Jordan_%28orthographic_projection%29.svg', // Jordan
+  kz: 'https://upload.wikimedia.org/wikipedia/commons/3/3e/Kazakhstan_%28orthographic_projection%29.svg', // Kazakhstan
+  kp: 'https://upload.wikimedia.org/wikipedia/commons/7/7b/North_Korea_%28orthographic_projection%29.svg', // North Korea
+  kw: 'https://upload.wikimedia.org/wikipedia/commons/4/41/KWT_orthographic.svg', // Kuwait
+  kg: 'https://upload.wikimedia.org/wikipedia/commons/7/7c/Kyrgyzstan_%28orthographic_projection%29.svg', // Kyrgyzstan
+  la: 'https://upload.wikimedia.org/wikipedia/commons/b/bc/Laos_%28orthographic_projection%29.svg', // Laos
+  lb: 'https://upload.wikimedia.org/wikipedia/commons/9/96/Lebanon_%28orthographic_projection%29.svg', // Lebanon
+  my: 'https://upload.wikimedia.org/wikipedia/commons/2/23/Malaysia_%28orthographic_projection%29.svg', // Malaysia
+  mv: 'https://upload.wikimedia.org/wikipedia/commons/4/4b/Maldives_%28orthographic_projection%29.svg', // Maldives
+  mn: 'https://upload.wikimedia.org/wikipedia/commons/f/f3/Mongolia_%28orthographic_projection%29.svg', // Mongolia
+  mm: 'https://upload.wikimedia.org/wikipedia/commons/c/cb/Myanmar_%28orthographic_projection%29.svg', // Myanmar
+  np: 'https://upload.wikimedia.org/wikipedia/commons/d/d4/Nepal_%28orthographic_projection%29.svg', // Nepal
+  om: 'https://upload.wikimedia.org/wikipedia/commons/e/e2/Oman_%28better%29_%28orthographic_projection%29.svg', // Oman
+  pk: 'https://upload.wikimedia.org/wikipedia/commons/e/ea/PAK_orthographic.svg', // Pakistan
+  ph: 'https://upload.wikimedia.org/wikipedia/commons/6/6d/PHL_orthographic.svg', // Philippines
+  qa: 'https://upload.wikimedia.org/wikipedia/commons/d/d4/QAT_orthographic.svg', // Qatar
+  sg: 'https://upload.wikimedia.org/wikipedia/commons/3/37/Singapore_on_the_globe_%28Southeast_Asia_centered%29_zoom.svg', // Singapore
+  lk: 'https://upload.wikimedia.org/wikipedia/commons/9/96/Sri_Lanka_%28orthographic_projection%29.svg', // Sri Lanka
+  sy: 'https://upload.wikimedia.org/wikipedia/commons/6/68/Syria_%28orthographic_projection%29_disputed.svg', // Syria
+  tw: 'https://upload.wikimedia.org/wikipedia/commons/c/c5/Free_Area_of_the_Republic_of_China_%28orthographic_projection%29.svg', // Taiwan
+  tj: 'https://upload.wikimedia.org/wikipedia/commons/a/a1/Tajikistan_%28orthographic_projection%29.svg', // Tajikistan
+  th: 'https://upload.wikimedia.org/wikipedia/commons/6/6d/Thailand_%28orthographic_projection%29.svg', // Thailand
+  tl: 'https://upload.wikimedia.org/wikipedia/commons/b/bc/Timor_Leste_%28orthographic_projection%29.svg', // Timor-Leste
+  tr: 'https://upload.wikimedia.org/wikipedia/commons/d/dd/Turkey_%28orthographic_projection%29.svg', // Turkey
+  tm: 'https://upload.wikimedia.org/wikipedia/commons/b/ba/Turkmenistan_on_the_globe_%28Turkmenistan_centered%29.svg', // Turkmenistan
+  ae: 'https://upload.wikimedia.org/wikipedia/commons/c/cd/United_Arab_Emirates_%28orthographic_projection%29.svg', // United Arab Emirates
+  uz: 'https://upload.wikimedia.org/wikipedia/commons/6/6d/Uzbekistan_%28centered_orthographic_projection%29.svg', // Uzbekistan
+  vn: 'https://upload.wikimedia.org/wikipedia/commons/2/28/Vietnam_%28orthographic_projection%29.svg', // Vietnam
+  ye: 'https://upload.wikimedia.org/wikipedia/commons/f/f1/Yemen_%28orthographic_projection%29.svg', // Yemen
+  ps: 'https://upload.wikimedia.org/wikipedia/commons/a/ad/State_of_Palestine_%28orthographic_projection%29.svg', // Palestine,
+
+  // Europe
+  ru: 'https://upload.wikimedia.org/wikipedia/commons/5/5e/Russian_Federation_%28orthographic_projection%29_-_All_Territorial_Disputes.svg', // Russia
+  de: 'https://upload.wikimedia.org/wikipedia/commons/2/26/EU-Germany.svg', // Germany
+  fr: 'https://upload.wikimedia.org/wikipedia/commons/a/a3/EU-France.svg', // France
+  it: 'https://upload.wikimedia.org/wikipedia/commons/b/ba/EU-Italy.svg', // Italy
+  gb: 'https://upload.wikimedia.org/wikipedia/commons/5/5b/Europe-UK.svg', // United Kingdom
+  es: 'https://upload.wikimedia.org/wikipedia/commons/2/21/EU-Spain.svg', // Spain
+  al: 'https://upload.wikimedia.org/wikipedia/commons/c/ce/Europe-Albania.svg', // Albania
+  ad: 'https://upload.wikimedia.org/wikipedia/commons/1/12/Location_Andorra_Europe.png', // Andorra
+  at: 'https://upload.wikimedia.org/wikipedia/commons/9/9d/EU-Austria.svg', // Austria
+  by: 'https://upload.wikimedia.org/wikipedia/commons/a/af/Europe-Belarus.svg', // Belarus
+  be: 'https://upload.wikimedia.org/wikipedia/commons/6/67/EU-Belgium.svg', // Belgium
+  ba: 'https://upload.wikimedia.org/wikipedia/commons/f/f9/Map_of_Bosnia_and_Herzegovina_in_Europe.svg', // Bosnia and Herzegovina
+  bg: 'https://upload.wikimedia.org/wikipedia/commons/e/e9/EU-Bulgaria.svg', // Bulgaria
+  hr: 'https://upload.wikimedia.org/wikipedia/commons/1/15/EU-Croatia.svg', // Croatia
+  cz: 'https://upload.wikimedia.org/wikipedia/commons/3/31/EU-Czech_Republic.svg', // Czech Republic
+  dk: 'https://upload.wikimedia.org/wikipedia/commons/9/9a/EU-Denmark.svg', // Denmark
+  eng: 'https://upload.wikimedia.org/wikipedia/commons/b/b3/England_in_the_UK_and_Europe.svg', // England
+  ee: 'https://upload.wikimedia.org/wikipedia/commons/a/a2/EU-Estonia.svg', // Estonia
+  fi: 'https://upload.wikimedia.org/wikipedia/commons/6/6e/EU-Finland.svg', // Finland
+  gr: 'https://upload.wikimedia.org/wikipedia/commons/2/21/EU-Greece.svg', // Greece
+  hu: 'https://upload.wikimedia.org/wikipedia/commons/6/60/EU-Hungary.svg', // Hungary
+  is: 'https://upload.wikimedia.org/wikipedia/commons/6/66/Europe-Iceland.svg', // Iceland
+  ie: 'https://upload.wikimedia.org/wikipedia/commons/2/2a/EU-Ireland.svg', // Ireland
+  xk: 'https://upload.wikimedia.org/wikipedia/commons/5/5d/Europe-Kosovo.svg', // Kosovo
+  lv: 'https://upload.wikimedia.org/wikipedia/commons/3/32/EU-Latvia.svg', // Latvia
+  li: 'https://upload.wikimedia.org/wikipedia/commons/3/36/Location_Liechtenstein_Europe.png', // Liechtenstein
+  lt: 'https://upload.wikimedia.org/wikipedia/commons/e/ec/EU-Lithuania.svg', // Lithuania
+  lu: 'https://upload.wikimedia.org/wikipedia/commons/c/c3/EU-Luxembourg.svg', // Luxembourg
+  mt: 'https://upload.wikimedia.org/wikipedia/commons/6/63/EU-Malta.svg', // Malta
+  md: 'https://upload.wikimedia.org/wikipedia/commons/f/fe/Location_Moldova_Europe.png', // Moldova
+  mc: 'https://upload.wikimedia.org/wikipedia/commons/f/f5/Location_Monaco_Europe.png', // Monaco
+  me: 'https://upload.wikimedia.org/wikipedia/commons/b/b0/Europe-Montenegro.svg', // Montenegro
+  nl: 'https://upload.wikimedia.org/wikipedia/commons/2/27/EU-Netherlands.svg', // Netherlands
+  mk: 'https://upload.wikimedia.org/wikipedia/commons/9/9f/Europe-Republic_of_North_Macedonia.svg', // North Macedonia
+  no: 'https://upload.wikimedia.org/wikipedia/commons/0/01/Europe-Norway.svg', // Norway
+  pl: 'https://upload.wikimedia.org/wikipedia/commons/9/9b/EU-Poland.svg', // Poland
+  pt: 'https://upload.wikimedia.org/wikipedia/commons/a/a7/EU-Portugal.svg', // Portugal
+  ro: 'https://upload.wikimedia.org/wikipedia/commons/1/13/EU-Romania.svg', // Romania
+  sm: 'https://upload.wikimedia.org/wikipedia/commons/7/79/Location_San_Marino_Europe.png', // San Marino
+  scot: 'https://upload.wikimedia.org/wikipedia/commons/8/82/Scotland_in_the_UK_and_Europe.svg', // Scotland
+  rs: 'https://upload.wikimedia.org/wikipedia/commons/6/6a/Europe-Serbia_%282006–2008%29.svg', // Serbia
+  sk: 'https://upload.wikimedia.org/wikipedia/commons/1/1d/EU-Slovakia.svg', // Slovakia
+  si: 'https://upload.wikimedia.org/wikipedia/commons/8/84/EU-Slovenia.svg', // Slovenia
+  se: 'https://upload.wikimedia.org/wikipedia/commons/0/06/EU-Sweden.svg', // Sweden
+  ch: 'https://upload.wikimedia.org/wikipedia/commons/6/61/Europe-Switzerland.svg', // Switzerland
+  ua: 'https://upload.wikimedia.org/wikipedia/commons/a/aa/Europe-Ukraine.svg', // Ukraine
+  va: 'https://upload.wikimedia.org/wikipedia/commons/f/f7/Location_Vatican_City_Europe.png', // Vatican City
+  wale: 'https://upload.wikimedia.org/wikipedia/commons/2/25/Wales_in_the_UK_and_Europe.svg', // Wales
+  'n-ire': 'https://upload.wikimedia.org/wikipedia/commons/f/fb/Northern_Ireland_in_the_UK_and_Europe.svg', // Northern Ireland
+
+  // North America
+  us: 'https://upload.wikimedia.org/wikipedia/commons/7/70/United_States_%28orthographic_projection%29.svg', // United States
+  ca: 'https://upload.wikimedia.org/wikipedia/commons/c/c7/Canada_%28orthographic_projection%29.svg', // Canada
+  mx: 'https://upload.wikimedia.org/wikipedia/commons/c/c9/Mexico_%28orthographic_projection%29.svg', // Mexico
+  jm: 'https://upload.wikimedia.org/wikipedia/commons/e/eb/Jamaica_%28orthographic_projection%29.svg', // Jamaica
+  cr: 'https://upload.wikimedia.org/wikipedia/commons/c/c4/Costa_Rica_%28orthographic_projection%29.svg', // Costa Rica
+  ag: 'https://upload.wikimedia.org/wikipedia/commons/2/21/ATG_orthographic.svg', // Antigua and Barbuda
+  bs: 'https://upload.wikimedia.org/wikipedia/commons/d/de/The_Bahamas_on_the_globe_%28Americas_centered%29.svg', // Bahamas
+  bb: 'https://upload.wikimedia.org/wikipedia/commons/a/a1/BRB_orthographic.svg', // Barbados
+  bz: 'https://upload.wikimedia.org/wikipedia/commons/4/43/BLZ_orthographic.svg', // Belize
+  cu: 'https://upload.wikimedia.org/wikipedia/commons/0/01/Cuba_%28orthographic_projection%29.svg', // Cuba
+  dm: 'https://upload.wikimedia.org/wikipedia/commons/7/78/Dominica_on_the_globe_%28Americas_centered%29.svg', // Dominica
+  do: 'https://upload.wikimedia.org/wikipedia/commons/9/95/Dominican_Republic_%28orthographic_projection%29.svg', // Dominican Republic
+  sv: 'https://upload.wikimedia.org/wikipedia/commons/0/06/Orthographic_Map_of_El_Salvador.svg', // El Salvador
+  gd: 'https://upload.wikimedia.org/wikipedia/commons/6/6e/Grenada_on_the_globe_%28Americas_centered%29.svg', // Grenada
+  gt: 'https://upload.wikimedia.org/wikipedia/commons/7/70/Guatemala_%28orthographic_projection%29.svg', // Guatemala
+  ht: 'https://upload.wikimedia.org/wikipedia/commons/f/fe/Haiti_%28orthographic_projection%29.svg', // Haiti
+  hn: 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Honduras_%28orthographic_projection%29.svg', // Honduras
+  ni: 'https://upload.wikimedia.org/wikipedia/commons/3/38/Nicaragua_%28orthographic_projection%29.svg', // Nicaragua
+  pa: 'https://upload.wikimedia.org/wikipedia/commons/e/e1/Panama_%28orthographic_projection%29.svg', // Panama
+  kn: 'https://upload.wikimedia.org/wikipedia/commons/5/5d/KNA_orthographic.svg', // Saint Kitts and Nevis
+  lc: 'https://upload.wikimedia.org/wikipedia/commons/9/97/Saint_Lucia_on_the_globe_%28Americas_centered%29.svg', // Saint Lucia
+  vc: 'https://upload.wikimedia.org/wikipedia/commons/7/70/VCT_orthographic.svg', // Saint Vincent and the Grenadines
+  tt: 'https://upload.wikimedia.org/wikipedia/commons/e/ed/Trinidad_and_Tobago_%28orthographic_projection%29.svg', // Trinidad and Tobago
+
+  // South America
+  br: 'https://upload.wikimedia.org/wikipedia/commons/b/bc/BRA_orthographic.svg', // Brazil
+  ar: 'https://upload.wikimedia.org/wikipedia/commons/2/2d/ARG_orthographic.svg', // Argentina
+  cl: 'https://upload.wikimedia.org/wikipedia/commons/c/cc/CHL_orthographic_%28%2Ball_claims%29.svg', // Chile
+  co: 'https://upload.wikimedia.org/wikipedia/commons/6/6f/COL_orthographic.svg', // Colombia
+  pe: 'https://upload.wikimedia.org/wikipedia/commons/0/07/PER_orthographic.svg', // Peru
+  bo: 'https://upload.wikimedia.org/wikipedia/commons/8/83/BOL_orthographic.svg', // Bolivia
+  ec: 'https://upload.wikimedia.org/wikipedia/commons/e/e3/ECU_orthographic.svg', // Ecuador
+  gy: 'https://upload.wikimedia.org/wikipedia/commons/2/21/GUY_orthographic.svg', // Guyana
+  py: 'https://upload.wikimedia.org/wikipedia/commons/4/4c/PRY_orthographic.svg', // Paraguay
+  sr: 'https://upload.wikimedia.org/wikipedia/commons/7/72/SUR_orthographic.svg', // Suriname
+  uy: 'https://upload.wikimedia.org/wikipedia/commons/4/43/URY_orthographic.svg', // Uruguay
+  ve: 'https://upload.wikimedia.org/wikipedia/commons/5/5e/VEN_orthographic.svg', // Venezuela
+
+  // Oceania
+  au: 'https://upload.wikimedia.org/wikipedia/commons/7/7d/Australia_%28orthographic_projection%29.svg', // Australia
+  nz: 'https://upload.wikimedia.org/wikipedia/commons/d/d8/New_Zealand_%28orthographic_projection%29.svg', // New Zealand
+  fj: 'https://upload.wikimedia.org/wikipedia/commons/f/f6/Fiji_on_the_globe_%28small_islands_magnified%29_%28Polynesia_centered%29.svg', // Fiji
+  pg: 'https://upload.wikimedia.org/wikipedia/commons/7/79/Papua_New_Guinea_%28orthographic_projection%29.svg', // Papua New Guinea
+  pw: 'https://upload.wikimedia.org/wikipedia/commons/5/57/Palau_on_the_globe_%28Southeast_Asia_centered%29_%28small_islands_magnified%29.svg', // Palau
+  ki: 'https://upload.wikimedia.org/wikipedia/commons/d/d9/Kiribati_on_the_globe_%28Polynesia_centered%29.svg', // Kiribati
+  mh: 'https://upload.wikimedia.org/wikipedia/commons/1/18/Marshall_Islands_on_the_globe_%28small_islands_magnified%29_%28Polynesia_centered%29.svg', // Marshall Islands
+  fm: 'https://upload.wikimedia.org/wikipedia/commons/c/c6/Micronesia_on_the_globe_%28Micronesia_centered%29.svg', // Micronesia
+  nr: 'https://upload.wikimedia.org/wikipedia/commons/2/21/NRU_orthographic.svg', // Nauru
+  ws: 'https://upload.wikimedia.org/wikipedia/commons/7/74/Samoa_on_the_globe_%28Polynesia_centered%29.svg', // Samoa
+  sb: 'https://upload.wikimedia.org/wikipedia/commons/8/8a/Solomon_Islands_on_the_globe_%28Oceania_centered%29.svg', // Solomon Islands
+  to: 'https://upload.wikimedia.org/wikipedia/commons/c/ce/Tonga_on_the_globe_%28Polynesia_centered%29.svg', // Tonga
+  tv: 'https://upload.wikimedia.org/wikipedia/commons/2/2b/Tuvalu_on_the_globe_%28Polynesia_centered%29.svg', // Tuvalu
+  vu: 'https://upload.wikimedia.org/wikipedia/commons/d/d9/Vanuatu_on_the_globe_%28Polynesia_centered%29.svg', // Vanuatu
 };
 
 // ===== FLAG DETAIL MODAL =====
@@ -3446,7 +3667,7 @@ function openFlagModal(flagId) {
         <div style="position:relative;text-align:center;padding:12px;">
           <img src="${wikiMapImg}" alt="Historical map of ${flag.name}" style="max-width:100%;max-height:220px;border-radius:12px;object-fit:contain;" loading="lazy"
             onerror="this.parentElement.innerHTML='<div class=\\'flag-modal-map-na\\'>Map image unavailable.</div>'" />
-          <div style="margin-top:8px;color:var(--muted);font-size:0.75rem;font-weight:700;">Historical extent · Wikimedia Commons</div>
+          <div style="margin-top:8px;color:var(--muted);font-size:0.75rem;font-weight:700;">Wikimedia Commons</div>
         </div>`;
     } else {
       elements.flagModalMapFrame.innerHTML = `<div class="flag-modal-map-na">No map available for this flag type.</div>`;
