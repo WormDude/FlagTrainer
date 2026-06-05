@@ -2522,8 +2522,18 @@ const AREA_RANK_LIST = FLAGS
   .sort((a, b) => (LAND_AREAS[b.id] || 0) - (LAND_AREAS[a.id] || 0));
 
 function getAreaRank(flagId) {
-  const idx = AREA_RANK_LIST.findIndex(f => f.id === flagId);
-  return idx >= 0 ? { rank: idx + 1, total: AREA_RANK_LIST.length } : null;
+  const targetArea = LAND_AREAS[flagId];
+  if (!targetArea || targetArea === 0) return null;
+
+  let rank = 1;
+  // Count how many flags have a strictly larger area
+  for (let i = 0; i < AREA_RANK_LIST.length; i++) {
+    const compareArea = LAND_AREAS[AREA_RANK_LIST[i].id] || 0;
+    if (compareArea > targetArea) {
+      rank++;
+    }
+  }
+  return { rank, total: AREA_RANK_LIST.length };
 }
 
 const ENABLED_GROUPS = FLAG_GROUPS.filter((group) => group.enabled);
