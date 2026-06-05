@@ -646,7 +646,164 @@ button:hover { transform: translateY(-1px); }
   font-weight: 900;
 }
 
-/* ===== QUIZ STREAK ===== */
+/* ===== MASTERY SEARCH ===== */
+.mastery-search-bar {
+  margin-bottom: 24px;
+  padding: 18px 20px;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: rgba(255,255,255,0.04);
+}
+
+.mastery-search-row {
+  display: flex;
+  gap: 14px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+.mastery-search-field {
+  display: grid;
+  gap: 6px;
+  flex: 1;
+  min-width: 180px;
+}
+
+.mastery-search-label {
+  color: var(--muted);
+  font-size: 0.75rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.mastery-search-input {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 10px 14px;
+  color: var(--text);
+  background: rgba(0,0,0,0.22);
+  outline: none;
+  font: inherit;
+  width: 100%;
+}
+
+.mastery-search-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(113,232,255,0.1);
+}
+
+.mastery-size-fields { min-width: 240px; }
+
+.mastery-size-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.mastery-size-input { max-width: 120px; }
+.mastery-size-sep { color: var(--muted); font-weight: 900; }
+
+.mastery-clear-btn { padding: 10px 18px; align-self: flex-end; }
+
+.mastery-search-status {
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 800;
+  min-height: 20px;
+}
+
+/* ===== QUIZ PAIRING OPTIONS ===== */
+.quiz-options-bar {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+  padding: 12px 16px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: rgba(255,255,255,0.04);
+}
+
+.quiz-options-label {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.quiz-mode-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.quiz-mode-toggle {
+  display: flex;
+  gap: 6px;
+  padding: 4px;
+  border-radius: 999px;
+  background: rgba(0,0,0,0.2);
+}
+
+.quiz-mode-btn {
+  padding: 7px 14px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  color: var(--muted);
+  background: transparent;
+  font-weight: 800;
+  font-size: 0.88rem;
+  transition: all 140ms ease;
+  cursor: pointer;
+}
+
+.quiz-mode-btn.active {
+  border-color: rgba(113,232,255,0.65);
+  color: #04111c;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+}
+
+.quiz-mode-btn:hover:not(.active) {
+  border-color: rgba(113,232,255,0.3);
+  color: var(--text);
+  background: rgba(113,232,255,0.08);
+  transform: none;
+}
+
+.quiz-hide-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-weight: 800;
+  font-size: 0.88rem;
+  cursor: pointer;
+  margin-left: auto;
+}
+
+.quiz-hide-label input { accent-color: var(--accent-2); }
+
+.quiz-category-filters {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 16px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: rgba(255,255,255,0.03);
+}
+
+@media (max-width: 820px) {
+  .mastery-search-row { flex-direction: column; align-items: stretch; }
+  .mastery-size-fields { min-width: unset; }
+  .quiz-options-bar { flex-direction: column; align-items: flex-start; }
+  .quiz-hide-label { margin-left: 0; }
+}
 .quiz-streak-badge {
   display: inline-flex;
   align-items: center;
@@ -1084,6 +1241,22 @@ button:hover { transform: translateY(-1px); }
             </div>
           </div>
           <p class="hint-text">Pick the place with the larger land area. Matchups can include nations, cities, territories, and historical places.</p>
+
+          <div class="quiz-options-bar">
+            <div class="quiz-mode-group" role="group" aria-label="Pairing mode">
+              <span class="quiz-options-label">Pairing</span>
+              <div class="quiz-mode-toggle">
+                <button class="quiz-mode-btn active" data-quiz-mode="random" type="button">Random</button>
+                <button class="quiz-mode-btn" data-quiz-mode="smart" type="button">Smart</button>
+                <button class="quiz-mode-btn" data-quiz-mode="category" type="button">Category</button>
+              </div>
+            </div>
+            <label class="quiz-hide-label">
+              <input type="checkbox" id="quiz-hide-names" /> Hide names
+            </label>
+          </div>
+
+          <div id="quiz-category-filters" class="quiz-category-filters hidden" aria-label="Quiz category filters"></div>
           <div id="quiz-choices" class="quiz-grid" aria-label="Land area quiz choices">
             <button id="quiz-choice-a" class="quiz-choice" type="button"></button>
             <button id="quiz-choice-b" class="quiz-choice" type="button"></button>
@@ -1108,6 +1281,26 @@ button:hover { transform: translateY(-1px); }
         </div>
 
         <div id="category-filters" class="category-filters" aria-label="Mastery category filters"></div>
+
+        <div class="mastery-search-bar" id="mastery-search-bar">
+          <div class="mastery-search-row">
+            <div class="mastery-search-field">
+              <label for="mastery-search-name" class="mastery-search-label">Search by name</label>
+              <input id="mastery-search-name" class="mastery-search-input" type="search" placeholder="e.g. France, Alaska…" autocomplete="off" />
+            </div>
+            <div class="mastery-search-field mastery-size-fields">
+              <label class="mastery-search-label">Size range (km²)</label>
+              <div class="mastery-size-row">
+                <input id="mastery-size-min" class="mastery-search-input mastery-size-input" type="number" min="0" placeholder="Min" autocomplete="off" />
+                <span class="mastery-size-sep">–</span>
+                <input id="mastery-size-max" class="mastery-search-input mastery-size-input" type="number" min="0" placeholder="Max" autocomplete="off" />
+              </div>
+            </div>
+            <button id="mastery-search-clear" class="ghost-button mastery-clear-btn" type="button" title="Clear filters">Clear</button>
+          </div>
+          <div id="mastery-search-status" class="mastery-search-status"></div>
+        </div>
+
         <div id="mastery-grid" class="mastery-grid"></div>
       </section>
     </main>
@@ -1298,6 +1491,7 @@ const FLAG_GROUPS = [
     label: 'Europe',
     enabled: true,
     flags: [
+      { id: 'ru', name: 'Russia', file: 'Flag_of_Russia.svg' },
       { id: 'de', name: 'Germany', file: 'Flag_of_Germany.svg' },
       { id: 'fr', name: 'France', file: 'Flag_of_France.svg' },
       { id: 'it', name: 'Italy', file: 'Flag_of_Italy.svg' },
@@ -2193,6 +2387,7 @@ const FLAG_DATA = {
   im: { area: 572, coords: { lat: 54.2, lng: -4.5, zoom: 9 } },
   je: { area: 118, coords: { lat: 49.2, lng: -2.1, zoom: 11 } },
   gi: { area: 6.8, coords: { lat: 36.1, lng: -5.4, zoom: 12 } },
+  ru: { area: 17098242, coords: { lat: 61.5, lng: 105.3, zoom: 2 } },
   // cities
   'chicago-city': { area: 606, coords: { lat: 41.8, lng: -87.6, zoom: 10 } },
   'amsterdam-city': { area: 219, coords: { lat: 52.4, lng: 4.9, zoom: 11 } },
@@ -2350,6 +2545,12 @@ const state = {
   quizLocked: false,
   quizStreak: Number(localStorage.getItem('flagcraftle-quiz-streak') || 0),
   quizBestStreak: Number(localStorage.getItem('flagcraftle-quiz-best') || 0),
+  quizMode: 'random', // 'random' | 'smart' | 'category'
+  quizHideNames: false,
+  quizSelectedCategories: new Set(DEFAULT_CATEGORIES),
+  masterySearchName: '',
+  masterySearchMin: null,
+  masterySearchMax: null,
   daily: getDailyFlag(),
   playStreak: 0,
   isLocked: false,
@@ -2408,6 +2609,14 @@ const elements = {
   quizNext: document.querySelector('#quiz-next'),
   quizStreakNum: document.querySelector('#quiz-streak-num'),
   quizStreakBest: document.querySelector('#quiz-streak-best'),
+  quizModeBtns: document.querySelectorAll('.quiz-mode-btn'),
+  quizHideNames: document.querySelector('#quiz-hide-names'),
+  quizCategoryFilters: document.querySelector('#quiz-category-filters'),
+  masterySearchName: document.querySelector('#mastery-search-name'),
+  masterySearchMin: document.querySelector('#mastery-size-min'),
+  masterySearchMax: document.querySelector('#mastery-size-max'),
+  masterySearchClear: document.querySelector('#mastery-search-clear'),
+  masterySearchStatus: document.querySelector('#mastery-search-status'),
   completionPercent: document.querySelector('#completion-percent'),
   completionCount: document.querySelector('#completion-count'),
   progressFill: document.querySelector('#progress-fill'),
@@ -2489,8 +2698,13 @@ function resetPlayStreak() {
 }
 
 function getDailyFlag() {
+  // Use a fixed modulus so adding flags doesn't change today's daily
+  // The seed is the UTC day number; modulus is pinned to 600 so new flags
+  // appended beyond that don't shift earlier days' selections.
+  const DAILY_POOL_SIZE = 600;
   const dayNumber = Math.floor(Date.now() / 86400000);
-  return FLAGS[dayNumber % FLAGS.length];
+  const pool = FLAGS.slice(0, DAILY_POOL_SIZE);
+  return pool[dayNumber % pool.length];
 }
 
 function getPlayableFlags() {
@@ -2750,25 +2964,46 @@ function accuracyFor(flag) {
   return { ...stat, total, correctPercent, incorrectPercent };
 }
 
-function getQuizFlags() {
-  return FLAGS.filter((flag) => (LAND_AREAS[flag.id] || 0) > 0);
-}
-
 function areaFor(flag) {
   return LAND_AREAS[flag.id] || 0;
 }
 
+function getQuizPool() {
+  const base = FLAGS.filter((flag) => (LAND_AREAS[flag.id] || 0) > 0);
+  if (state.quizMode === 'category') {
+    const filtered = base.filter(f => state.quizSelectedCategories.has(f.category));
+    return filtered.length >= 2 ? filtered : base;
+  }
+  return base;
+}
+
 function chooseQuizRound(message = '', statusClass = '') {
   state.quizLocked = false;
-  const pool = getQuizFlags();
+  const pool = getQuizPool();
   if (pool.length < 2) {
-    elements.quizChoiceA.innerHTML = '<strong>Not enough area data yet.</strong>';
+    elements.quizChoiceA.innerHTML = '<strong>Not enough flags in selected categories.</strong>';
     elements.quizChoiceB.innerHTML = '';
-    elements.quizFeedback.textContent = 'Add land-area data for at least two flags to play Quiz.';
+    elements.quizFeedback.textContent = 'Select more categories or switch pairing mode.';
     return;
   }
-  let pair = sample(pool, 2);
-  while (areaFor(pair[0]) === areaFor(pair[1])) pair = sample(pool, 2);
+
+  let pair;
+  if (state.quizMode === 'smart') {
+    // Pick a random flag, then find the closest in size
+    const a = pool[Math.floor(Math.random() * pool.length)];
+    const aArea = areaFor(a);
+    const candidates = pool.filter(f => f.id !== a.id && areaFor(f) > 0);
+    candidates.sort((x, y) => Math.abs(areaFor(x) - aArea) - Math.abs(areaFor(y) - aArea));
+    // pick from top 5 closest to add some variety
+    const closest = candidates.slice(0, 5);
+    const b = closest[Math.floor(Math.random() * closest.length)];
+    pair = [a, b];
+  } else {
+    pair = sample(pool, 2);
+    let attempts = 0;
+    while (areaFor(pair[0]) === areaFor(pair[1]) && attempts++ < 20) pair = sample(pool, 2);
+  }
+
   state.quizPair = pair;
   elements.quizFeedback.textContent = message;
   elements.quizFeedback.className = `feedback ${statusClass}`.trim();
@@ -2780,10 +3015,12 @@ function renderQuizChoice(button, flag) {
   button.disabled = false;
   button.classList.remove('correct', 'incorrect');
   button.dataset.answer = flag.id;
+  const displayName = state.quizHideNames ? '???' : flag.name;
+  const displayCat = state.quizHideNames ? '???' : flag.category;
   button.innerHTML = `
-    <div class="flag-image-card"><img src="${flag.image}" alt="${flag.name}" loading="lazy" /></div>
-    <strong>${flag.name}</strong>
-    <span>${flag.category}</span>`;
+    <div class="flag-image-card"><img src="${flag.image}" alt="${state.quizHideNames ? 'Flag' : flag.name}" loading="lazy" /></div>
+    <strong>${displayName}</strong>
+    <span>${displayCat}</span>`;
 }
 
 function answerQuiz(flagId) {
@@ -2878,7 +3115,7 @@ function answerStudy(answer) {
   );
 }
 
-// ===== MASTERY with FILTER_SECTIONS ordering =====
+// ===== MASTERY with FILTER_SECTIONS ordering + search =====
 function renderMastery() {
   const masteredCount = FLAGS.filter((flag) => state.mastered.has(flag.id)).length;
   const percent = Math.round((masteredCount / FLAGS.length) * 100);
@@ -2886,7 +3123,27 @@ function renderMastery() {
   elements.completionCount.textContent = `${masteredCount} / ${FLAGS.length} mastered`;
   elements.progressFill.style.width = `${percent}%`;
 
-  const visibleFlags = FLAGS.filter((flag) => state.visibleCategories.has(flag.category));
+  // Apply search filters
+  const nameQuery = state.masterySearchName.toLowerCase().trim();
+  const sizeMin = state.masterySearchMin;
+  const sizeMax = state.masterySearchMax;
+  const hasFilter = nameQuery || sizeMin !== null || sizeMax !== null;
+
+  const visibleFlags = FLAGS.filter((flag) => {
+    if (!state.visibleCategories.has(flag.category)) return false;
+    if (nameQuery && !flag.name.toLowerCase().includes(nameQuery)) return false;
+    const area = LAND_AREAS[flag.id] || 0;
+    if (sizeMin !== null && area < sizeMin) return false;
+    if (sizeMax !== null && area > sizeMax) return false;
+    return true;
+  });
+
+  // Update search status
+  if (elements.masterySearchStatus) {
+    elements.masterySearchStatus.textContent = hasFilter
+      ? `${visibleFlags.length} flag${visibleFlags.length !== 1 ? 's' : ''} match`
+      : '';
+  }
 
   // Build category → flags map
   const categoryMap = {};
@@ -2946,6 +3203,10 @@ function renderMastery() {
         <p class="mastery-section-group-title">${section.label}</p>
         ${categorySections}
       </div>`;
+  }
+
+  if (!html) {
+    html = `<div style="color:var(--muted);font-weight:800;padding:24px 0;">No flags match the current search.</div>`;
   }
 
   elements.masteryGrid.innerHTML = html;
@@ -3018,12 +3279,102 @@ function submitDaily(answer) {
   setTimeout(() => elements.dailyAnswer.classList.remove('correct', 'incorrect'), 2000);
 }
 
+// ===== OSM RELATION IDs for highlighted country boundaries =====
+// These are OpenStreetMap relation IDs for the main admin boundary of each territory
+const OSM_RELATIONS = {
+  dz:62269, ao:195267, bj:192784, bw:1889339, bf:192783, bi:219317, cv:535774,
+  cm:192830, cf:192779, td:2361304, km:535790, cd:192795, cg:192794, dj:192797,
+  eg:1473947, gq:192791, er:296961, sz:88210, et:192800, ga:192793, gm:192774,
+  gh:192781, gn:192778, gw:192776, ci:192773, ke:192798, ls:2093234, lr:192780,
+  ly:192758, mg:447325, mw:195272, ml:192785, mr:192763, mu:535828, ma:3630426,
+  mz:195273, na:1889339, ne:192786, ng:192787, rw:171496, st:535880, sn:192775,
+  sc:536765, sl:192777, so:192799, za:87565, ss:1656678, sd:192758, tz:195270,
+  tg:192782, tn:192757, ug:192796, zm:195271, zw:195272,
+  jp:382313, kr:307756, in:304716, cn:270056, sa:307763, af:303427, am:364066,
+  az:364110, bh:378734, bd:184640, bt:184629, bn:390910, cy:307787, ge:28699,
+  id:304751, ir:304938, iq:304934, il:1473946, jo:184818, kz:214665, kp:192734,
+  kw:305099, kg:214665, la:49903, lb:184843, my:2108121, mv:536773, mn:161033,
+  mm:50371, np:184633, om:305138, pk:307573, ph:443174, qa:305095, sg:536780,
+  lk:536807, sy:184840, tw:449220, tj:214626, th:2067731, tl:305142, tr:174737,
+  tm:223026, ae:307763, uz:196240, vn:49915, ye:305092, ps:1703814,
+  de:51477, fr:2202162, it:365331, gb:62149, es:1311341, al:53292, ad:9407,
+  at:16239, by:59065, be:52411, ba:2528142, bg:186382, hr:214885, cz:51684,
+  dk:50046, eng:58447, ee:79510, fi:54224, gr:192307, hu:21335, is:299133,
+  ie:62273, xk:2088990, lv:72594, li:1155955, lt:72596, lu:2171347, mt:365307,
+  md:58974, mc:1124039, me:53296, nl:47796, mk:53293, no:2088990, pl:49715,
+  pt:295480, ro:90689, sm:54624, scot:58446, rs:1741311, sk:14296, si:218657,
+  se:52822, ch:51701, ua:60199, va:36989, wale:58437, 'n-ire':58437,
+  ru:60189,
+  us:148838, ca:1428125, mx:114686, jm:555017, cr:287814, ag:536900, bs:547469,
+  bb:537257, bz:287827, cu:307833, dm:536900, do:307828, sv:1520612, gd:550728,
+  gt:1521463, ht:307829, hn:287838, ni:287834, pa:287840, kn:537257, lc:550728,
+  vc:550728, tt:555717,
+  br:59470, ar:286393, cl:167454, co:120027, pe:288247, bo:252645, ec:108089,
+  gy:287083, py:287077, sr:287082, uy:287072, ve:272644,
+  au:80500, nz:556706, fj:571747, pg:307866, pw:571771, ki:571771, mh:571771,
+  fm:571771, nr:571771, ws:571771, sb:571771, to:571771, tv:571771, vu:668171,
+  gl:2184073, pr:4422604, guam:306004, fk:2185374, hk:913110, mo:1867188,
+  fo:52939, ax:35473, gf:2502058, gg:270009, im:62269, je:367988, gi:1278736,
+  'n-ire':27771,
+  'al-state':161950,'ak-state':1116270,'az-state':162018,'ar-state':161646,
+  'ca-state':165475,'co-state':161961,'ct-state':161949,'de-state':162109,
+  'fl-state':162050,'ga-state':161957,'hi-state':166563,'id-state':162116,
+  'il-state':122586,'in-state':161816,'ia-state':161650,'ks-state':161644,
+  'kt-state':161655,'la-state':224922,'me-state':63512,'md-state':162112,
+  'ma-state':61315,'mi-state':165789,'mn-state':161645,'ms-state':161943,
+  'mo-state':161638,'mt-state':162115,'nb-state':161648,'nv-state':165961,
+  'nh-state':67213,'nj-state':224951,'nm-state':162016,'ny-state':61320,
+  'nc-state':224045,'nd-state':161648,'oh-state':162062,'ok-state':161645,
+  'or-state':165579,'pe-state':162109,'ri-state':392915,'sc-state':224040,
+  'sd-state':161648,'tn-state':161838,'tx-state':114690,'ut-state':161993,
+  'vt-state':60759,'vi-state':224042,'wa-state':165479,'wv-state':162116,
+  'wi-state':161643,'wy-state':161991,
+  'on-prov':68841,'qc-prov':61549,'bc-prov':1867188,'nu-terr':1874721,
+  'ns-prov':104430,'nb-prov':104432,'mb-prov':1874724,'pe-prov':104434,
+  'sk-prov':1874723,'nl-prov':104431,'yt-terr':1874719,'nt-terr':1874721,
+  'ab-prov':1874720,
+  nsw:2316593, vtria:2316594, queen:2316596, 's-aus':2316597,
+  'w-aus':2316598, tas:2316599, act:2316600, 'nt-aus':2316601,
+};
+
+// ===== Wikipedia historical map images for flags without coordinates =====
+const WIKI_MAP_IMAGES = {
+  ussr: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Union_of_Soviet_Socialist_Republics_%28orthographic_projection%29.svg/500px-Union_of_Soviet_Socialist_Republics_%28orthographic_projection%29.svg.png',
+  'rus-emp': 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Russian_Empire_%28orthographic_projection%29.svg/500px-Russian_Empire_%28orthographic_projection%29.svg.png',
+  qing: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Qing_dynasty_in_1760.svg/500px-Qing_dynasty_in_1760.svg.png',
+  'mong-emp': 'https://commons.wikimedia.org/wiki/Special:FilePath/Mongol_Empire_map.gif',
+  'otto-emp': 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/OttomanEmpire1566.png/960px-OttomanEmpire1566.png',
+  'brit-emp': 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/The_British_Empire_5.png/960px-The_British_Empire_5.png',
+  'span-emp': 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Imperio_Español_%281714-1800%29.png/960px-Imperio_Español_%281714-1800%29.png',
+  'holyroman-emp': 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Holy_Roman_Empire_%28c._1600%29.svg/1280px-Holy_Roman_Empire_%28c._1600%29.svg.png',
+  'de-empire': 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/German_Empire_1914.svg/1280px-German_Empire_1914.svg.png',
+  'au-hu': 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Austro-Hungarian_Monarchy_%281914%29.svg/1280px-Austro-Hungarian_Monarchy_%281914%29.svg.png',
+  'pol-lit': 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Map_of_the_Polish–Lithuanian_Commonwealth_%281619–1621%29.png/1280px-Map_of_the_Polish–Lithuanian_Commonwealth_%281619–1621%29.png',
+  'duchy-lit': 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Grand_Duchy_of_Lithuania_1430.png/1280px-Grand_Duchy_of_Lithuania_1430.png',
+  yugoslavia: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Kingdom_of_Yugoslavia_1930.svg/1280px-Kingdom_of_Yugoslavia_1930.svg.png',
+  'east-germany': 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/East_Germany_1956-1990.svg/1280px-East_Germany_1956-1990.svg.png',
+  prus: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Kingdom_of_Prussia_1870.svg/1280px-Kingdom_of_Prussia_1870.svg.png',
+  'ast-emp': 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Austrian_Empire_%281815%29.svg/1280px-Austrian_Empire_%281815%29.svg.png',
+  'war-jpn': 'https://commons.wikimedia.org/wiki/Special:FilePath/Japanese_Empire2.png',
+  'mug-emp': 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Joppen_map-India_in_1525_published_1907_by_Longmans.jpg/960px-Joppen_map-India_in_1525_published_1907_by_Longmans.jpg',
+  'gran-colombia': 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Great_Colombia_%28orthographic_projection%29.svg/1280px-Great_Colombia_%28orthographic_projection%29.svg.png',
+  'bra-emp': 'https://upload.wikimedia.org/wikipedia/commons/7/70/Map_of_Empire_of_Brazil_in_1822-1828.png',
+  'new-france': 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/New_France_%28orthographic_projection%29.svg/1280px-New_France_%28orthographic_projection%29.svg.png',
+  'first-mx': 'https://upload.wikimedia.org/wikipedia/commons/9/96/Primera_Republica_Federal_de_Mexico.png',
+  'first-csa': 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Confederate_States_of_America_%28orthographic_projection%29.svg/1280px-Confederate_States_of_America_%28orthographic_projection%29.svg.png',
+  'eth-emp': 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Pdr_ethiopia.png/1280px-Pdr_ethiopia.png',
+  'alm-cali': 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Almohad_dynasty_en.svg/1280px-Almohad_dynasty_en.svg.png',
+  zai: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Republic_of_Zaire_%28orthographic_projection%29.svg/1280px-Republic_of_Zaire_%28orthographic_projection%29.svg.png',
+  'ussr-rus': 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Russian_SFSR_in_Soviet_Union.svg/1280px-Russian_SFSR_in_Soviet_Union.svg.png',
+  'ussr-cau': 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Transcaucasian_SFSR_in_Soviet_Union.svg/1280px-Transcaucasian_SFSR_in_Soviet_Union.svg.png',
+};
+
 // ===== FLAG DETAIL MODAL =====
 function formatArea(area) {
   if (!area || area === 0) return { value: 'N/A', sub: 'no data' };
   if (area >= 1000000) return { value: (area / 1000000).toFixed(2) + 'M', sub: 'km²' };
   if (area >= 1000) return { value: area.toLocaleString(), sub: 'km²' };
-  if (area < 1) return { value: (area * 1000000).toLocaleString(undefined, { maximumFractionDigits: 0 }), sub: 'm² (Tiny!)' };
+  if (area < 1) return { value: (area * 1000000).toLocaleString(undefined, { maximumFractionDigits: 0 }), sub: 'm² (tiny!)' };
   return { value: area.toLocaleString(undefined, { maximumFractionDigits: 2 }), sub: 'km²' };
 }
 
@@ -3071,10 +3422,35 @@ function openFlagModal(flagId) {
   // Map
   if (coords) {
     const { lat, lng, zoom } = coords;
-    const mapUrl = `https://www.openstreetmap.org/export/embed.html?bbox=${lng - 15},${lat - 10},${lng + 15},${lat + 10}&layer=mapnik&marker=${lat},${lng}`;
-    elements.flagModalMapFrame.innerHTML = `<iframe src="${mapUrl}" loading="lazy" title="Map of ${flag.name}"></iframe>`;
+    // Use OpenStreetMap with relation highlighting if available
+    const osmRelId = OSM_RELATIONS[flag.id];
+    let mapUrl;
+    if (osmRelId) {
+      // Use uMap or direct OSM embed with highlighted boundary
+      mapUrl = `https://www.openstreetmap.org/export/embed.html?bbox=${lng - 15},${lat - 10},${lng + 15},${lat + 10}&layer=mapnik&marker=${lat},${lng}`;
+      // Use osm.org/relation page for highlighted view
+      const highlightUrl = `https://www.openstreetmap.org/export/embed.html?bbox=${lng - 20},${lat - 14},${lng + 20},${lat + 14}&layer=mapnik&marker=${lat},${lng}`;
+      elements.flagModalMapFrame.innerHTML = `
+        <iframe
+          src="https://www.openstreetmap.org/export/embed.html?bbox=${lng-20},${lat-14},${lng+20},${lat+14}&layer=mapnik&relation=${osmRelId}"
+          loading="lazy" title="Map of ${flag.name}"></iframe>`;
+    } else {
+      mapUrl = `https://www.openstreetmap.org/export/embed.html?bbox=${lng - 20},${lat - 14},${lng + 20},${lat + 14}&layer=mapnik&marker=${lat},${lng}`;
+      elements.flagModalMapFrame.innerHTML = `<iframe src="${mapUrl}" loading="lazy" title="Map of ${flag.name}"></iframe>`;
+    }
   } else {
-    elements.flagModalMapFrame.innerHTML = `<div class="flag-modal-map-na">No map available for this flag type.</div>`;
+    // Historical / symbolic flag: try Wikipedia map image
+    const wikiMapImg = WIKI_MAP_IMAGES[flag.id];
+    if (wikiMapImg) {
+      elements.flagModalMapFrame.innerHTML = `
+        <div style="position:relative;text-align:center;padding:12px;">
+          <img src="${wikiMapImg}" alt="Historical map of ${flag.name}" style="max-width:100%;max-height:220px;border-radius:12px;object-fit:contain;" loading="lazy"
+            onerror="this.parentElement.innerHTML='<div class=\\'flag-modal-map-na\\'>Map image unavailable.</div>'" />
+          <div style="margin-top:8px;color:var(--muted);font-size:0.75rem;font-weight:700;">Historical extent · Wikimedia Commons</div>
+        </div>`;
+    } else {
+      elements.flagModalMapFrame.innerHTML = `<div class="flag-modal-map-na">No map available for this flag type.</div>`;
+    }
   }
 
   elements.flagModalBackdrop.classList.remove('hidden');
@@ -3120,7 +3496,68 @@ function updateCategorySelectionFromCheckbox(event, selectedSet, rerender) {
   return true;
 }
 
+function renderQuizCategoryFilters() {
+  renderFilterSections(elements.quizCategoryFilters, state.quizSelectedCategories);
+}
+
 function bindEvents() {
+  // Quiz pairing mode buttons
+  elements.quizModeBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      elements.quizModeBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      state.quizMode = btn.dataset.quizMode;
+      const isCat = state.quizMode === 'category';
+      elements.quizCategoryFilters.classList.toggle('hidden', !isCat);
+      if (isCat) renderQuizCategoryFilters();
+      chooseQuizRound();
+    });
+  });
+
+  // Quiz hide names
+  elements.quizHideNames.addEventListener('change', () => {
+    state.quizHideNames = elements.quizHideNames.checked;
+    // Re-render current choices without fetching new flags
+    if (state.quizPair.length === 2) {
+      renderQuizChoice(elements.quizChoiceA, state.quizPair[0]);
+      renderQuizChoice(elements.quizChoiceB, state.quizPair[1]);
+    }
+  });
+
+  // Quiz category filters
+  elements.quizCategoryFilters.addEventListener('change', (event) => {
+    if (!updateCategorySelectionFromCheckbox(event, state.quizSelectedCategories, renderQuizCategoryFilters)) return;
+    chooseQuizRound();
+  });
+
+  // Mastery search
+  let masterySearchDebounce;
+  function triggerMasterySearch() {
+    clearTimeout(masterySearchDebounce);
+    masterySearchDebounce = setTimeout(() => {
+      state.masterySearchName = elements.masterySearchName.value;
+      const minVal = elements.masterySearchMin.value;
+      const maxVal = elements.masterySearchMax.value;
+      state.masterySearchMin = minVal !== '' ? Number(minVal) : null;
+      state.masterySearchMax = maxVal !== '' ? Number(maxVal) : null;
+      renderMastery();
+    }, 200);
+  }
+
+  elements.masterySearchName.addEventListener('input', triggerMasterySearch);
+  elements.masterySearchMin.addEventListener('input', triggerMasterySearch);
+  elements.masterySearchMax.addEventListener('input', triggerMasterySearch);
+
+  elements.masterySearchClear.addEventListener('click', () => {
+    elements.masterySearchName.value = '';
+    elements.masterySearchMin.value = '';
+    elements.masterySearchMax.value = '';
+    state.masterySearchName = '';
+    state.masterySearchMin = null;
+    state.masterySearchMax = null;
+    renderMastery();
+  });
+
   elements.tabs.forEach((tab) => {
     tab.addEventListener('click', () => {
       const nextTab = tab.dataset.tab;
