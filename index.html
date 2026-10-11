@@ -9288,6 +9288,20 @@ function bindEvents() {
   wireCombo(elements.hardAnswer, elements.playComboMenu, (answer) => {
     elements.hardAnswer.value = answer;
   }, getPlayableFlags, () => state.mode !== 'veryhard');
+
+  // Enter while the dropdown is open: the first Enter picks the top suggestion, the next Enter submits it.
+  // If what is typed already matches a full name in the list, Enter just submits it.
+  elements.hardAnswer.addEventListener('keydown', (event) => {
+    if (event.key !== 'Enter' || event.isComposing) return;
+    if (state.isLocked || state.mode === 'veryhard' || elements.playComboMenu.classList.contains('hidden')) return;
+    const options = [...elements.playComboMenu.querySelectorAll('.combo-option[data-answer]')];
+    if (!options.length) return;
+    const typed = normalize(elements.hardAnswer.value);
+    if (options.some((o) => normalize(o.dataset.answer) === typed)) return;
+    event.preventDefault();
+    elements.hardAnswer.value = options[0].dataset.answer;
+    hideCombo(elements.hardAnswer, elements.playComboMenu);
+  });
 }
 
 // ===== LEADERBOARDS (Supabase accounts) =====
@@ -9978,7 +9992,10 @@ chooseRound();
 // to give that one item its own tag. "type" is the main tag of the entry; leave it out for a mixed entry and
 // the tags come from the items.
 const CHANGELOG = [ 
-  { v: 'v1.2', date: 'Oct 10 2026', type: 'update', items: [
+  { v: 'v1.21', date: 'Oct 11 2026', type: 'qol', items: [
+    { t:'qol', x: 'Pressing enter while your answer is incomplete in Play now selects the first entry in the dropdown. Press enter again to submit it as an answer'},
+  ] },
+  { v: 'v1.2', date: 'Oct 11 2026', type: 'update', items: [
     'Added Changlog',
     { t:'qol', x: 'The Mongol Empire flag is now more accurate'},
     'Added more packs to Flag Run',
