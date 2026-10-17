@@ -7373,7 +7373,16 @@ function runDifficulty(level) {
 function runOffers() {
   const all = runPacks();
   // a pack you have passed (completed) is gone until the next game; there is no reset
-  const fresh = all.filter((p) => !run.used.has(p.id));
+  let fresh = all.filter((p) => !run.used.has(p.id));
+  // capitals journey: packs only offer flags that have a capital (one flag per capital), and packs with fewer than 6 flags that have a capital are left out
+  if (run.capOnly) {
+    fresh = fresh.map((p) => {
+      const withCap = p.flags.filter((f) => runCapLabel(f) && !f.twin && f.image);
+      const seen = new Set();
+      const flags = withCap.filter((f) => { const k = normalize(runCapLabel(f)); if (seen.has(k)) return false; seen.add(k); return true; });
+      return { ...p, flags, capCount: withCap.length };
+    }).filter((p) => p.capCount >= 6);
+  }
   return runShuffle(fresh).slice(0, 2);
 }
 
@@ -10834,6 +10843,10 @@ chooseRound();
 // to give that one item its own tag. "type" is the main tag of the entry; leave it out for a mixed entry and
 // the tags come from the items.
 const CHANGELOG = [ 
+  { v: 'v1.4.1', date: 'Oct 17 2026', type: 'bug', items: [
+    {t:'bug', x:'Fixed Liechtenstein Municipalities not having capitals'},
+    {t:'bug', x:'Made it so flags with the same capitals can\'t show up togenther in the Capitals Only Flag Run'}
+      ] },
     { v: 'v1.4', date: 'Oct 16 2026', type: 'update', items: [
     'Added an Area version of Timeline: order flags by land area, smallest to largest',
     'Added a new mode to Flag Run: Capitals (match each flag to its capital, the Capitals quiz the other way around)',
