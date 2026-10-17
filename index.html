@@ -4224,17 +4224,17 @@ const FLAG_GROUPS = [
     label: 'Liechtenstein Municipalities',
     enabled: true,
     flags: [
-      { id: 'balzers-li', name: "Balzers", file: "Bandera_de_Balzers,_Liechtenstein.svg", area: 19.6, borders: 'triesen-li vaduz-li ch'},
-      { id: 'eschen-li', name: "Eschen", file: "Flag_of_Eschen.svg", area: 10.3, borders: 'gamprin-li mauren-li planken-li schaan-li schellenberg-li vaduz-li at' },
-      { id: 'gamprin-li', name: "Gamprin", file: "Flag_of_Gamprin,_Liechtenstein.svg", area: 6.1, borders: 'eschen-li ruggell-li schaan-li schellenberg-li vaduz-li at'},
-      { id: 'mauren-li', name: "Mauren", file: "Bandera_de_Mauren,_Liechtenstein.svg", area: 7.5, borders: 'eschen-li schellenberg-li at' },
-      { id: 'planken-li', name: "Planken", file: "Bandera_de_Planken,_Liechtenstein.svg", area: 5.3, borders: 'eschen-li schaan-li triesenberg-li vaduz-li' },
-      { id: 'ruggell-li', name: "Ruggell", file: "Bandera_de_Ruggell,_Liechtenstein.svg", area: 7.4, borders: 'gamprin-li schellenberg-li ch at' },
-      { id: 'schaan-li', name: "Schaan", file: "Flag_of_Schaan.svg", area: 26.8, borders: 'eschen-li gamprin-li planken-li triesenberg-li vaduz-li ch' },
-      { id: 'schellenberg-li', name: "Schellenberg", file: "Bandera_de_Schellenberg,_Liechtenstein.svg", area: 3.5, borders: 'eschen-li gamprin-li mauren-li ruggell-li at' },
-      { id: 'triesen-li', name: "Triesen", file: "Flag_of_Triesen.svg", area: 26.4, borders: 'balzers-li triesenberg-li vaduz-li ch' },
-      { id: 'triesenberg-li', name: "Triesenberg", file: "Bandera_de_Triesenberg,_Liechtenstein.svg", area: 29.8, borders: 'planken-li schaan-li triesen-li vaduz-li' },
-      { id: 'vaduz-li', name: "Vaduz (Municipality)", file: "Flag_of_Vaduz.svg", area: 17.3, borders: 'eschen-li schaan-li gamprin-li planken-li triesenberg-li balzers-li triesen-li ch' },
+      { id: 'balzers-li', name: "Balzers", file: "Bandera_de_Balzers,_Liechtenstein.svg", capital: "Balzers", area: 19.6, borders: 'triesen-li vaduz-li ch'},
+      { id: 'eschen-li', name: "Eschen", file: "Flag_of_Eschen.svg", capital: "Eschen", area: 10.3, borders: 'gamprin-li mauren-li planken-li schaan-li schellenberg-li vaduz-li at' },
+      { id: 'gamprin-li', name: "Gamprin", file: "Flag_of_Gamprin,_Liechtenstein.svg", capital: "Gamprin", area: 6.1, borders: 'eschen-li ruggell-li schaan-li schellenberg-li vaduz-li at'},
+      { id: 'mauren-li', name: "Mauren", file: "Bandera_de_Mauren,_Liechtenstein.svg", capital: "Mauren", area: 7.5, borders: 'eschen-li schellenberg-li at' },
+      { id: 'planken-li', name: "Planken", file: "Bandera_de_Planken,_Liechtenstein.svg", capital: "Planken", area: 5.3, borders: 'eschen-li schaan-li triesenberg-li vaduz-li' },
+      { id: 'ruggell-li', name: "Ruggell", file: "Bandera_de_Ruggell,_Liechtenstein.svg", capital: "Ruggell", area: 7.4, borders: 'gamprin-li schellenberg-li ch at' },
+      { id: 'schaan-li', name: "Schaan", file: "Flag_of_Schaan.svg", capital: "Schaan", area: 26.8, borders: 'eschen-li gamprin-li planken-li triesenberg-li vaduz-li ch' },
+      { id: 'schellenberg-li', name: "Schellenberg", file: "Bandera_de_Schellenberg,_Liechtenstein.svg", capital: "Schellenberg", area: 3.5, borders: 'eschen-li gamprin-li mauren-li ruggell-li at' },
+      { id: 'triesen-li', name: "Triesen", file: "Flag_of_Triesen.svg", capital: "Triesen", area: 26.4, borders: 'balzers-li triesenberg-li vaduz-li ch' },
+      { id: 'triesenberg-li', name: "Triesenberg", file: "Bandera_de_Triesenberg,_Liechtenstein.svg", capital: "Triesenberg", area: 29.8, borders: 'planken-li schaan-li triesen-li vaduz-li' },
+      { id: 'vaduz-li', name: "Vaduz (Municipality)", file: "Flag_of_Vaduz.svg", capital: "Vaduz", area: 17.3, borders: 'eschen-li schaan-li gamprin-li planken-li triesenberg-li balzers-li triesen-li ch' },
     ],
   },
   {
@@ -10845,8 +10845,7 @@ chooseRound();
 const CHANGELOG = [ 
   { v: 'v1.4.1', date: 'Oct 17 2026', type: 'bug', items: [
     {t:'bug', x:'Fixed Liechtenstein Municipalities not having capitals'},
-    {t:'bug', x:'Made it so flags with the same capitals can\'t show up togenther in the Capitals Only Flag Run'}
-      ] },
+    {t:'bug', x:'Made it so flags with the same capitals can\'t show up togenther in the Capitals Only Flag Run'},
     { v: 'v1.4', date: 'Oct 16 2026', type: 'update', items: [
     'Added an Area version of Timeline: order flags by land area, smallest to largest',
     'Added a new mode to Flag Run: Capitals (match each flag to its capital, the Capitals quiz the other way around)',
